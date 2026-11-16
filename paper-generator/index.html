@@ -154,8 +154,8 @@ sup,sub{font-size:.72em}
 .paper .secbar{background:#12264f; color:#fff; font-family:'Poppins',sans-serif; font-weight:700; font-size:1em; padding:6px 12px; margin:16px 0 8px; display:flex; justify-content:space-between; position:relative; border-radius:4px; -webkit-print-color-adjust:exact; print-color-adjust:exact}
 .paper .note{font-size:.86em; font-style:italic; margin-bottom:8px; position:relative}
 .paper .q{margin-bottom:var(--qgap,11px); font-size:1em; position:relative; break-inside:avoid}
-.paper .q .qn{font-weight:700}
-.paper .qopts{display:grid; grid-template-columns:1fr 1fr; gap:2px 22px; margin:3px 0 0 26px; font-size:.93em}
+.paper .q .qn{font-weight:700; float:left; margin-right:6px}
+.paper .qopts{clear:left; display:grid; grid-template-columns:1fr 1fr; gap:2px 22px; margin:3px 0 0 26px; font-size:.93em}
 .paper .marks{float:right; font-weight:700; font-size:.9em}
 .paper .subhead{font-weight:700; font-size:1em; margin:12px 0 6px; position:relative; break-after:avoid}
 .paper .chaphead{font-family:'Poppins',sans-serif; font-weight:700; font-size:.98em; background:#e9eff9; padding:6px 11px; margin:15px 0 9px; border-radius:4px; display:flex; align-items:center; gap:9px; position:relative; break-after:avoid; -webkit-print-color-adjust:exact; print-color-adjust:exact}
@@ -413,11 +413,13 @@ function fmt(text){
 }
 function qTextHtml(q, medium){
   var en = q.e ? '<div>'+fmt(q.e)+'</div>' : '';
-  var ur = q.u ? '<div class="ur">'+esc(q.u)+'</div>' : '';
+  var ur = q.u ? '<div class="ur">'+fmt(q.u)+'</div>' : '';
   if (medium === 'ur') return ur || en;
   if (medium === 'en') return en || ur;
   return en + ur; /* dual */
 }
+function stripPaperPrefix(s){ return String(s == null ? '' : s).replace(/^Q\d+-[IVXLCDM0-9]+\.\s*/, ''); }
+function paperQTextHtml(q, medium){ return qTextHtml({ e:stripPaperPrefix(q.e), u:stripPaperPrefix(q.u), o:q.o, a:q.a }, medium); }
 function mediumLabel(m){ return m === 'en' ? 'English Medium' : (m === 'ur' ? 'Urdu Medium' : 'Dual Medium'); }
 function paperMedium(paper){ return paper && (paper.medium === 'en' || paper.medium === 'ur') ? paper.medium : 'dual'; }
 function typeLabel(t){ return t==='mcq' ? 'MCQ' : (t==='short' ? 'Short' : 'Long'); }
@@ -823,7 +825,7 @@ function paperHTML(paper, withKey){
       g.items.forEach(function(q){
         mn++;
         var four = q.o.every(function(o){ return o.length <= 14; });
-        h += '<div class="q"><span class="qn">'+mn+'.</span> '+qTextHtml(q, med)+
+        h += '<div class="q"><span class="qn">'+mn+'.</span> '+paperQTextHtml(q, med)+
           '<div class="qopts" style="'+(four?'grid-template-columns:repeat(4,1fr)':'')+'">'+q.o.map(function(o,j){ return '<div><b>('+ 'ABCD'[j] +')</b> '+fmt(o)+'</div>'; }).join('')+'</div></div>';
       });
     });
@@ -834,11 +836,10 @@ function paperHTML(paper, withKey){
     if (Q.short.length){
       var att = paper.attempt.short ? Math.min(+paper.attempt.short, Q.short.length) : Q.short.length;
       h += '<div class="subhead">Q.2&nbsp; Write short answers to '+(paper.attempt.short ? 'any '+att+' ' : '')+'of the following questions. <span class="marks">('+att+' × '+paper.marks.short+' = '+(att*paper.marks.short)+')</span></div>';
-      var romans = ['i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii','xiii','xiv','xv','xvi','xvii','xviii','xix','xx','xxi','xxii','xxiii','xxiv','xxv','xxvi','xxvii','xxviii','xxix','xxx','xxxi','xxxii','xxxiii','xxxiv','xxxv','xxxvi','xxxvii','xxxviii','xxxix','xl'];
       var sn = 0;
       chapGroups(Q.short).forEach(function(g){
         h += chapHeadHTML(g.c);
-        g.items.forEach(function(q){ h += '<div class="q" style="margin-left:22px"><span class="qn">('+(romans[sn]||(sn+1))+')</span> '+qTextHtml(q, med)+'</div>'; sn++; });
+        g.items.forEach(function(q){ h += '<div class="q" style="margin-left:22px"><span class="qn">'+(sn+1)+'.</span> '+paperQTextHtml(q, med)+'</div>'; sn++; });
       });
     }
     var ln = 0;
@@ -846,7 +847,7 @@ function paperHTML(paper, withKey){
       h += chapHeadHTML(g.c);
       g.items.forEach(function(q){
         ln++;
-        h += '<div class="subhead">Q.'+(2+ln)+' <span class="marks">('+paper.marks.long+')</span></div><div class="q" style="margin-left:22px">'+qTextHtml(q, med)+'</div>';
+        h += '<div class="subhead">Q.'+(2+ln)+' <span class="marks">('+paper.marks.long+')</span></div><div class="q" style="margin-left:22px">'+paperQTextHtml(q, med)+'</div>';
       });
     });
   }
