@@ -1,25 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="navy">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:,">
 <title>Rose Academy Paper Generator</title>
+<script>(function(){try{var t=localStorage.getItem('roseTheme');if(['navy','rose','emerald','gold','dark'].indexOf(t)>=0){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#12264f; --navy2:#0c1a38; --blue:#1b6ac9; --blue-d:#155aab; --gold:#e8a91c;
+  /* Navy theme (default) */
+  --navy:#12264f; --navy2:#0c1a38; --blue:#2563eb; --blue-d:#1d4ed8; --gold:#e8a91c;
   --bg:#eef1f6; --card:#ffffff; --ink:#1c2733; --muted:#63707f; --line:#dde3ec;
   --green:#1d9d61; --red:#d33a2c; --chip:#e8eefb; --side-ink:#c9d4ea;
-  --paper:#ffffff; --shadow:0 2px 10px rgba(18,38,79,.08);
+  --paper:#ffffff; --shadow:0 2px 10px rgba(18,38,79,.08); --shadow-lg:0 10px 24px rgba(18,38,79,.14);
+  --stat-n:#12264f; --on-accent:#ffffff; --accent-soft:rgba(37,99,235,.07); --hover:rgba(37,99,235,.05); --zebra:rgba(37,99,235,.028);
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark){
-  :root{ --bg:#10151d; --card:#1a2230; --ink:#e8edf5; --muted:#9fb0c3; --line:#2c3a4f;
-    --chip:#24344f; --paper:#ffffff; --shadow:0 2px 10px rgba(0,0,0,.35); color-scheme: dark; }
+[data-theme="rose"]{
+  --navy:#5b1220; --navy2:#380a14; --blue:#e11d48; --blue-d:#be123c;
+  --bg:#f7f0f1; --card:#ffffff; --ink:#2b1d21; --muted:#7d656b; --line:#ecd9de;
+  --chip:#fde8ee; --side-ink:#f3c2cd;
+  --shadow:0 2px 10px rgba(91,18,32,.09); --shadow-lg:0 10px 24px rgba(91,18,32,.15);
+  --stat-n:#881337; --accent-soft:rgba(225,29,72,.07); --hover:rgba(225,29,72,.05); --zebra:rgba(225,29,72,.028);
 }
+[data-theme="emerald"]{
+  --navy:#07503a; --navy2:#043527; --blue:#059669; --blue-d:#047857;
+  --bg:#eef5f1; --card:#ffffff; --ink:#1d2b25; --muted:#61766c; --line:#d7e8de;
+  --chip:#dcf3e9; --side-ink:#b7e4d2;
+  --shadow:0 2px 10px rgba(4,53,39,.09); --shadow-lg:0 10px 24px rgba(4,53,39,.15);
+  --stat-n:#065f46; --accent-soft:rgba(5,150,105,.08); --hover:rgba(5,150,105,.05); --zebra:rgba(5,150,105,.03);
+}
+[data-theme="gold"]{
+  --navy:#5c3a08; --navy2:#3a2405; --blue:#d97706; --blue-d:#b45309;
+  --bg:#f7f2e9; --card:#ffffff; --ink:#2b2417; --muted:#7d7261; --line:#e9ddc6;
+  --chip:#fbeed3; --side-ink:#f0d9ae;
+  --shadow:0 2px 10px rgba(92,58,8,.1); --shadow-lg:0 10px 24px rgba(92,58,8,.16);
+  --stat-n:#92400e; --accent-soft:rgba(217,119,6,.08); --hover:rgba(217,119,6,.05); --zebra:rgba(217,119,6,.03);
+}
+[data-theme="dark"]{
+  --navy:#16233c; --navy2:#0b1220; --blue:#38bdf8; --blue-d:#0ea5e9;
+  --bg:#0b1220; --card:#1e293b; --ink:#e8edf5; --muted:#9fb0c3; --line:#334155;
+  --chip:#27364d; --side-ink:#a9bdd6;
+  --shadow:0 2px 10px rgba(0,0,0,.4); --shadow-lg:0 10px 24px rgba(0,0,0,.5);
+  --stat-n:#7dd3fc; --on-accent:#082f49; --accent-soft:rgba(56,189,248,.12); --hover:rgba(56,189,248,.07); --zebra:rgba(56,189,248,.045);
+  color-scheme: dark;
+}
+[data-theme="dark"] .msg.ok{background:#123324; color:#7fe0ae; border-color:#1f5c3d}
+[data-theme="dark"] .msg.err{background:#3a1712; color:#ff9d92; border-color:#6e2a20}
+[data-theme="dark"] .chip.gold{background:#4a380f; color:#ffd97a}
+[data-theme="dark"] .btn.danger{border-color:#6e2a20}
+[data-theme="dark"] .btn.danger:hover{background:#3a1712}
 *{box-sizing:border-box; margin:0; padding:0}
 body{font-family:'Poppins',system-ui,sans-serif; background:var(--bg); color:var(--ink); font-size:14px; line-height:1.55}
 button{font-family:inherit; cursor:pointer}
@@ -36,37 +69,56 @@ input,select,textarea{font-family:inherit; font-size:14px; color:var(--ink)}
 #nav button{display:flex; align-items:center; gap:11px; width:100%; min-height:44px; padding:9px 12px; border:0; border-radius:9px; background:transparent; color:var(--side-ink); font-size:13.5px; font-weight:500; text-align:left}
 #nav button svg{flex:0 0 19px}
 #nav button:hover{background:rgba(255,255,255,.08); color:#fff}
-#nav button.active{background:var(--blue); color:#fff; box-shadow:0 3px 8px rgba(0,0,0,.25)}
+#nav button.active{background:var(--blue); color:var(--on-accent); box-shadow:0 3px 8px rgba(0,0,0,.25)}
 #sidebar .foot{padding:13px 18px; font-size:11px; color:var(--side-ink); border-top:1px solid rgba(255,255,255,.12); line-height:1.6}
 #main{flex:1; min-width:0; padding:22px 26px 60px}
-#topbar{display:flex; align-items:center; gap:12px; margin-bottom:18px}
-#topbar h2{font-size:21px; font-weight:700}
-#topbar .sub{color:var(--muted); font-size:12.5px}
+#topbar{display:flex; align-items:center; gap:12px; margin-bottom:20px}
+#topbar h2{font-size:22px; font-weight:800; letter-spacing:-.2px; color:var(--stat-n)}
+#topbar .sub{color:var(--muted); font-size:12.5px; margin-top:1px}
 #menuBtn{display:none; min-width:44px; min-height:44px; border:1px solid var(--line); background:var(--card); border-radius:9px; align-items:center; justify-content:center}
 .view{display:none}
 .view.on{display:block}
 
 /* ---------- cards & stats ---------- */
-.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:18px}
-.stat{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; box-shadow:var(--shadow)}
-.stat .n{font-size:27px; font-weight:800; color:var(--navy)}
-@media (prefers-color-scheme: dark){ .stat .n{color:#9dc2ff} }
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; margin-bottom:18px}
+.stat{--sc:var(--blue); position:relative; overflow:hidden; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 15px; box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease}
+.stat::before{content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg, var(--sc), color-mix(in srgb, var(--sc) 45%, #ffffff))}
+.stat:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg)}
+@media (prefers-reduced-motion: reduce){ .stat{transition:none} .stat:hover{transform:none} }
+.stat .sico{width:38px; height:38px; border-radius:11px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--sc) 14%, transparent); color:var(--sc); margin-bottom:10px}
+.stat .n{font-size:27px; font-weight:800; color:var(--stat-n); line-height:1.15}
 .stat .l{font-size:12px; color:var(--muted); font-weight:500}
 .stat .s{font-size:11.5px; color:var(--muted); margin-top:3px}
 .stat .bar{height:5px; border-radius:3px; background:var(--chip); margin-top:10px; overflow:hidden}
-.stat .bar i{display:block; height:100%; background:var(--blue); border-radius:3px}
-.card{background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:18px; margin-bottom:16px}
-.card h3{font-size:15.5px; font-weight:700; margin-bottom:10px}
+.stat .bar i{display:block; height:100%; background:linear-gradient(90deg, var(--sc), color-mix(in srgb, var(--sc) 60%, #ffffff)); border-radius:3px}
+.card{background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:18px; margin-bottom:16px}
+.card h3{font-size:16px; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:9px; flex-wrap:wrap}
+.card h3::before{content:""; width:4px; height:17px; border-radius:2px; background:var(--blue); flex:0 0 4px}
 .card h3 .hint{font-weight:400; color:var(--muted); font-size:12px}
 table.grid{width:100%; border-collapse:collapse; font-size:13px}
-table.grid th{text-align:left; padding:9px 10px; background:var(--chip); color:var(--ink); font-weight:600; border-bottom:2px solid var(--line)}
+table.grid th{text-align:left; padding:10px; background:var(--blue); color:var(--on-accent); font-weight:600; border-bottom:2px solid var(--line)}
+table.grid th:first-child{border-top-left-radius:8px}
+table.grid th:last-child{border-top-right-radius:8px}
 table.grid td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
-table.grid tr:hover td{background:rgba(27,106,201,.04)}
+@media (min-width:641px){ table.grid tr.subj:nth-of-type(even) td{background:var(--zebra)} }
+table.grid tr:hover td{background:var(--hover)}
+
+/* ---------- theme switcher ---------- */
+.theme-bar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px}
+.theme-bar .tlabel{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; color:var(--muted)}
+.tswitch{display:flex; gap:8px; flex-wrap:wrap; margin-left:auto}
+.tsw{display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:7px 14px 7px 8px; border-radius:999px; border:1.5px solid var(--line); background:var(--card); color:var(--ink); font-size:12.5px; font-weight:600}
+.tsw .dot{width:20px; height:20px; flex:0 0 20px; border-radius:50%; background:linear-gradient(135deg, var(--sw1) 0%, var(--sw1) 55%, var(--sw2) 55%, var(--sw2) 100%); border:2px solid rgba(255,255,255,.7); box-shadow:0 1px 4px rgba(0,0,0,.28)}
+.tsw:hover{border-color:var(--blue)}
+.tsw.on{border-color:var(--blue); color:var(--blue); box-shadow:0 0 0 3px var(--accent-soft)}
+.tsw.on::after{content:"✓"; font-weight:800; font-size:12px}
+@media (max-width:640px){ .tswitch{margin-left:0} }
 @media (max-width:640px){
   table.grid.dash{display:block}
   table.grid.dash tr{display:block}
   table.grid.dash tr.head{display:none}
   table.grid.dash tr.subj{border:1px solid var(--line); border-radius:10px; padding:7px 11px; margin-bottom:9px}
+  table.grid.dash tr.subj:nth-of-type(even){background:var(--zebra)}
   table.grid.dash td{display:flex; justify-content:space-between; align-items:baseline; gap:14px; padding:5px 0; border-bottom:1px dashed var(--line)}
   table.grid.dash td:last-child{border-bottom:0}
   table.grid.dash td::before{content:attr(data-label); font-weight:600; color:var(--muted); font-size:11.5px}
@@ -77,8 +129,8 @@ table.grid tr:hover td{background:rgba(27,106,201,.04)}
 /* ---------- buttons & forms ---------- */
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:40px; padding:8px 16px; border-radius:9px; border:1px solid var(--line); background:var(--card); color:var(--ink); font-size:13px; font-weight:600; text-decoration:none}
 .btn:hover{border-color:var(--blue); color:var(--blue)}
-.btn.primary{background:var(--blue); border-color:var(--blue); color:#fff}
-.btn.primary:hover{background:var(--blue-d); color:#fff}
+.btn.primary{background:var(--blue); border-color:var(--blue); color:var(--on-accent)}
+.btn.primary:hover{background:var(--blue-d); color:var(--on-accent)}
 .btn.gold{background:var(--gold); border-color:var(--gold); color:#231a00}
 .btn.danger{color:var(--red); border-color:#f0c4bf}
 .btn.danger:hover{background:#fdf0ef; color:var(--red); border-color:var(--red)}
@@ -95,14 +147,14 @@ table.grid tr:hover td{background:rgba(27,106,201,.04)}
 .msg{padding:11px 14px; border-radius:9px; font-size:13px; margin-bottom:13px; display:none}
 .msg.ok{display:block; background:#e6f6ee; color:#0d6b3f; border:1px solid #b5e3cb}
 .msg.err{display:block; background:#fdecea; color:#8f1d12; border:1px solid #f3c1bb}
-@media (prefers-color-scheme: dark){ .msg.ok{background:#123324; color:#7fe0ae} .msg.err{background:#3a1712; color:#ff9d92} }
+
 
 /* ---------- wizard ---------- */
 .steps{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px}
 .steps .st{flex:1; min-width:120px; padding:10px 12px; border-radius:10px; background:var(--card); border:1px solid var(--line); font-size:12.5px; font-weight:600; color:var(--muted); display:flex; gap:8px; align-items:center}
 .steps .st b{width:24px; height:24px; flex:0 0 24px; border-radius:50%; background:var(--chip); color:var(--muted); display:inline-flex; align-items:center; justify-content:center; font-size:12px}
 .steps .st.on{border-color:var(--blue); color:var(--blue)}
-.steps .st.on b{background:var(--blue); color:#fff}
+.steps .st.on b{background:var(--blue); color:var(--on-accent)}
 .steps .st.done{color:var(--green)}
 .steps .st.done b{background:var(--green); color:#fff}
 .chkgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:9px}
@@ -111,15 +163,15 @@ table.grid tr:hover td{background:rgba(27,106,201,.04)}
 .chk input{width:19px; height:19px; margin-top:2px; accent-color:var(--blue); flex:0 0 19px}
 .chk .t{font-weight:600; font-size:13px}
 .chk .c{font-size:11.5px; color:var(--muted)}
-.chk.sel{border-color:var(--blue); background:rgba(27,106,201,.05)}
+.chk.sel{border-color:var(--blue); background:var(--accent-soft)}
 .seg{display:inline-flex; border:1px solid var(--line); border-radius:10px; overflow:hidden; flex-wrap:wrap}
 .seg button{min-height:40px; padding:8px 15px; border:0; background:var(--card); color:var(--muted); font-weight:600; font-size:13px}
-.seg button.on{background:var(--blue); color:#fff}
+.seg button.on{background:var(--blue); color:var(--on-accent)}
 
 /* question rows */
 .qpick{border:1px solid var(--line); border-radius:10px; padding:11px 13px; margin-bottom:8px; display:flex; gap:11px; background:var(--card)}
 .qpick input{width:19px; height:19px; margin-top:3px; accent-color:var(--blue); flex:0 0 19px}
-.qpick.sel{border-color:var(--blue); background:rgba(27,106,201,.05)}
+.qpick.sel{border-color:var(--blue); background:var(--accent-soft)}
 .qpick .qt{font-size:13.5px}
 .qpick .opts{font-size:12.5px; color:var(--muted); margin-top:3px}
 .qbank-row{border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:9px; background:var(--card)}
@@ -223,6 +275,10 @@ sup,sub{font-size:.72em}
 
     <!-- DASHBOARD -->
     <section class="view on" id="view-dashboard">
+      <div class="theme-bar">
+        <span class="tlabel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="10" r="1.3" fill="currentColor" stroke="none"/><path d="M12 21a2.4 2.4 0 0 1-2.4-2.4c0-1 .8-1.6.8-2.6 0-.8.7-1.5 1.6-1.5h1.2a4.8 4.8 0 0 0 4.8-4.8c0-.4 0-.7-.1-1"/></svg>App Theme</span>
+        <div class="tswitch" data-tswitch></div>
+      </div>
       <div class="stats" id="dashStats"></div>
       <div id="dashClasses"></div>
       <div class="card">
@@ -278,6 +334,11 @@ sup,sub{font-size:.72em}
 
     <!-- BACKUP -->
     <section class="view" id="view-backup">
+      <div class="card">
+        <h3>Appearance — Theme</h3>
+        <p style="color:var(--muted); font-size:13px; margin-bottom:13px">Pick a colour theme for the app. It changes the sidebar, cards, buttons and tables right away, and your choice is remembered on this device. The printed paper always stays the same.</p>
+        <div class="tswitch" data-tswitch style="margin-left:0"></div>
+      </div>
       <div class="card">
         <h3>Backup — <span class="hint">your questions and papers save in this browser only</span></h3>
         <p style="color:var(--muted); font-size:13px; margin-bottom:13px">Download a backup file regularly. If you change browser or device, open this page there and restore the backup file — all your own questions and saved papers will come back. The built-in textbook bank is already inside the page.</p>
@@ -370,6 +431,38 @@ store.settings.ps = Object.assign(defaultPS(), store.settings.ps || {});
 function PS(){ return store.settings.ps; }
 function saveStore(){ try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch(e){} }
 
+/* ================= themes ================= */
+var THEME_KEY = 'roseTheme';
+var THEMES = [
+  { id:'navy',    label:'Navy',    sw1:'#12264f', sw2:'#2563eb' },
+  { id:'rose',    label:'Rose',    sw1:'#5b1220', sw2:'#e11d48' },
+  { id:'emerald', label:'Emerald', sw1:'#07503a', sw2:'#059669' },
+  { id:'gold',    label:'Gold',    sw1:'#5c3a08', sw2:'#d97706' },
+  { id:'dark',    label:'Dark',    sw1:'#0b1220', sw2:'#38bdf8' }
+];
+function currentTheme(){ var t = document.documentElement.getAttribute('data-theme'); for (var i=0;i<THEMES.length;i++){ if (THEMES[i].id === t) return t; } return 'navy'; }
+function setTheme(id){
+  var ok = false; THEMES.forEach(function(t){ if (t.id === id) ok = true; });
+  if (!ok) id = 'navy';
+  document.documentElement.setAttribute('data-theme', id);
+  try { localStorage.setItem(THEME_KEY, id); } catch(e){}
+  syncThemeSwitchers();
+}
+function syncThemeSwitchers(){
+  var cur = currentTheme();
+  document.querySelectorAll('[data-tswitch] .tsw').forEach(function(b){
+    var on = b.getAttribute('data-theme-id') === cur;
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+function fillThemeSwitchers(){
+  var html = THEMES.map(function(t){
+    return '<button type="button" class="tsw" data-theme-id="'+t.id+'" style="--sw1:'+t.sw1+'; --sw2:'+t.sw2+'" onclick="setTheme(\''+t.id+'\')"><span class="dot"></span>'+t.label+'</button>';
+  }).join('');
+  document.querySelectorAll('[data-tswitch]').forEach(function(el){ el.innerHTML = html; });
+  syncThemeSwitchers();
+}
+
 /* unified question list: built-in bank + user questions, minus hidden */
 function allQuestions(){
   var out = [];
@@ -448,11 +541,20 @@ function renderDashboard(){
   var qs = allQuestions();
   var c = { mcq:0, short:0, long:0 };
   qs.forEach(function(q){ c[q.t]++; });
-  function stat(n,l,pct){ return '<div class="stat"><div class="n">'+n+'</div><div class="l">'+l+'</div><div class="bar"><i style="width:'+pct+'%"></i></div></div>'; }
+  var ICO = {
+    total:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>',
+    mcq:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/></svg>',
+    short:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>',
+    long:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2Z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z"/></svg>',
+    saved:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>',
+    own:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+    cls:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 12 4l10 5.5L12 15Z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/><path d="M22 9.5V16"/></svg>'
+  };
+  function stat(n,l,pct,icon,sc){ return '<div class="stat" style="--sc:'+sc+'"><div class="sico">'+icon+'</div><div class="n">'+n+'</div><div class="l">'+l+'</div><div class="bar"><i style="width:'+pct+'%"></i></div></div>'; }
   document.getElementById('dashStats').innerHTML =
-    stat(qs.length,'Total Questions',100) + stat(c.mcq,'MCQs', Math.round(c.mcq/qs.length*100)) +
-    stat(c.short,'Short Questions', Math.round(c.short/qs.length*100)) + stat(c.long,'Long Questions', Math.round(c.long/qs.length*100)) +
-    stat(store.papers.length,'Saved Papers', Math.min(100, store.papers.length*10)) + stat(store.userQ.length,'My Own Questions', Math.min(100, store.userQ.length*5));
+    stat(qs.length,'Total Questions',100,ICO.total,'var(--blue)') + stat(c.mcq,'MCQs', Math.round(c.mcq/qs.length*100),ICO.mcq,'#0ea5e9') +
+    stat(c.short,'Short Questions', Math.round(c.short/qs.length*100),ICO.short,'#f59e0b') + stat(c.long,'Long Questions', Math.round(c.long/qs.length*100),ICO.long,'#10b981') +
+    stat(store.papers.length,'Saved Papers', Math.min(100, store.papers.length*10),ICO.saved,'#db2777') + stat(store.userQ.length,'My Own Questions', Math.min(100, store.userQ.length*5),ICO.own,'#14b8a6');
   /* class-wise totals — class taken from the subject name, e.g. "Urdu (Class 1)"; Class 9 subjects carry no suffix */
   var clsAgg = {};
   Object.keys(SUBJECTS).forEach(function(sid){
@@ -463,9 +565,10 @@ function renderDashboard(){
     if (sub0.length) clsAgg[cn].subs++;
     sub0.forEach(function(q){ clsAgg[cn].total++; clsAgg[cn][q.t]++; });
   });
-  var clsCards = Object.keys(clsAgg).sort(function(a,b){ return (+a)-(+b); }).filter(function(cn){ return clsAgg[cn].total; }).map(function(cn){
+  var CLS_COLORS = ['var(--blue)','#059669','#d97706','#db2777','#0891b2','#e11d48'];
+  var clsCards = Object.keys(clsAgg).sort(function(a,b){ return (+a)-(+b); }).filter(function(cn){ return clsAgg[cn].total; }).map(function(cn, idx){
     var a = clsAgg[cn];
-    return '<div class="stat"><div class="n">'+a.total+'</div><div class="l">Class '+cn+' — '+a.subs+' Subjects</div><div class="s">MCQ '+a.mcq+' · Short '+a.short+' · Long '+a.long+'</div><div class="bar"><i style="width:'+Math.round(a.total/qs.length*100)+'%"></i></div></div>';
+    return '<div class="stat" style="--sc:'+CLS_COLORS[idx % CLS_COLORS.length]+'"><div class="sico">'+ICO.cls+'</div><div class="n">'+a.total+'</div><div class="l">Class '+cn+' — '+a.subs+' Subjects</div><div class="s">MCQ '+a.mcq+' · Short '+a.short+' · Long '+a.long+'</div><div class="bar"><i style="width:'+Math.round(a.total/qs.length*100)+'%"></i></div></div>';
   }).join('');
   document.getElementById('dashClasses').innerHTML = '<div class="card" style="margin-bottom:18px"><h3>Questions by Class</h3><div class="stats" style="margin-bottom:0">'+clsCards+'</div></div>';
   var rows = '';
@@ -968,6 +1071,7 @@ function resetPaperSettings(){
 }
 
 /* ================= init ================= */
+fillThemeSwitchers();
 fillSubjectSelect(document.getElementById('bfSubject'), true);
 document.getElementById('bfSubject').value = '5';
 fillChapterSelect(document.getElementById('bfChapter'), 5, true);
