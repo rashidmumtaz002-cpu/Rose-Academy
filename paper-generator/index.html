@@ -324,7 +324,7 @@ sup,sub{font-size:.72em}
       <div class="card">
         <h3>How to use</h3>
         <ol style="padding-left:19px; font-size:13.5px; color:var(--muted); line-height:1.9">
-          <li><b style="color:var(--ink)">Generate Paper:</b> pick class, subject and chapters → choose how many MCQs, short and long questions → tick questions yourself or press <b style="color:var(--ink)">Random Select</b> → write paper name, date and time → print.</li>
+          <li><b style="color:var(--ink)">Generate Paper:</b> pick class, subject and chapters → choose the medium (English Medium, Urdu Medium or Dual Medium) and how many MCQs, short and long questions → tick questions yourself or press <b style="color:var(--ink)">Random Select</b> → write paper name, date and time → print.</li>
           <li><b style="color:var(--ink)">Question Bank:</b> see all textbook questions, and add your own questions any time — they join the same bank.</li>
           <li><b style="color:var(--ink)">Equations:</b> in your own questions write <span class="chip">frac{1}{2}</span> for a fraction, <span class="chip">sqrt{2}</span> for √2, <span class="chip">x^2</span> for x² — they print as proper mathematics.</li>
           <li><b style="color:var(--ink)">Print:</b> on the paper preview, use Print Paper for the question paper, Print with Answer Key for the teacher copy, and turn on the Bubble Sheet when you want the OMR answer sheet with it.</li>
@@ -405,6 +405,8 @@ function qTextHtml(q, medium){
   if (medium === 'en') return en || ur;
   return en + ur; /* dual */
 }
+function mediumLabel(m){ return m === 'en' ? 'English Medium' : (m === 'ur' ? 'Urdu Medium' : 'Dual Medium'); }
+function paperMedium(paper){ return paper && (paper.medium === 'en' || paper.medium === 'ur') ? paper.medium : 'dual'; }
 function typeLabel(t){ return t==='mcq' ? 'MCQ' : (t==='short' ? 'Short' : 'Long'); }
 
 /* ================= navigation ================= */
@@ -449,7 +451,7 @@ function renderDashboard(){
   if (!store.papers.length){ rec.innerHTML = '<p style="color:var(--muted); font-size:13px">No paper saved yet. Press “Generate New Paper” to make your first paper.</p>'; }
   else {
     rec.innerHTML = store.papers.slice(0,5).map(function(pp){
-      return '<div class="toolbar" style="margin-bottom:8px"><b>'+esc(pp.name)+'</b><span class="chip">'+esc(pp.cls)+'</span><span class="chip gray">'+esc(pp.subjectName)+'</span><span class="chip gray">'+esc(pp.date)+'</span><span class="chip gold">Total Marks: '+pp.totalMarks+'</span><span class="sp"></span><button class="btn sm" onclick="viewPaper(\''+pp.id+'\')">View / Print</button></div>';
+      return '<div class="toolbar" style="margin-bottom:8px"><b>'+esc(pp.name)+'</b><span class="chip">'+esc(pp.cls)+'</span><span class="chip gray">'+esc(pp.subjectName)+'</span><span class="chip gray">'+mediumLabel(pp.medium)+'</span><span class="chip gray">'+esc(pp.date)+'</span><span class="chip gold">Total Marks: '+pp.totalMarks+'</span><span class="sp"></span><button class="btn sm" onclick="viewPaper(\''+pp.id+'\')">View / Print</button></div>';
     }).join('');
   }
 }
@@ -624,8 +626,8 @@ function wizStep2(){
   }
   var h = '<div class="card"><h3>Step 2 — Medium, Counts & Marks</h3>'+
     '<div class="fld" style="margin-bottom:14px"><label>Paper Medium</label><div class="seg">'+
-    [['en','English'],['ur','Urdu'],['dual','Dual (English + Urdu)']].map(function(m){ return '<button class="'+(W.medium===m[0]?'on':'')+'" onclick="W.medium=\''+m[0]+'\'; renderWizard()">'+m[1]+'</button>'; }).join('')+'</div>'+
-    '<p style="color:var(--muted); font-size:12px; margin-top:6px">Urdu lines print where the bank has them (Urdu subject is fully in Urdu; other subjects are English).</p></div>'+
+    [['en','English Medium'],['ur','Urdu Medium'],['dual','Dual Medium']].map(function(m){ return '<button class="'+(W.medium===m[0]?'on':'')+'" onclick="W.medium=\''+m[0]+'\'; renderWizard()">'+m[1]+'</button>'; }).join('')+'</div>'+
+    '<p style="color:var(--muted); font-size:12px; margin-top:6px">English Medium prints the English text only, Urdu Medium prints the Urdu text only (right-to-left), Dual Medium prints both together. If a question has no text in the chosen medium, the text it does have is printed instead — nothing is translated.</p></div>'+
     row('mcq','MCQs') + row('short','Short Questions') + row('long','Long Questions')+
     '<p style="font-size:15px">Total Marks: <b id="wizTotalMarks"></b></p></div>' + wizNav(true, 'wizFromStep2()', 'Next: Select Questions →');
   return h;
@@ -727,7 +729,7 @@ function wizStep5(){
   '<div class="chkgrid"><label class="chk'+(ps.chapHead?' sel':'')+'"><input type="checkbox" '+(ps.chapHead?'checked':'')+' onchange="psSetLive(\'chapHead\', this.checked)"><span><span class="t">Chapter headings</span><br><span class="c">Separate heading for every chapter</span></span></label>'+
   '<label class="chk'+(ps.frame?' sel':'')+'"><input type="checkbox" '+(ps.frame?'checked':'')+' onchange="psSetLive(\'frame\', this.checked)"><span><span class="t">Paper border (frame)</span><br><span class="c">Neat double frame around the paper</span></span></label>'+
   '<label class="chk'+(ps.watermark?' sel':'')+'"><input type="checkbox" '+(ps.watermark?'checked':'')+' onchange="psSetLive(\'watermark\', this.checked)"><span><span class="t">Watermark</span><br><span class="c">Academy name lightly behind questions</span></span></label></div></div>';
-  return set + '<div class="toolbar"><button class="btn" onclick="W.step=4; renderWizard()">← Back</button><span class="sp"></span>'+
+  return set + '<div class="toolbar"><button class="btn" onclick="W.step=4; renderWizard()">← Back</button><span class="seg" style="margin-left:4px">'+[['en','English Medium'],['ur','Urdu Medium'],['dual','Dual Medium']].map(function(m){ return '<button class="'+(W.medium===m[0]?'on':'')+'" onclick="W.medium=\''+m[0]+'\'; renderWizard()">'+m[1]+'</button>'; }).join('')+'</span><span class="sp"></span>'+
   '<button class="btn gold" onclick="saveWizardPaper()">💾 Save Paper</button>'+
   '<button class="btn primary" onclick="printPaper(buildPaperFromWizard(), false)">🖨 Print Paper</button>'+
   '<button class="btn" onclick="printPaper(buildPaperFromWizard(), true)">Print with Answer Key</button></div>'+
@@ -776,7 +778,7 @@ function chapHeadHTML(name){
   return '<div class="chaphead" style="color:'+ps.secColor+(urdu ? '; direction:rtl; text-align:right; font-family:\'Noto Nastaliq Urdu\',serif; line-height:2' : '')+'">'+label+'<span>'+esc(name)+'</span></div>';
 }
 function paperHTML(paper, withKey){
-  var s = store.settings; var ps = PS();
+  var s = store.settings; var ps = PS(); var med = paperMedium(paper);
   var wm = ps.watermark ? '<div class="wm"><span>'+esc(s.academy)+'<br>'+esc(s.academy)+'</span></div>' : '';
   var h = '<div class="paper"'+paperStyleAttr()+'>'+wm+
   '<div class="phead" style="border-bottom-color:'+ps.secColor+'"><div class="an" style="color:'+ps.secColor+'; font-size:'+ps.headSize+'px">'+esc(s.academy)+'</div><div class="tag">'+esc(s.tagline)+'</div><div class="pname">'+esc(paper.name)+'</div></div>'+
@@ -793,7 +795,7 @@ function paperHTML(paper, withKey){
       g.items.forEach(function(q){
         mn++;
         var four = q.o.every(function(o){ return o.length <= 14; });
-        h += '<div class="q"><span class="qn">'+mn+'.</span> '+qTextHtml(q, paper.medium)+
+        h += '<div class="q"><span class="qn">'+mn+'.</span> '+qTextHtml(q, med)+
           '<div class="qopts" style="'+(four?'grid-template-columns:repeat(4,1fr)':'')+'">'+q.o.map(function(o,j){ return '<div><b>('+ 'ABCD'[j] +')</b> '+fmt(o)+'</div>'; }).join('')+'</div></div>';
       });
     });
@@ -808,7 +810,7 @@ function paperHTML(paper, withKey){
       var sn = 0;
       chapGroups(Q.short).forEach(function(g){
         h += chapHeadHTML(g.c);
-        g.items.forEach(function(q){ h += '<div class="q" style="margin-left:22px"><span class="qn">('+(romans[sn]||(sn+1))+')</span> '+qTextHtml(q, paper.medium)+'</div>'; sn++; });
+        g.items.forEach(function(q){ h += '<div class="q" style="margin-left:22px"><span class="qn">('+(romans[sn]||(sn+1))+')</span> '+qTextHtml(q, med)+'</div>'; sn++; });
       });
     }
     var ln = 0;
@@ -816,7 +818,7 @@ function paperHTML(paper, withKey){
       h += chapHeadHTML(g.c);
       g.items.forEach(function(q){
         ln++;
-        h += '<div class="subhead">Q.'+(2+ln)+' <span class="marks">('+paper.marks.long+')</span></div><div class="q" style="margin-left:22px">'+qTextHtml(q, paper.medium)+'</div>';
+        h += '<div class="subhead">Q.'+(2+ln)+' <span class="marks">('+paper.marks.long+')</span></div><div class="q" style="margin-left:22px">'+qTextHtml(q, med)+'</div>';
       });
     });
   }
@@ -847,7 +849,7 @@ function keyHTML(paper){
 }
 function printPaper(paper, withKey){
   document.getElementById('printRoot').innerHTML = '<div class="paperwrap">'+paperHTML(paper, withKey)+'</div>';
-  openModal('<h3>Paper Ready to Print</h3><p style="margin-bottom:12px">The paper is ready below. Use your browser\'s own Print option — <b>Ctrl+P</b> on a computer, or the browser menu → <b>Print</b> on a phone — and only this paper will print. There you can also choose <b>Save as PDF</b>.</p><div class="toolbar" style="margin-bottom:12px"><button class="btn primary" onclick="closeModal()">OK, Got It</button></div><div class="paperwrap" style="max-height:55vh; overflow:auto"><div style="transform:scale(.62); transform-origin:top left; width:794px">'+paperHTML(paper, withKey)+'</div></div>');
+  openModal('<h3>Paper Ready to Print</h3><p style="margin-bottom:12px">Medium: <b>'+mediumLabel(paperMedium(paper))+'</b> — the paper is ready below. Use your browser\'s own Print option — <b>Ctrl+P</b> on a computer, or the browser menu → <b>Print</b> on a phone — and only this paper will print. There you can also choose <b>Save as PDF</b>.</p><div class="toolbar" style="margin-bottom:12px"><button class="btn primary" onclick="closeModal()">OK, Got It</button></div><div class="paperwrap" style="max-height:55vh; overflow:auto"><div style="transform:scale(.62); transform-origin:top left; width:794px">'+paperHTML(paper, withKey)+'</div></div>');
 }
 
 /* ================= my papers ================= */
@@ -859,7 +861,7 @@ function renderPapers(){
   }
   el.innerHTML = store.papers.map(function(pp){
     var nq = pp.questions.mcq.length + pp.questions.short.length + pp.questions.long.length;
-    return '<div class="card"><div class="toolbar" style="margin:0"><div><b style="font-size:15px">'+esc(pp.name)+'</b><div style="margin-top:5px; display:flex; gap:6px; flex-wrap:wrap"><span class="chip">'+esc(pp.cls)+'</span><span class="chip gray">'+esc(pp.subjectName)+'</span><span class="chip gray">'+esc(pp.category)+'</span><span class="chip gray">'+esc(pp.date)+'</span><span class="chip gray">'+nq+' questions</span><span class="chip gold">Total Marks: '+pp.totalMarks+'</span></div></div><span class="sp"></span>'+
+    return '<div class="card"><div class="toolbar" style="margin:0"><div><b style="font-size:15px">'+esc(pp.name)+'</b><div style="margin-top:5px; display:flex; gap:6px; flex-wrap:wrap"><span class="chip">'+esc(pp.cls)+'</span><span class="chip gray">'+esc(pp.subjectName)+'</span><span class="chip gray">'+esc(pp.category)+'</span><span class="chip gray">'+mediumLabel(pp.medium)+'</span><span class="chip gray">'+esc(pp.date)+'</span><span class="chip gray">'+nq+' questions</span><span class="chip gold">Total Marks: '+pp.totalMarks+'</span></div></div><span class="sp"></span>'+
     '<button class="btn sm primary" onclick="viewPaper(\''+pp.id+'\')">View / Print</button>'+
     '<button class="btn sm" onclick="printSaved(\''+pp.id+'\', true)">Print with Key</button>'+
     '<button class="btn sm danger" onclick="deletePaper(\''+pp.id+'\')">Delete</button></div></div>';
