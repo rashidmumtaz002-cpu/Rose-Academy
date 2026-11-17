@@ -282,7 +282,7 @@ sup,sub{font-size:.72em}
       <div class="stats" id="dashStats"></div>
       <div id="dashClasses"></div>
       <div class="card">
-        <h3>Question Bank by Subject <span class="hint">— Class 9, Class 1 and Class 2, all from the original PCTB textbooks</span></h3>
+        <h3>Question Bank by Subject <span class="hint">— Class 9, Class 10, Class 1 and Class 2, all from the original PCTB textbooks</span></h3>
         <div id="dashSubjects"></div>
       </div>
       <div class="card">
@@ -568,7 +568,7 @@ function renderDashboard(){
   var CLS_COLORS = ['var(--blue)','#059669','#d97706','#db2777','#0891b2','#e11d48'];
   var clsCards = Object.keys(clsAgg).sort(function(a,b){ return (+a)-(+b); }).filter(function(cn){ return clsAgg[cn].total; }).map(function(cn, idx){
     var a = clsAgg[cn];
-    return '<div class="stat" style="--sc:'+CLS_COLORS[idx % CLS_COLORS.length]+'"><div class="sico">'+ICO.cls+'</div><div class="n">'+a.total+'</div><div class="l">Class '+cn+' — '+a.subs+' Subjects</div><div class="s">MCQ '+a.mcq+' · Short '+a.short+' · Long '+a.long+'</div><div class="bar"><i style="width:'+Math.round(a.total/qs.length*100)+'%"></i></div></div>';
+    return '<div class="stat" style="--sc:'+CLS_COLORS[idx % CLS_COLORS.length]+'"><div class="sico">'+ICO.cls+'</div><div class="n">'+a.total+'</div><div class="l">Class '+cn+' — '+a.subs+' Subject'+(a.subs===1?'':'s')+'</div><div class="s">MCQ '+a.mcq+' · Short '+a.short+' · Long '+a.long+'</div><div class="bar"><i style="width:'+Math.round(a.total/qs.length*100)+'%"></i></div></div>';
   }).join('');
   document.getElementById('dashClasses').innerHTML = '<div class="card" style="margin-bottom:18px"><h3>Questions by Class</h3><div class="stats" style="margin-bottom:0">'+clsCards+'</div></div>';
   var rows = '';
