@@ -488,20 +488,69 @@ function fmt(text){
   var s = esc(text);
   var stash = [];
   function keep(html){ stash.push(html); return '\u0001' + (stash.length-1) + '\u0002'; }
-  s = s.replace(/frac\{([^{}]+)\}\{([^{}]+)\}/g, function(m,a,b){ return keep('<span class="frac"><span class="fn">'+a+'</span><span class="fd">'+b+'</span></span>'); });
-  s = s.replace(/sqrt\(([^()]*(?:\([^()]*\))?[^()]*)\)/g, function(m,a){ return keep('<span class="sqrt">√<span class="rad">'+a+'</span></span>'); });
-  s = s.replace(/sqrt\{([^{}]+)\}/g, function(m,a){ return keep('<span class="sqrt">√<span class="rad">'+a+'</span></span>'); });
-  s = s.replace(/([A-Za-z0-9\)\]])\^\(([^()]*)\)/g, '$1<sup>$2</sup>');
-  s = s.replace(/([A-Za-z0-9\)\]])\^\{([^{}]+)\}/g, '$1<sup>$2</sup>');
-  s = s.replace(/([A-Za-z0-9\)\]])\^([A-Za-z0-9+\-]+)/g, '$1<sup>$2</sup>');
-  s = s.replace(/([A-Za-z0-9])_\{([^{}]+)\}/g, '$1<sub>$2</sub>');
-  s = s.replace(/([A-Za-z0-9])_([A-Za-z0-9]+)/g, '$1<sub>$2</sub>');
-  s = s.replace(/(^|[\s(\[])(\d{1,3})\/(\d{1,3})(?=$|[\s)\].,;:?\]])/g, function(m,pre,a,b){ return pre + keep('<span class="frac"><span class="fn">'+a+'</span><span class="fd">'+b+'</span></span>'); });
+  /* powers + subscripts for one maths fragment (also used inside fraction parts) */
+  function supsub(t){
+    /* caret powers: base may be a letter, digit, ), ] or | (modulus); exponent may start with - or − */
+    t = t.replace(/([A-Za-z0-9\)\]\|])\^\(([^()]*)\)/g, '$1<sup>$2</sup>');
+    t = t.replace(/([A-Za-z0-9\)\]\|])\^\{([^{}]+)\}/g, '$1<sup>$2</sup>');
+    t = t.replace(/([A-Za-z0-9\)\]\|])\^([−-]?\d+|[−-]?[A-Za-z])/g, '$1<sup>$2</sup>');
+    /* isotope mass numbers are written before the element: ^196Hg, ^17O; full nuclear form ^210_83Bi */
+    t = t.replace(/(^|[\s(\[])\^(\d{1,3})_(\d{1,3})([A-Z][a-z]?(?![A-Za-z]))/g, '$1<sup>$2</sup><sub>$3</sub>$4');
+    t = t.replace(/(^|[\s(\[])\^(\d{1,3})([A-Z][a-z]?(?![A-Za-z]))/g, '$1<sup>$2</sup>$3');
+    /* explicit underscore subscripts */
+    t = t.replace(/([A-Za-z0-9])_\{([^{}]+)\}/g, '$1<sub>$2</sub>');
+    t = t.replace(/([A-Za-z0-9])_([A-Za-z0-9]+)/g, '$1<sub>$2</sub>');
+    /* the discriminant b2-4ac and πr2 / πr3 are powers, not subscripts */
+    t = t.replace(/b2([-−])4ac/g, 'b<sup>2</sup>$14ac');
+    t = t.replace(/πr([23])(?!\d)/g, 'πr<sup>$1</sup>');
+    /* plain x2 / x3 in algebra are powers (x², x³) — except in complex-number / coordinate texts, where x1, x2 are subscripts */
+    if (!/z[123](?!\d)|iy\d|\(x[12]|\(y[12]/.test(t)){
+      t = t.replace(/x([23])(?!\d)/g, 'x<sup>$1</sup>');
+    }
+    /* digits right after a variable letter are subscripts: z1, z2, A1, H2 … (a combining overline on z is kept) */
+    t = t.replace(/([A-Za-z])(\u0305)?(\d+)(\u0305)?/g, function(m, L, bar, D, bar2, off, full){
+      var before = off > 0 ? full.charAt(off-1) : '';
+      if (/[A-Za-z]/.test(before)){
+        /* letter inside a word stays plain — except chemical element pairs (CO2, CH3, Cl2) and i·y1-style products */
+        var pair = before + L;
+        var chem = (/[A-Z]/.test(before) && /[A-Z]/.test(L)) || ['Cl','Br','Cr','Mn','Na','Mg','Al','Si','Ca','Fe','Zn','Cu','He','Li','Be','Ne','Ar','Ag','Ba','Hg','Pb','Sn','Ni','Co'].indexOf(pair) !== -1;
+        var imag = before === 'i' && (L === 'x' || L === 'y');
+        if (!chem && !imag) return m;
+      } else if (/\d/.test(before)){
+        /* a coefficient digit before the letter (2x2, 4t2) stays plain — unless the digits close a previous variable (z1z2) */
+        var j = off - 1; while (j >= 0 && /\d/.test(full.charAt(j))) j--;
+        if (!/[A-Za-z]/.test(full.charAt(j))) return m;
+      } else if (before === 'π'){
+        return m;
+      }
+      if (L === 'Q' && full.charAt(off + m.length) === '-') return m; /* stored Q-number prefix, e.g. Q2- */
+      return L + (bar || '') + '<sub>' + D + (bar2 || '') + '</sub>';
+    });
+    return t;
+  }
+  function fracSpan(a, b){ return keep('<span class="frac"><span class="fn">'+supsub(a)+'</span><span class="fd">'+supsub(b)+'</span></span>'); }
+  /* Class 1–2 multiplication tables write 5x2=10 with the letter x — show it as × (table-style chains only, so 3x2=-5x+7 stays algebra) */
+  if (/multiplication table/i.test(s) || (s.match(/\d[xX]\d/g) || []).length >= 3){
+    s = s.replace(/(\d)[xX](\d{1,2})(?=\s*=)/g, '$1×$2');
+  }
+  s = s.replace(/frac\{([^{}]+)\}\{([^{}]+)\}/g, function(m,a,b){ return fracSpan(a,b); });
+  s = s.replace(/sqrt\(([^()]*(?:\([^()]*\))?[^()]*)\)/g, function(m,a){ return keep('<span class="sqrt">√<span class="rad">'+supsub(a)+'</span></span>'); });
+  s = s.replace(/sqrt\{([^{}]+)\}/g, function(m,a){ return keep('<span class="sqrt">√<span class="rad">'+supsub(a)+'</span></span>'); });
+  /* stacked fractions: (…) ÷ (…), (…) / (…), value / (…), (…) / value — an optional power may sit on either side */
+  var PAREN = '\\((?:[^()]|\\([^()]*\\))*\\)';
+  var POW = '(?:\\^\\{[^}]+\\}|\\^\\([^()]*\\)|\\^(?:[−-]?\\d+|[−-]?[A-Za-z]))?';
+  s = s.replace(new RegExp('(' + PAREN + POW + ')\\s*[÷/]\\s*(' + PAREN + POW + ')', 'g'), function(m,a,b){ return fracSpan(a,b); });
+  s = s.replace(new RegExp('([A-Za-z0-9]+' + POW + ')\\/\\s*(' + PAREN + ')', 'g'), function(m,a,b){ return fracSpan(a,b); });
+  s = s.replace(new RegExp('(' + PAREN + POW + ')\\s*[÷/]\\s*([A-Za-z0-9]+' + POW + ')', 'g'), function(m,a,b){ return fracSpan(a,b); });
+  s = supsub(s);
+  s = s.replace(/(^|[\s(\[=])(\d{1,3})\s*[÷\/]\s*(\d{1,3})(?=$|[\s)\].,;:?=\]])/g, function(m,pre,a,b){ return pre + keep('<span class="frac"><span class="fn">'+a+'</span><span class="fd">'+b+'</span></span>'); });
   s = s.replace(/&lt;=/g,'≤').replace(/&gt;=/g,'≥').replace(/!=/g,'≠').replace(/\+-/g,'±');
   s = s.replace(/(\d)\s*x\s*(\d)/g, '$1 × $2');
   s = s.replace(/\bpi\b/g,'π').replace(/\btheta\b/g,'θ').replace(/\balpha\b/g,'α').replace(/\bbeta\b/g,'β').replace(/\bgamma\b/g,'γ');
   s = s.replace(/(\d+)\s*degrees?\b/g,'$1°');
-  s = s.replace(/\u0001(\d+)\u0002/g, function(m,i){ return stash[+i]; });
+  /* restore stashed spans (loop: a fraction span can itself contain an earlier sqrt/frac span) */
+  var prevS, guardN = 0;
+  do { prevS = s; s = s.replace(/\u0001(\d+)\u0002/g, function(m,i){ return stash[+i]; }); } while (s !== prevS && ++guardN < 10);
   return s;
 }
 function qTextHtml(q, medium){
