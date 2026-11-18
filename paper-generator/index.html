@@ -997,7 +997,7 @@ function paperHTML(paper, withKey){
     h += '<div class="secbar" style="background:'+ps.secColor+'"><span>Subjective Part</span><span>'+subTot+'</span></div>';
     if (Q.short.length){
       var att = paper.attempt.short ? Math.min(+paper.attempt.short, Q.short.length) : Q.short.length;
-      h += '<div class="subhead">Q.2&nbsp; Write short answers to '+(paper.attempt.short ? 'any '+att+' ' : '')+'of the following questions. <span class="marks">('+att+' × '+paper.marks.short+' = '+(att*paper.marks.short)+')</span></div>';
+      h += '<div class="subhead">Q.2&nbsp; Write short answers to '+(paper.attempt.short ? 'any '+att+' ' : 'all ')+'of the following questions. <span class="marks">('+att+' × '+paper.marks.short+' = '+(att*paper.marks.short)+')</span></div>';
       var sn = 0;
       chapGroups(Q.short).forEach(function(g){
         h += chapHeadHTML(g.c);
