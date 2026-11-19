@@ -777,6 +777,11 @@ function renderWizard(){
 function wizNav(back, next, nextLabel){
   return '<div class="toolbar" style="margin-top:6px">'+(back?'<button class="btn" onclick="wizGo('+(W.step-1)+')">← Back</button>':'')+'<span class="sp"></span>'+(next?'<button class="btn primary" onclick="'+next+'">'+nextLabel+'</button>':'')+'</div>';
 }
+function wizGo(step){
+  step = Math.max(1, Math.min(5, step|0));
+  W.step = step;
+  renderWizard();
+}
 /* ---- step 1 ---- */
 function wizStep1(){
   var classOpts = CLASSES.map(function(c){ return '<option'+(W.cls===c?' selected':'')+'>'+c+'</option>'; }).join('');
@@ -821,7 +826,7 @@ function wizStep2(){
     [['en','English Medium'],['ur','Urdu Medium'],['dual','Dual Medium']].map(function(m){ return '<button class="'+(W.medium===m[0]?'on':'')+'" onclick="W.medium=\''+m[0]+'\'; renderWizard()">'+m[1]+'</button>'; }).join('')+'</div>'+
     '<p style="color:var(--muted); font-size:12px; margin-top:6px">English Medium prints the English text only, Urdu Medium prints the Urdu text only (right-to-left), Dual Medium prints both together. If a question has no text in the chosen medium, the text it does have is printed instead — nothing is translated.</p></div>'+
     row('mcq','MCQs') + row('short','Short Questions') + row('long','Long Questions')+
-    '<p style="font-size:15px">Total Marks: <b id="wizTotalMarks"></b></p></div>' + wizNav(true, 'wizFromStep2()', 'Next: Select Questions →');
+    '<p style="font-size:15px">Total Marks: <b id="wizTotalMarks">'+wizTotalMarksCalc()+'</b></p></div>' + wizNav(true, 'wizFromStep2()', 'Next: Select Questions →');
   return h;
 }
 function wizTotalMarksCalc(){
