@@ -794,10 +794,10 @@ function wizGo(step){
 /* ---- step 1 ---- */
 function wizStep1(){
   var classOpts = CLASSES.map(function(c){ return '<option'+(W.cls===c?' selected':'')+'>'+c+'</option>'; }).join('');
-  var allowedSubj = W.cls==='9th' ? [1,2,3,4,5,6,7] : (W.cls==='1st' ? [8,9,10,11,12] : (W.cls==='2nd' ? [13,14,15,16,17] : (W.cls==='5th' ? [21,22,23,24] : (W.cls==='10th' ? [18] : (W.cls==='Inter-I' ? [19] : (W.cls==='Inter-II' ? [20] : []))))));
+  var allowedSubj = W.cls==='9th' ? [1,2,3,4,5,6,7,25] : (W.cls==='1st' ? [8,9,10,11,12] : (W.cls==='2nd' ? [13,14,15,16,17] : (W.cls==='5th' ? [21,22,23,24] : (W.cls==='10th' ? [18] : (W.cls==='Inter-I' ? [19] : (W.cls==='Inter-II' ? [20] : []))))));
   if (allowedSubj.length && allowedSubj.indexOf(W.subject)===-1) W.subject = allowedSubj[0];
   var h = '<div class="card"><h3>Step 1 — Select Class, Subject & Chapters</h3>'+
-    '<div class="frow"><div class="fld"><label>Class</label><select id="wClass" onchange="W.cls=this.value; if(this.value===\'1st\') W.subject=8; else if(this.value===\'2nd\') W.subject=13; else if(this.value===\'9th\' && W.subject>7) W.subject=5; W.chapters=[]; W.sel={mcq:[],short:[],long:[]}; renderWizard()">'+classOpts+'</select></div>'+
+    '<div class="frow"><div class="fld"><label>Class</label><select id="wClass" onchange="W.cls=this.value; if(this.value===\'1st\') W.subject=8; else if(this.value===\'2nd\') W.subject=13; else if(this.value===\'9th\' && W.subject>7 && W.subject!==25) W.subject=5; W.chapters=[]; W.sel={mcq:[],short:[],long:[]}; renderWizard()">'+classOpts+'</select></div>'+
     '<div class="fld"><label>Syllabus</label><div class="seg"><button class="'+(W.syllabus==='smart'?'on':'')+'" onclick="W.syllabus=\'smart\'; renderWizard()">Smart Syllabus</button><button class="'+(W.syllabus==='full'?'on':'')+'" onclick="W.syllabus=\'full\'; renderWizard()">Full Syllabus</button></div></div></div>';
   if (allowedSubj.length){
     h += '<div class="fld" style="margin-bottom:13px"><label>Subject — tap a book to select it</label><div class="subjgrid">' + allowedSubj.map(function(sid){
