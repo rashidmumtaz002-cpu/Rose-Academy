@@ -1043,7 +1043,7 @@ function renderDashboard(){
   var alertsHtml = '<div class="ahead"><span class="bico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 1 0-12 0c0 6-2.5 7-2.5 7h17S18 15 18 9"/><path d="M10 20a2.2 2.2 0 0 0 4 0"/></svg></span><b>New Alerts</b><span class="inf"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/></svg></span></div><div class="abody">';
   alertsHtml += arow('', CHK, 'سوالیہ بینک میں اس وقت <b>'+qs.length.toLocaleString('en-US')+'</b> سوالات موجود ہیں — تمام سوالات ماضی کے پرچوں سے لیے گئے ہیں۔');
   alertsHtml += arow('', CHK, store.papers.length ? 'آپ کے <b>'+store.papers.length+'</b> پرچے محفوظ ہیں — Saved Papers سے کسی بھی وقت دوبارہ پرنٹ کریں۔' : 'ابھی کوئی پرچہ محفوظ نہیں — پہلا پرچہ بنا کر محفوظ کریں۔');
-  alertsHtml += arow('', CHK, 'کلاس 10 کے نئے مضامین — حیاتیات، کمپیوٹر سائنس، کیمسٹری اور فزکس — سوالیہ بینک میں شامل کر دیے گئے ہیں۔');
+  alertsHtml += arow('', CHK, 'کلاس 11 کے نئے مضامین — حیاتیات، کمپیوٹر سائنس، کیمسٹری اور فزکس — سوالیہ بینک میں شامل کر دیے گئے ہیں۔');
   alertsHtml += '<button type="button" class="arow link" onclick="go(\'generate\')"><span class="aic">'+ARR+'</span><span class="ur">نیا پرچہ بنانا شروع کریں</span></button>';
   alertsHtml += arow('warn', WRN, 'اہم: اپنے پرچوں کا بیک اپ باقاعدگی سے ڈاؤن لوڈ کریں — ڈیٹا صرف اسی براؤزر میں محفوظ ہوتا ہے۔');
   alertsHtml += '</div>';
