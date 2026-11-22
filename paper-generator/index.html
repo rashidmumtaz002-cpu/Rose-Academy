@@ -303,6 +303,12 @@ table.grid tr:hover td{background:var(--hover)}
 .bld-canvas{flex:1; min-width:0}
 .bld-status{display:flex; align-items:center; gap:8px; flex-wrap:wrap; background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:10px 13px; margin-bottom:14px; font-size:13.5px}
 .bld-status .sp{flex:1}
+.bld-prevhead{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px; color:var(--ink)}
+.bld-prevhead b{font-size:16px; font-weight:800}
+.bld-prevhead span{font-size:12.5px; color:var(--muted)}
+.qdlg-previewbar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:12px; background:#e9f7ec; border:1px solid #cdeeda; border-radius:10px; padding:10px 12px}
+.qdlg-previewbar .btn{min-height:44px; padding:8px 22px; font-size:13.5px; letter-spacing:.4px}
+.qdlg-previewbar span{font-size:12.5px; color:#14532d; font-weight:600}
 
 /* ---------- print / preview toolbar (PTS style) ---------- */
 .ptool{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:flex-end; background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:11px 13px; margin-bottom:14px}
@@ -1430,7 +1436,8 @@ function wizBuilder(){
     '<span class="chip gray">Long '+W.sel.long.length+'/'+W.counts.long+'</span>'+
     '<span class="chip gold">Total Marks: '+wizSelectedMarks()+'</span><span class="sp"></span>'+
     '<button class="btn sm primary" onclick="openQDialog()">Select Questions</button></div>';
-  var canvas = '<div class="bld-canvas">'+status+printToolbarHTML()+(W.manual ? paperSettingsCardHTML() : '')+
+  var prevHead = '<div class="bld-prevhead"><b>Paper Preview — Review</b><span>Yahi asal paper hai — pehle yahan review karein, phir Save ya Print karein. Review ke liye pehle Save karna zaroori nahi.</span></div>';
+  var canvas = '<div class="bld-canvas">'+status+printToolbarHTML()+(W.manual ? paperSettingsCardHTML() : '')+prevHead+
     '<div class="paperwrap" id="wizPreview">'+paperHTML(buildPaperFromWizard(), PS().printKey)+'</div></div>';
   return '<div class="bld">'+rail+canvas+'</div>';
 }
@@ -1580,7 +1587,7 @@ function openQDialog(){
   renderQDialog();
   document.getElementById('qdlgWrap').classList.add('on');
 }
-function closeQDialog(){ var w = document.getElementById('qdlgWrap'); if (w) w.classList.remove('on'); if (W.step !== 1 && document.getElementById('wizPreview')) renderWizard(); }
+function closeQDialog(){ var w = document.getElementById('qdlgWrap'); if (w) w.classList.remove('on'); if (W.step !== 1 && document.getElementById('wizPreview')){ renderWizard(); var pv = document.getElementById('wizPreview'); if (pv) pv.scrollIntoView({ block:'start' }); } }
 function renderQDialog(){
   var t = W.pickTab;
   var subjName = SUBJECTS[W.subject].replace(/ \(Class \d+\)$/,'');
@@ -1615,8 +1622,10 @@ function renderQDialog(){
       '<span class="qdlg-syll"><label><input type="radio" name="dqSyll" value="smart" '+(W.syllabus==='smart'?'checked':'')+' onchange="dlgSetSyllabus(\'smart\')"> Smart Syllabus</label><label><input type="radio" name="dqSyll" value="full" '+(W.syllabus==='full'?'checked':'')+' onchange="dlgSetSyllabus(\'full\')"> Full Syllabus</label></span>'+
     '</div>'+
     '<div class="qdlg-actions"><button class="btn qbtn-green" onclick="dlgRandom()">RANDOM SELECT ›</button><button class="btn qbtn-blue" onclick="dlgAdd()">ADD QUESTION\'S ›</button></div>'+
+    '<div style="margin-top:12px"><button class="btn qbtn-green" style="width:100%; min-height:46px; font-size:14px; letter-spacing:.4px" onclick="dlgPreview()">PREVIEW / REVIEW PAPER ›</button></div>'+
     '<div class="qdlg-results"><div class="qdlg-reshead" id="dqResHead"></div><div id="dqResults"></div></div>'+
     '<h4 class="qdlg-sec">Selected Questions</h4><div id="dqSelTable"></div>'+
+    '<div class="qdlg-previewbar"><button class="btn qbtn-green" onclick="dlgPreview()">PREVIEW / REVIEW PAPER ›</button><span>Poora paper yahin dikh jayega — pehle Save karna zaroori nahi. Pasand na aye to wapas aa kar sawal badal lein.</span></div>'+
     '<h4 class="qdlg-sec">Paper Details</h4>'+
     '<div class="frow">'+
       '<div class="fld"><label>Paper Name</label><input type="text" value="'+esc(W.name)+'" oninput="W.name=this.value" placeholder="e.g. '+esc(subjName)+' — Class Test"></div>'+
@@ -1629,7 +1638,7 @@ function renderQDialog(){
       '<div class="fld"><label>Exam Syllabus</label><input type="text" value="'+esc(W.examSyllabus)+'" oninput="W.examSyllabus=this.value" placeholder="e.g. Unit 1–3"></div>'+
     '</div>'+
     '<label class="chk'+(W.bubble?' sel':'')+'" style="max-width:420px"><input type="checkbox" '+(W.bubble?'checked':'')+' onchange="W.bubble=this.checked; this.closest(\'.chk\').classList.toggle(\'sel\', this.checked)"><span><span class="t">Bubble Sheet (OMR)</span><br><span class="c">Print the MCQ bubble answer sheet with the paper</span></span></label>'+
-    '<div class="qdlg-foot"><button class="btn qbtn-blue" onclick="dlgSave()">SAVE PAPER</button><button class="btn" onclick="dlgBackChapters()">BACK TO CHAPTERS</button></div>'+
+    '<div class="qdlg-foot"><button class="btn qbtn-green" onclick="dlgPreview()">PREVIEW / REVIEW PAPER</button><button class="btn qbtn-blue" onclick="dlgSave()">SAVE PAPER</button><button class="btn" onclick="dlgBackChapters()">BACK TO CHAPTERS</button></div>'+
   '</div>';
   document.getElementById('qdlg').innerHTML = h;
   dlgRefresh();
@@ -1704,6 +1713,15 @@ function dlgAdd(){
   dlgRefresh();
 }
 function dlgRemoveQ(t, id){ W.sel[t] = W.sel[t].filter(function(x){ return x !== id; }); dlgRefresh(); }
+function dlgPreview(){
+  var n = W.sel.mcq.length + W.sel.short.length + W.sel.long.length;
+  if (!n){ alert2('Pehle kuch sawal select karein — phir Preview dabayein, poora paper baghair save kiye dikh jayega.'); return; }
+  wizAutoName();
+  var w = document.getElementById('qdlgWrap'); if (w) w.classList.remove('on');
+  if (W.step === 1) W.step = 2;
+  renderWizard();
+  setTimeout(function(){ var pv = document.getElementById('wizPreview'); if (pv) pv.scrollIntoView({ block:'start' }); }, 60);
+}
 function dlgSave(){
   var missing = wizCheckSelections();
   if (missing.length){ alert2('Some questions are still missing — '+missing.join(', ')+'. Tick more questions or press Random Select.'); return; }
