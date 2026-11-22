@@ -61,25 +61,78 @@ button{font-family:inherit; cursor:pointer}
 input,select,textarea{font-family:inherit; font-size:14px; color:var(--ink)}
 .ur{font-family:'Noto Nastaliq Urdu',serif; direction:rtl; text-align:right; line-height:2.1}
 
-/* ---------- layout ---------- */
-#app{display:flex; min-height:100vh}
-#sidebar{width:238px; flex:0 0 238px; background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%); color:#fff; position:sticky; top:0; height:100vh; display:flex; flex-direction:column; z-index:40}
-#sidebar .brand{padding:20px 18px 14px; border-bottom:1px solid rgba(255,255,255,.12)}
-#sidebar .brand h1{font-size:16.5px; font-weight:700; line-height:1.3}
-#sidebar .brand p{font-size:11px; color:var(--side-ink); margin-top:3px; letter-spacing:.4px}
-#nav{padding:12px 10px; display:flex; flex-direction:column; gap:4px; flex:1; overflow-y:auto}
-#nav button{display:flex; align-items:center; gap:11px; width:100%; min-height:44px; padding:9px 12px; border:0; border-radius:9px; background:transparent; color:var(--side-ink); font-size:13.5px; font-weight:500; text-align:left}
-#nav button svg{flex:0 0 19px}
-#nav button:hover{background:rgba(255,255,255,.08); color:#fff}
-#nav button.active{background:var(--blue); color:var(--on-accent); box-shadow:0 3px 8px rgba(0,0,0,.25)}
-#sidebar .foot{padding:13px 18px; font-size:11px; color:var(--side-ink); border-top:1px solid rgba(255,255,255,.12); line-height:1.6}
+/* ---------- layout: PTS-style chrome (black top bar + white sidebar card) ---------- */
+#topBlack{position:sticky; top:0; z-index:60; background:#0a0a0c; color:#fff; display:flex; align-items:center; gap:14px; padding:9px 18px; box-shadow:0 2px 10px rgba(0,0,0,.35)}
+#burgerBtn{flex:0 0 44px; width:44px; height:44px; border:0; border-radius:9px; background:transparent; color:#fff; display:flex; align-items:center; justify-content:center}
+#burgerBtn:hover{background:rgba(255,255,255,.12)}
+.tb-name{font-size:16.5px; font-weight:800; letter-spacing:.5px; line-height:1.25}
+.tb-ver{font-size:10.5px; color:#9aa3ad; letter-spacing:1.2px; margin-top:1px}
+.tb-right{margin-left:auto; text-align:right; min-width:0}
+.tb-right .s1{font-size:13.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.tb-right .s2{font-size:11px; color:#b9c0c9; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+#app{display:flex; align-items:flex-start; min-height:calc(100vh - 62px)}
+#sidebar{width:252px; flex:0 0 252px; background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); margin:16px 0 16px 16px; position:sticky; top:78px; max-height:calc(100vh - 94px); display:flex; flex-direction:column; z-index:40; overflow-y:auto}
+body.side-off #sidebar{display:none}
+.side-profile{padding:18px 16px 6px; text-align:center}
+.monogram{width:76px; height:76px; margin:0 auto 9px}
+.admin-name{font-size:15px; font-weight:700}
+.admin-sub{font-size:11.5px; color:var(--muted); margin-top:1px}
+.session-banner{margin:10px 16px 4px; background:linear-gradient(90deg,#178a4c,#2fbf71); color:#fff; border-radius:9px; padding:7px 10px; text-align:center; font-size:11.5px; font-weight:700; letter-spacing:1.4px}
+#nav{padding:10px 10px 6px; display:flex; flex-direction:column; gap:3px}
+#nav button{display:flex; align-items:center; gap:11px; width:100%; min-height:44px; padding:9px 12px; border:0; border-radius:9px; background:transparent; color:var(--ink); font-size:13.5px; font-weight:500; text-align:left}
+#nav button .nic{flex:0 0 20px; display:flex; align-items:center; justify-content:center}
+#nav button:hover{background:var(--hover)}
+#nav button.active{background:var(--accent-soft); color:var(--blue); font-weight:700; box-shadow:inset 0 0 0 1px var(--blue)}
+#sidebar .foot{padding:11px 16px; font-size:10.8px; color:var(--muted); border-top:1px solid var(--line); line-height:1.65}
+.side-icons{display:flex; justify-content:space-evenly; padding:11px 12px 13px; border-top:1px solid var(--line)}
+.side-icons button{width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:var(--card); display:flex; align-items:center; justify-content:center}
+.side-icons button:hover{box-shadow:var(--shadow)}
+.side-icons .sic-key{color:#d97706}
+.side-icons .sic-out{color:#d33a2c}
+.side-icons .sic-full{color:#2563eb}
 #main{flex:1; min-width:0; padding:22px 26px 60px}
 #topbar{display:flex; align-items:center; gap:12px; margin-bottom:20px}
 #topbar h2{font-size:22px; font-weight:800; letter-spacing:-.2px; color:var(--stat-n)}
 #topbar .sub{color:var(--muted); font-size:12.5px; margin-top:1px}
-#menuBtn{display:none; min-width:44px; min-height:44px; border:1px solid var(--line); background:var(--card); border-radius:9px; align-items:center; justify-content:center}
 .view{display:none}
 .view.on{display:block}
+
+/* ---------- dashboard: announcement banner, gradient tiles, New Alerts ---------- */
+.announce{display:flex; align-items:center; gap:14px; background:linear-gradient(90deg,#d7e5f6,#edf3fc); border:1px solid #c3d7f2; border-radius:12px; padding:10px 16px; margin-bottom:16px}
+.announce .txt{flex:1; color:#12264f; font-size:15px}
+.announce .mega{flex:0 0 46px; width:46px; height:46px; border-radius:50%; background:#2563eb; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 5px rgba(37,99,235,.16)}
+.tiles{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px}
+.tile{position:relative; border:0; border-radius:14px; padding:16px; text-align:left; color:#fff; min-height:108px; overflow:hidden; box-shadow:var(--shadow); display:block; width:100%}
+.tile:hover{filter:brightness(1.06)}
+.tile .tico{width:42px; height:42px; border-radius:11px; background:rgba(255,255,255,.22); display:flex; align-items:center; justify-content:center; margin-bottom:10px}
+.tile .tt{display:block; font-size:16.5px; font-weight:700; line-height:1.25}
+.tile .ts{display:block; font-size:12px; opacity:.93; margin-top:2px}
+.tile .big{position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:46px; font-weight:800; line-height:1; opacity:.95}
+.tile.blue{background:linear-gradient(120deg,#1665c1,#2f9be8)}
+.tile.green{background:linear-gradient(120deg,#1e8a4c,#4cb944)}
+.tile.orange{background:linear-gradient(120deg,#e06f00,#f59e0b)}
+.tile.purple{background:linear-gradient(120deg,#6d28d9,#a855f7)}
+.tile.teal{background:linear-gradient(120deg,#0e7c86,#14b8a6)}
+.tile.red{background:linear-gradient(120deg,#d63a1f,#ff6b4a)}
+.alerts{margin-bottom:18px; border-radius:14px; overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow); background:var(--card)}
+.alerts .ahead{background:linear-gradient(90deg,#1e40af,#3b82f6); color:#fff; display:flex; align-items:center; gap:11px; padding:11px 16px}
+.alerts .ahead .bico{width:34px; height:34px; flex:0 0 34px; border-radius:9px; background:rgba(255,255,255,.22); display:flex; align-items:center; justify-content:center}
+.alerts .ahead b{font-size:15.5px}
+.alerts .ahead .inf{margin-left:auto; opacity:.9; display:flex}
+.alerts .abody{padding:12px 14px; display:flex; flex-direction:column; gap:9px}
+.arow{display:flex; align-items:center; gap:11px; direction:rtl; background:var(--accent-soft); border-radius:10px; padding:8px 13px; width:100%; border:0; font-family:inherit; text-align:right}
+.arow .aic{flex:0 0 22px; display:flex; align-items:center; justify-content:center; color:var(--green)}
+.arow .ur{flex:1; font-size:14px}
+.arow.link{cursor:pointer}
+.arow.link .aic{color:var(--blue)}
+.arow.link .ur{color:var(--blue)}
+.arow.warn .aic{color:var(--red)}
+.arow.warn .ur{color:var(--red)}
+.cpw-head{margin:-22px -22px 16px; padding:15px 20px; background:linear-gradient(90deg,#7c3aed,#c026d3); color:#fff; border-radius:14px 14px 0 0; display:flex; align-items:center}
+.cpw-head h3{margin:0; color:#fff; font-size:16px}
+.cpw-x{margin-left:auto; background:transparent; border:0; color:#fff; font-size:24px; line-height:1; width:36px; height:36px}
+.act-row{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px dashed var(--line); font-size:13.5px}
+@media (max-width:520px){ .tile{min-height:96px; padding:13px} .tile .tt{font-size:14.5px} .tile .big{font-size:32px; right:11px} .announce .txt{font-size:13.5px} }
 
 /* ---------- cards & stats ---------- */
 .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; margin-bottom:18px}
@@ -178,6 +231,215 @@ table.grid tr:hover td{background:var(--hover)}
 .seg button{min-height:40px; padding:8px 15px; border:0; background:var(--card); color:var(--muted); font-weight:600; font-size:13px}
 .seg button.on{background:var(--blue); color:var(--on-accent)}
 
+/* ---------- step 1: Select Syllabus drill-down (PTS style) ---------- */
+.dd-head h2{font-size:21px; font-weight:800; color:var(--stat-n); letter-spacing:-.2px}
+.dd-crumbbar{display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin:4px 0 15px; font-size:12.5px}
+.dd-crumbbar button{border:0; background:none; color:var(--blue); font-weight:700; font-size:12.5px; padding:2px 0; font-family:inherit}
+.dd-crumbbar .cur{color:var(--muted); font-weight:700}
+.dd-crumbbar .dd-sep{color:var(--muted)}
+.dd-grid{display:grid; gap:13px}
+.dd-note{color:var(--muted); font-size:12.5px; margin-top:13px; max-width:640px}
+.dd-syll{grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); max-width:780px}
+.dd-syllcard{position:relative; text-align:left; border:1px solid rgba(18,38,79,.12); border-radius:14px; padding:16px; color:#12264f; box-shadow:var(--shadow); font-family:inherit; display:block; width:100%}
+.dd-syllcard:hover{filter:brightness(1.04)}
+.dd-logo{width:46px; height:46px; border-radius:50%; background:#fff; color:#2563eb; display:flex; align-items:center; justify-content:center; margin-bottom:11px; box-shadow:0 1px 5px rgba(18,38,79,.18)}
+.dd-syll-t{display:block; font-size:16px; font-weight:800}
+.dd-syll-s{display:block; font-size:12px; opacity:.78; margin-top:2px}
+.dd-pick{position:absolute; top:12px; right:12px; background:#12264f; color:#fff; font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:20px}
+.dd-card-arrow{display:inline-flex; color:inherit; opacity:.75; flex:0 0 auto}
+.dd-syllcard .dd-card-arrow{position:absolute; right:14px; bottom:14px}
+.dd-classes{grid-template-columns:repeat(3,1fr)}
+.dd-classcard{display:flex; align-items:center; gap:10px; text-align:left; border:1px solid rgba(18,38,79,.1); border-radius:14px; padding:15px 16px; color:#12264f; box-shadow:var(--shadow); font-family:inherit; width:100%}
+.dd-classcard:hover{filter:brightness(1.04)}
+.dd-class-main{flex:1; min-width:0}
+.dd-class-t{display:block; font-size:16px; font-weight:800; letter-spacing:.3px}
+.dd-class-s{display:block; font-size:11.5px; opacity:.78; margin-top:1px}
+.dd-subjects{grid-template-columns:repeat(3,1fr)}
+.dd-subjcard{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:11px; text-align:left; color:var(--ink); box-shadow:var(--shadow); font-family:inherit; width:100%}
+.dd-subjcard:hover{border-color:var(--blue)}
+.dd-subjcard img{width:100%; height:118px; object-fit:cover; object-position:top center; border-radius:8px; display:block; margin-bottom:9px; background:#fff}
+.dd-ph{height:118px; border-radius:8px; margin-bottom:9px; display:flex; align-items:center; justify-content:center; background:var(--accent-soft); color:var(--blue); font-size:32px; font-weight:700}
+.dd-subj-row{display:flex; align-items:center; gap:8px}
+.dd-subj-t{font-weight:700; font-size:14.5px; flex:1; min-width:0}
+.dd-subjcard .dd-card-arrow{color:var(--blue); opacity:1}
+.dd-subj-s{display:block; font-size:11.5px; color:var(--muted); margin-top:2px}
+.dd-allrow{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:13px}
+.dd-all{display:flex; align-items:center; gap:9px; cursor:pointer; font-weight:800; color:var(--stat-n); font-size:13.5px; letter-spacing:.4px}
+.dd-all input{width:20px; height:20px; accent-color:var(--blue); flex:0 0 20px; cursor:pointer}
+.dd-sp{flex:1}
+.dd-chaps{grid-template-columns:repeat(2,1fr); align-items:start}
+.dd-chap{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:13px 15px; box-shadow:var(--shadow)}
+.dd-chap-head{display:flex; gap:10px; align-items:flex-start}
+.dd-chap-head input{width:19px; height:19px; margin-top:2px; accent-color:var(--blue); flex:0 0 19px; cursor:pointer}
+.dd-chap-title{font-weight:700; font-size:13.5px; text-transform:uppercase; letter-spacing:.3px; flex:1; min-width:0}
+.dd-chap-count{font-size:11px; color:var(--muted); white-space:nowrap; margin-top:3px}
+.dd-chap-c{font-size:11.5px; color:var(--muted); margin-top:5px; padding-left:29px}
+.dd-subs{margin-top:9px; border-top:1px dashed var(--line); padding-top:6px; display:flex; flex-direction:column}
+.dd-sub{display:flex; gap:8px; align-items:flex-start; padding:6px 6px 6px 16px; border-radius:8px; cursor:pointer}
+.dd-sub:hover{background:var(--hover)}
+.dd-sub.sel{background:var(--accent-soft)}
+.dd-sub input{width:18px; height:18px; margin-top:2px; accent-color:var(--blue); flex:0 0 18px; cursor:pointer}
+.dd-dot{color:var(--muted); font-weight:800}
+.dd-sub-main{flex:1; min-width:0}
+.dd-sub-t{font-size:13px; font-weight:500}
+.dd-sub.sel .dd-sub-t{font-weight:600}
+.dd-sub-c{font-size:11px; color:var(--muted)}
+.dd-smart{color:var(--green); font-weight:700; font-size:11px; white-space:nowrap}
+.dd-nosmart{color:var(--muted); font-size:11px; white-space:nowrap}
+.dd-chapwrap{padding-bottom:88px}
+.dd-next{position:fixed; right:22px; bottom:22px; z-index:55; width:60px; height:60px; border-radius:50%; border:0; background:var(--blue); color:var(--on-accent); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 22px rgba(0,0,0,.32); cursor:pointer}
+.dd-next:hover{background:var(--blue-d)}
+@media (max-width:760px){ .dd-classes{grid-template-columns:repeat(2,1fr)} .dd-subjects{grid-template-columns:repeat(2,1fr)} .dd-chaps{grid-template-columns:1fr} .dd-next{right:16px; bottom:16px} }
+
+/* ---------- builder: PTS sidebar paper menu + canvas ---------- */
+.bld{display:flex; gap:16px; align-items:flex-start}
+.bld-menu{flex:0 0 232px; width:232px; background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:10px; position:sticky; top:78px; display:flex; flex-direction:column; gap:3px}
+.bld-menu button{display:flex; align-items:center; gap:11px; width:100%; min-height:44px; padding:9px 11px; border:0; border-radius:9px; background:transparent; color:var(--ink); font-size:13.5px; font-weight:500; text-align:left; font-family:inherit}
+.bld-menu button:hover{background:var(--hover)}
+.bld-menu button.on{background:var(--accent-soft); color:var(--blue); font-weight:700; box-shadow:inset 0 0 0 1px var(--blue)}
+.bld-menu .bic{flex:0 0 20px; display:flex; align-items:center; justify-content:center}
+.bld-menu .bic-save{color:#1d9d61}
+.bld-menu .bic-cancel{color:#d33a2c}
+.bld-canvas{flex:1; min-width:0}
+.bld-status{display:flex; align-items:center; gap:8px; flex-wrap:wrap; background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:10px 13px; margin-bottom:14px; font-size:13.5px}
+.bld-status .sp{flex:1}
+
+/* ---------- print / preview toolbar (PTS style) ---------- */
+.ptool{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:flex-end; background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:11px 13px; margin-bottom:14px}
+.ptback{flex:0 0 auto; width:40px; height:40px; margin-bottom:1px; border-radius:50%; border:1px solid var(--line); background:var(--chip); color:var(--ink); display:flex; align-items:center; justify-content:center; padding:0; cursor:pointer; font-family:inherit}
+.ptback:hover{background:var(--hover)}
+.ptfld{display:flex; flex-direction:column; gap:4px}
+.ptfld label{font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.3px}
+.ptfld select{min-height:38px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--ink); font-family:inherit; font-size:13px; padding:5px 8px; max-width:190px}
+.ptchecks{display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; padding-bottom:8px; flex:1 1 260px}
+.ptchk{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--ink); cursor:pointer}
+.ptchk input{width:16px; height:16px; accent-color:var(--blue); margin:0}
+.ptbtns{display:flex; flex-wrap:wrap; gap:8px; margin-left:auto}
+@media (max-width:760px){ .ptbtns{margin-left:0; width:100%} .ptbtns .btn{flex:1 1 44%} .ptfld{flex:1 1 44%} .ptfld select{max-width:none; width:100%} }
+@media (max-width:860px){
+  .bld{flex-direction:column}
+  .bld-menu{position:static; width:100%; flex:none; flex-direction:row; flex-wrap:wrap}
+  .bld-menu button{width:auto; flex:1 1 44%}
+}
+
+/* ---------- question-selection dialog (PTS style) ---------- */
+#qdlgWrap{position:fixed; inset:0; background:rgba(10,18,35,.55); display:none; align-items:flex-start; justify-content:center; z-index:80; padding:14px; overflow-y:auto}
+#qdlgWrap.on{display:flex}
+#qdlg{background:var(--card); color:var(--ink); border-radius:14px; max-width:920px; width:100%; box-shadow:var(--shadow-lg); display:flex; flex-direction:column; max-height:94vh; margin:auto 0; overflow:hidden}
+.qdlg-head{background:linear-gradient(90deg,#7c3aed,#c026d3); color:#fff; padding:14px 18px; display:flex; align-items:center; gap:10px; flex:0 0 auto}
+.qdlg-head b{font-size:15.5px}
+.qdlg-x{margin-left:auto; background:transparent; border:0; color:#fff; font-size:25px; line-height:1; width:38px; height:38px; flex:0 0 38px; border-radius:8px}
+.qdlg-x:hover{background:rgba(255,255,255,.16)}
+.qdlg-body{padding:16px 18px 18px; overflow-y:auto}
+.qdlg-top{display:flex; gap:13px; align-items:flex-start}
+.qdlg-cover{width:52px; height:66px; object-fit:cover; object-position:top center; border-radius:7px; border:1px solid var(--line); flex:0 0 52px; background:#fff}
+.qdlg-ph{display:flex; align-items:center; justify-content:center; background:var(--accent-soft); color:var(--blue); font-size:22px; font-weight:700}
+.qdlg-chips{display:flex; gap:6px; flex-wrap:wrap; max-height:74px; overflow-y:auto; padding-top:2px}
+.qchip{display:inline-block; padding:3px 10px; border-radius:20px; background:var(--chip); color:var(--blue); font-size:11.5px; font-weight:600; max-width:270px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.qdlg-srcnote{font-size:11.5px; color:var(--muted); margin-top:4px}
+.fld select[multiple]{min-height:88px; padding:6px 8px}
+.qbtn-green{background:linear-gradient(90deg,#178a4c,#2fbf71); border-color:#178a4c; color:#fff}
+.qbtn-green:hover{background:linear-gradient(90deg,#147a42,#28a961); color:#fff; border-color:#147a42}
+.qbtn-blue{background:linear-gradient(90deg,#1d4ed8,#3b82f6); border-color:#1d4ed8; color:#fff}
+.qbtn-blue:hover{background:linear-gradient(90deg,#1e40af,#2563eb); color:#fff; border-color:#1e40af}
+.qdlg-selrow{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin:2px 0 4px}
+.qchk{display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; cursor:pointer; min-height:32px}
+.qchk input{width:18px; height:18px; accent-color:var(--blue); flex:0 0 18px}
+.qdlg-sp{flex:1}
+.qdlg-selcount{font-size:13.5px}
+.qdlg-selcount b{font-size:15px}
+.qdlg-syll{display:inline-flex; gap:14px; background:#fff3a0; color:#4a3d00; border-radius:9px; padding:8px 13px}
+.qdlg-syll label{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; cursor:pointer}
+.qdlg-syll input{width:16px; height:16px; accent-color:#b45309}
+.qdlg-actions{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px}
+.qdlg-actions .btn{min-height:46px; font-size:14px; letter-spacing:.4px}
+.qdlg-results{background:#e9f7ec; border:1px solid #cdeeda; border-radius:10px; padding:12px; margin-top:14px}
+.qdlg-reshead{font-size:13px; color:#14532d; margin-bottom:10px}
+.qdlg-results .qpick{background:#fff; color:#1c2733}
+.qdlg-results .qpick.sel{background:#eef4ff}
+.qdlg-results .qpick .opts{color:#63707f}
+.qdlg-note{color:#3f6212; font-size:12.5px; margin-top:4px}
+.qdlg-sec{font-size:14.5px; font-weight:700; margin:18px 0 9px}
+.qdlg-table{width:100%; border-collapse:collapse; font-size:12.5px}
+.qdlg-table th{text-align:left; padding:8px 9px; background:var(--chip); color:var(--ink); font-weight:700}
+.qdlg-table th:first-child{border-top-left-radius:8px}
+.qdlg-table th:last-child{border-top-right-radius:8px}
+.qdlg-table td{padding:7px 9px; border-bottom:1px solid var(--line); vertical-align:top}
+.qdlg-table td.qq{max-width:430px; font-size:12.5px}
+.qdlg-table tfoot td{border-bottom:0; border-top:2px solid var(--line); font-size:13px}
+.qdel{border:0; background:#fdecea; color:#d33a2c; width:30px; height:30px; border-radius:8px; font-size:16px; line-height:1}
+.qdel:hover{background:#fadbd7}
+.qdlg-foot{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+.qdlg-foot .btn{min-height:46px; padding:8px 26px; font-size:14px; letter-spacing:.4px}
+@media (max-width:640px){
+  #qdlgWrap{padding:8px}
+  .qdlg-actions{grid-template-columns:1fr}
+  .qdlg-table td.qq{max-width:180px}
+  .qdlg-selrow{gap:10px}
+}
+
+/* ---------- saved papers (PTS style) ---------- */
+.sp-top{display:flex; align-items:flex-start; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+.sp-h{font-size:24px; font-weight:800; color:var(--stat-n); letter-spacing:-.2px; line-height:1.2}
+.sp-count{font-size:12.5px; color:var(--muted); margin-top:4px}
+.sp-search{margin-left:auto; position:relative; width:min(320px,100%); flex:0 1 320px}
+.sp-search input{width:100%; min-height:44px; border:1px solid var(--line); background:var(--chip); color:var(--ink); border-radius:999px; padding:9px 52px 9px 18px; font-size:13.5px; font-family:inherit}
+.sp-search input:focus{outline:2px solid var(--blue); outline-offset:0; background:var(--card)}
+.sp-mag{position:absolute; right:5px; top:50%; transform:translateY(-50%); width:34px; height:34px; border-radius:50%; border:0; background:#7c3aed; color:#fff; display:flex; align-items:center; justify-content:center; padding:0}
+.sp-mag:hover{background:#6d28d9}
+.sp-tablewrap{background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow)}
+.sp-table{width:100%; border-collapse:collapse; font-size:13px}
+.sp-table th{background:#16294d; color:#fff; text-align:left; padding:11px 10px; font-weight:600; white-space:nowrap}
+.sp-table th:first-child{border-top-left-radius:13px}
+.sp-table th:last-child{border-top-right-radius:13px}
+.sp-table td{padding:10px; border-bottom:1px solid var(--line); vertical-align:top}
+.sp-table tbody tr:last-child td{border-bottom:0}
+.sp-table tbody tr:nth-child(even) td{background:var(--zebra)}
+.sp-table tbody tr:hover td{background:var(--hover)}
+.sp-table td.sp-act{position:relative; text-align:right; width:58px}
+.sp-dots{width:38px; height:38px; border-radius:50%; border:1px solid transparent; background:transparent; color:var(--muted); display:inline-flex; align-items:center; justify-content:center; padding:0}
+.sp-dots:hover{background:var(--hover); color:var(--ink); border-color:var(--line)}
+.sp-menu{position:absolute; right:6px; top:46px; z-index:30; min-width:198px; background:var(--card); border:1px solid var(--line); border-radius:11px; box-shadow:var(--shadow-lg); padding:5px; display:none; text-align:left}
+.sp-menu.on{display:block}
+.sp-menu button{display:flex; align-items:center; gap:9px; width:100%; min-height:40px; padding:7px 10px; border:0; border-radius:8px; background:transparent; color:var(--ink); font-size:13px; font-weight:500; font-family:inherit; text-align:left}
+.sp-menu button:hover{background:var(--hover)}
+.sp-menu .sp-mi{flex:0 0 18px; display:flex; align-items:center; justify-content:center}
+.sp-menu .sp-del{color:var(--red)}
+.sp-empty{background:var(--card); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:20px; color:var(--muted); font-size:13.5px}
+.sp-empty b{color:var(--ink)}
+@media (max-width:820px){
+  .sp-search{margin-left:0; width:100%; flex:1 1 100%}
+  .sp-tablewrap{background:transparent; border:0; box-shadow:none}
+  .sp-table{display:block}
+  .sp-table thead{display:none}
+  .sp-table tbody{display:block}
+  .sp-table tr{display:block; background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:8px 13px; margin-bottom:10px}
+  .sp-table td{display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:6px 0; border-bottom:1px dashed var(--line); text-align:right}
+  .sp-table tbody tr:last-child td{border-bottom:1px dashed var(--line)}
+  .sp-table td:last-child{border-bottom:0 !important}
+  .sp-table td::before{content:attr(data-label); font-weight:600; color:var(--muted); font-size:11.5px; text-align:left; flex:0 0 auto}
+  .sp-table tbody tr:nth-child(even) td{background:transparent}
+  .sp-table tbody tr:hover td{background:transparent}
+  .sp-table td.sp-act{width:auto; justify-content:flex-end; align-items:center}
+  .sp-table td.sp-act::before{content:"Actions"}
+  .sp-menu{top:44px; right:0}
+}
+
+/* ---------- account settings (PTS style) ---------- */
+.acct-preview{background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:16px; display:flex; align-items:center; gap:16px; color:#000; overflow:hidden}
+.acct-preview .ap-mono{flex:0 0 auto; display:flex; align-items:center; justify-content:center}
+.acct-preview .ap-center{flex:1; min-width:0; text-align:center}
+#apName{font-family:Georgia,'Times New Roman',serif; font-size:27px; font-weight:800; line-height:1.25; color:#12264f; transform-origin:center}
+#apTag{margin-top:3px; font-size:12.5px; line-height:1.45; color:#000; transform-origin:center}
+.pts-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:13px}
+.pts-grid .fld label .req{color:#d33a2c}
+.fld input[type=color].colorin{width:100%; height:42px; padding:4px; border:1px solid var(--line); border-radius:9px; background:var(--card)}
+.acct-foot{display:flex; justify-content:flex-end; margin-top:12px}
+.btn-update{background:linear-gradient(90deg,#1d4ed8,#3b82f6); border-color:#1d4ed8; color:#fff; min-height:44px; padding:9px 26px; letter-spacing:.4px}
+.btn-update:hover{background:linear-gradient(90deg,#1e40af,#2563eb); color:#fff; border-color:#1e40af}
+@media (max-width:900px){ .pts-grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:560px){ .pts-grid{grid-template-columns:1fr} .acct-preview{flex-direction:column} }
+
 /* question rows */
 .qpick{border:1px solid var(--line); border-radius:10px; padding:11px 13px; margin-bottom:8px; display:flex; gap:11px; background:var(--card)}
 .qpick input{width:19px; height:19px; margin-top:3px; accent-color:var(--blue); flex:0 0 19px}
@@ -204,7 +466,11 @@ sup,sub{font-size:.72em}
 .paper{background:var(--paper); color:#000; width:794px; margin:0 auto; padding:44px 48px 52px; position:relative; box-shadow:0 6px 30px rgba(0,0,0,.35); font-family:Georgia,'Times New Roman',serif}
 .paper .wm{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; overflow:hidden}
 .paper .wm span{transform:rotate(-32deg); font-size:60px; font-weight:700; color:rgba(18,38,79,.02); white-space:nowrap; text-align:center; line-height:1.3}
-.paper .phead{text-align:center; border-bottom:3px double #000; padding-bottom:10px; margin-bottom:12px; position:relative}
+.paper .phead{text-align:center; border-bottom:3px double #000; padding-bottom:10px; margin-bottom:12px; position:relative; display:flex; align-items:center; gap:14px}
+.paper .phead .mono{flex:0 0 auto; display:flex; align-items:center; justify-content:center}
+.paper .phead .ph-center{flex:1; min-width:0}
+.paper .phead .mono-sp{flex:0 0 auto}
+.paper .phead .an,.paper .phead .tag{transform-origin:center}
 .paper .phead .an{font-size:27px; font-weight:800; letter-spacing:.4px; color:#12264f; font-family:'Poppins',sans-serif}
 .paper .phead .tag{font-size:12.5px; color:#000; font-weight:600}
 .paper .phead .pname{font-size:16px; font-weight:700; margin-top:5px; text-transform:uppercase; letter-spacing:1px}
@@ -227,7 +493,15 @@ sup,sub{font-size:.72em}
 .paper .bubble td,.paper .bubble th{border:1.6px solid #000; padding:3px 5px; text-align:center; color:#000}
 .paper .bubble .cir{display:inline-block; width:15px; height:15px; border:2.2px solid #000; border-radius:50%; font-size:9px; font-weight:700; line-height:13px; vertical-align:middle; color:#000}
 .paper .keyq{font-size:.93em; margin-bottom:5px; position:relative; color:#000; font-weight:600}
-.paper .ur{color:#000; font-size:1.14em; font-weight:600}
+.paper .examline{display:flex; flex-wrap:wrap; gap:3px 18px; font-size:.93em; font-weight:700; margin:1px 0 7px; position:relative}
+.paper .codeblank{display:inline-block; min-width:64px; border-bottom:1px dotted #555}
+.paper .qgrid{display:grid; grid-template-columns:1fr 1fr; column-gap:30px; position:relative}
+.paper .qgrid .q{min-width:0}
+.paper .blanks{margin:1px 0 3px}
+.paper .blanks span{display:block; height:1.45em; border-bottom:1px dotted #8f8f8f}
+.paper .chaphead .chnote{margin-left:auto; white-space:nowrap; font-size:.92em}
+.paper .wm span.wmmono{transform:none; opacity:.06; display:flex; align-items:center; justify-content:center}
+.paper .ur{color:#000; font-size:1.14em; font-weight:600; font-family:var(--urfont,'Noto Nastaliq Urdu',serif)}
 .paper .frac{font-size:.99em; font-weight:700; color:#000}
 .paper .frac .fn{border-bottom:2px solid currentColor}
 .paper .sqrt .rad{border-top:2px solid currentColor}
@@ -240,19 +514,17 @@ sup,sub{font-size:.72em}
 #modal h3{font-size:16px; margin-bottom:13px}
 
 @media (max-width:860px){
-  #app{flex-direction:column}
-  #sidebar{position:static; width:100%; flex:none; height:auto; transform:none}
-  #sidebar .brand{padding:13px 16px 9px}
-  #nav{flex-direction:row; flex-wrap:wrap; padding:9px}
-  #nav button{width:auto; flex:1 1 28%; justify-content:center; padding:9px 7px; font-size:12.5px}
-  #sidebar .foot{display:none}
-  #menuBtn{display:none}
+  #topBlack{flex-wrap:wrap; row-gap:2px}
+  .tb-right{flex:1 1 100%; margin-left:0}
+  #sidebar{display:none; position:fixed; top:112px; left:10px; margin:0; width:min(284px,88vw); max-height:calc(100vh - 124px); box-shadow:var(--shadow-lg)}
+  #sidebar.open{display:flex}
   #main{padding:16px 13px 50px}
+  .tb-name{font-size:14px}
   table.grid{font-size:12px}
   table.grid th, table.grid td{padding:7px 6px}
 }
 @media print{
-  #app,#modalWrap{display:none !important}
+  #topBlack,#app,#modalWrap{display:none !important}
   #printRoot{display:block !important}
   body{background:#fff}
   .paperwrap{background:#fff; padding:0; overflow:visible}
@@ -263,25 +535,43 @@ sup,sub{font-size:.72em}
 </style>
 </head>
 <body>
+<header id="topBlack">
+  <button id="burgerBtn" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <div>
+    <div class="tb-name">THE ROSE ACADEMY OF SCIENCES</div>
+    <div class="tb-ver">PAPER GENERATOR · VERSION 1.0</div>
+  </div>
+  <div class="tb-right">
+    <div class="s1" id="topSchool">The Rose Academy Of Sciences</div>
+    <div class="s2" id="topTag">Quality Education • Mathematical Thinking • Academic Excellence</div>
+  </div>
+</header>
 <div id="app">
   <aside id="sidebar">
-    <div class="brand">
-      <h1>🌹 The Rose Academy<br>Of Sciences</h1>
-      <p>PAPER GENERATOR</p>
+    <div class="side-profile">
+      <div class="monogram"><svg width="76" height="76" viewBox="0 0 76 76" role="img" aria-label="Rose Academy monogram"><circle cx="38" cy="38" r="36" fill="#12264f"/><circle cx="38" cy="38" r="31" fill="none" stroke="#e8a91c" stroke-width="1.6"/><text x="38" y="46" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="700" fill="#ffffff">RA</text></svg></div>
+      <div class="admin-name">Administrator</div>
+      <div class="admin-sub">Hafiz Muhammad Rashid</div>
     </div>
+    <div class="session-banner">SESSION 2026–27</div>
     <nav id="nav">
-      <button data-view="dashboard" class="active"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Dashboard</button>
-      <button data-view="generate"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Generate Paper</button>
-      <button data-view="bank"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>Question Bank</button>
-      <button data-view="papers"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>My Papers</button>
-      <button data-view="backup"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>Backup &amp; Settings</button>
+      <button data-view="dashboard" class="active"><span class="nic" style="color:#2563eb"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>Dashboard</button>
+      <button data-view="generate"><span class="nic" style="color:#0891b2"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>Generate Paper</button>
+      <button data-view="bank"><span class="nic" style="color:#1d9d61"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.4 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.2-9.19a4 4 0 0 1 5.65 5.66l-9.2 9.19a2 2 0 0 1-2.82-2.83l8.49-8.48"/></svg></span>Past Papers</button>
+      <button data-view="papers"><span class="nic" style="color:#e07b00"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg></span>Saved Papers</button>
+      <button id="navPass"><span class="nic" style="color:#d97706"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15.5" r="4.5"/><path d="M11.3 12.2 20 3.5"/><path d="M15.5 8l3 3"/></svg></span>Change Password</button>
+      <button data-view="backup"><span class="nic" style="color:#64748b"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg></span>Backup &amp; Settings</button>
     </nav>
     <div class="foot">Question bank: past papers only.<br>Class 9 Mathematics exercise-wise &amp; Biology topic-wise · Class 10 Mathematics exercise-wise · Class 1 &amp; 2 exercise/topic-wise · Class 5 English, General Science, Mathematics &amp; Urdu · Class 11 &amp; 12 Mathematics.<br>Data saves in this browser only.</div>
+    <div class="side-icons">
+      <button id="sideKey" class="sic-key" aria-label="Change Password" title="Change Password"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15.5" r="4.5"/><path d="M11.3 12.2 20 3.5"/><path d="M15.5 8l3 3"/></svg></button>
+      <button id="sideLogout" class="sic-out" aria-label="Logout" title="Logout"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v8"/><path d="M6.3 6.5a8 8 0 1 0 11.4 0"/></svg></button>
+      <button id="sideFull" class="sic-full" aria-label="Fullscreen" title="Fullscreen"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+    </div>
   </aside>
 
   <main id="main">
     <div id="topbar">
-      <button id="menuBtn" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
       <div>
         <h2 id="pageTitle">Dashboard</h2>
         <div class="sub" id="pageSub">The Rose Academy Of Sciences — Paper Generator</div>
@@ -290,6 +580,9 @@ sup,sub{font-size:.72em}
 
     <!-- DASHBOARD -->
     <section class="view on" id="view-dashboard">
+      <div class="announce"><div class="txt ur">دی روز اکیڈمی آف سائنسز کے پیپر جنریٹر میں خوش آمدید — ماضی کے پرچوں کے سوالیہ بینک سے نیا پرچہ بنائیں، محفوظ کریں اور پرنٹ کریں۔</div><div class="mega"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div></div>
+      <div class="tiles" id="dashTiles"></div>
+      <div class="alerts" id="dashAlerts"></div>
       <div class="theme-bar">
         <span class="tlabel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="10" r="1.3" fill="currentColor" stroke="none"/><path d="M12 21a2.4 2.4 0 0 1-2.4-2.4c0-1 .8-1.6.8-2.6 0-.8.7-1.5 1.6-1.5h1.2a4.8 4.8 0 0 0 4.8-4.8c0-.4 0-.7-.1-1"/></svg>App Theme</span>
         <div class="tswitch" data-tswitch></div>
@@ -342,8 +635,18 @@ sup,sub{font-size:.72em}
       <div class="toolbar"><span class="sp"></span><button class="btn" id="bfMore" onclick="bankShowMore()">Show More Questions</button><span class="sp"></span></div>
     </section>
 
-    <!-- MY PAPERS -->
+    <!-- SAVED PAPERS -->
     <section class="view" id="view-papers">
+      <div class="sp-top">
+        <div>
+          <h2 class="sp-h">Saved Papers</h2>
+          <div class="sp-count" id="spCount">0 Record's Found</div>
+        </div>
+        <div class="sp-search">
+          <input id="spSearch" type="text" placeholder="Search..." aria-label="Search saved papers" oninput="spSearchInput(this.value)">
+          <button type="button" class="sp-mag" aria-label="Search" onclick="document.getElementById('spSearch').focus()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.6-4.6"/></svg></button>
+        </div>
+      </div>
       <div id="papersList"></div>
     </section>
 
@@ -364,26 +667,56 @@ sup,sub{font-size:.72em}
         <div class="msg" id="backupMsg"></div>
       </div>
       <div class="card">
-        <h3>Settings</h3>
-        <div class="frow">
-          <div class="fld"><label>Academy name (printed on papers)</label><input id="setAcademy" type="text"></div>
-          <div class="fld"><label>Tagline (printed under the name)</label><input id="setTagline" type="text"></div>
+        <h3>Account Settings <span class="hint">— the paper header that prints at the top of every paper</span></h3>
+        <div class="acct-preview">
+          <div class="ap-mono" id="apMono" style="width:50px; height:50px"><svg width="50" height="50" viewBox="0 0 76 76" role="img" aria-label="Rose Academy monogram"><circle cx="38" cy="38" r="36" fill="#12264f"/><circle cx="38" cy="38" r="31" fill="none" stroke="#e8a91c" stroke-width="1.6"/><text x="38" y="46" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="700" fill="#ffffff">RA</text></svg></div>
+          <div class="ap-center">
+            <div id="apName">The Rose Academy Of Sciences</div>
+            <div id="apTag">Quality Education • Mathematical Thinking • Academic Excellence</div>
+          </div>
         </div>
-        <button class="btn primary" onclick="saveSettings()">Save Settings</button>
-        <div class="msg" id="setMsg"></div>
-      </div>
-      <div class="card">
-        <h3>Paper Settings <span class="hint">— MS Word style: set the paper yourself; it applies to every preview and print, and each chapter prints under its own heading</span></h3>
-        <div class="frow">
-          <div class="fld"><label>Paper font</label><select id="psFont">
-            <option value="Georgia, 'Times New Roman', serif">Georgia (classic)</option>
+        <div class="pts-grid">
+          <div class="fld"><label>Academy Name <span class="req">*</span></label><input id="setAcademy" type="text" oninput="acctPreview()"></div>
+          <div class="fld"><label>Address / Tagline (printed under the name) <span class="req">*</span></label><input id="setTagline" type="text" oninput="acctPreview()"></div>
+          <div class="fld"><label>Select Font Style <span class="req">*</span></label><select id="asFontStyle" onchange="acctPreview()">
+            <option value="Georgia, 'Times New Roman', serif">Georgia</option>
             <option value="'Times New Roman', Times, serif">Times New Roman</option>
             <option value="Arial, Helvetica, sans-serif">Arial</option>
+            <option value="'Arial Narrow', Arial, sans-serif">Arial Narrow</option>
             <option value="Verdana, Geneva, sans-serif">Verdana</option>
             <option value="Tahoma, Geneva, sans-serif">Tahoma</option>
-            <option value="'Poppins', sans-serif">Poppins (modern)</option>
+            <option value="Calibri, 'Segoe UI', sans-serif">Calibri</option>
+            <option value="'Poppins', sans-serif">Poppins</option>
             <option value="'Noto Nastaliq Urdu', serif">Urdu Nastaliq</option>
+            <option value="Algerian, 'Times New Roman', serif">Algerian</option>
+            <option value="'Bodoni Bd BT', 'Bodoni MT', Georgia, serif">Bodoni Bd BT</option>
+            <option value="Mistral, 'Segoe Script', cursive">Mistral</option>
+            <option value="'Modern No. 20', Georgia, serif">Modern No. 20</option>
+            <option value="'Snap ITC', 'Comic Sans MS', cursive">Snap ITC</option>
+            <option value="Stencil, 'Arial Black', sans-serif">Stencil</option>
+            <option value="'Swis721 Blk BT', 'Arial Black', sans-serif">Swis721 Blk BT</option>
+            <option value="'Old English Text MT', Georgia, serif">Old English Text MT</option>
+            <option value="Kalam, 'Comic Sans MS', cursive">Kalam</option>
           </select></div>
+          <div class="fld"><label>School Name Font Color <span class="req">*</span></label><input id="asNameColor" type="color" class="colorin" oninput="acctPreview()"></div>
+          <div class="fld"><label>Footer Font Color <span class="req">*</span></label><input id="asTagColor" type="color" class="colorin" oninput="acctPreview()"></div>
+          <div class="fld"><label>Monogram Height</label><input id="asMonoHeight" type="number" min="24" max="120" step="1" oninput="acctPreview()"></div>
+          <div class="fld"><label>School Name Font Size <span class="req">*</span></label><input id="asNameSize" type="number" min="18" max="36" step="1" oninput="acctPreview()"></div>
+          <div class="fld"><label>School Name Font Stretch <span class="req">*</span></label><input id="asNameStretch" type="number" min="0.5" max="2" step="0.1" oninput="acctPreview()"></div>
+          <div class="fld"><label>Default Watermark</label><select id="asWatermark" onchange="acctPreview()">
+            <option value="name">School Name Watermark</option>
+            <option value="monogram">Monogram Watermark</option>
+            <option value="none">No Watermark</option>
+          </select></div>
+          <div class="fld"><label>Footer Font Size <span class="req">*</span></label><input id="asTagSize" type="number" min="9" max="20" step="0.5" oninput="acctPreview()"></div>
+          <div class="fld"><label>Footer Font Stretch <span class="req">*</span></label><input id="asTagStretch" type="number" min="0.5" max="2" step="0.1" oninput="acctPreview()"></div>
+        </div>
+        <div class="acct-foot"><button class="btn btn-update" onclick="saveAccountSettings()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>UPDATE</button></div>
+        <div class="msg" id="setMsg" style="margin-top:12px"></div>
+      </div>
+      <div class="card">
+        <h3>Paper Settings <span class="hint">— MS Word style: the body of the paper; it applies to every preview and print, and each chapter prints under its own heading. The header name, colours and font style are set in Account Settings above — its colour is also the heading-bar colour.</span></h3>
+        <div class="frow">
           <div class="fld"><label>Font size (11–20)</label><input id="psSize" type="number" min="11" max="20" step="0.5"></div>
           <div class="fld"><label>Line spacing</label><select id="psLH">
             <option value="1.15">1.15 — tight</option>
@@ -393,11 +726,7 @@ sup,sub{font-size:.72em}
             <option value="2">2.0 — double</option>
           </select></div>
           <div class="fld"><label>Page margins — mm (8–25)</label><input id="psMargin" type="number" min="8" max="25" step="1"></div>
-        </div>
-        <div class="frow">
           <div class="fld"><label>Space between questions — px (4–24)</label><input id="psGap" type="number" min="4" max="24" step="1"></div>
-          <div class="fld"><label>Academy name size — px (18–36)</label><input id="psHead" type="number" min="18" max="36" step="1"></div>
-          <div class="fld"><label>Heading bar colour</label><input id="psColor" type="color" style="width:100%; height:42px; padding:4px; border:1px solid var(--line); border-radius:9px; background:var(--card)"></div>
         </div>
         <div class="chkgrid" style="margin-bottom:13px">
           <label class="chk" id="psChapWrap"><input type="checkbox" id="psChap" onchange="this.closest('.chk').classList.toggle('sel', this.checked)"><span><span class="t">Chapter headings</span><br><span class="c">A separate heading for every chapter in the paper</span></span></label>
@@ -425,6 +754,7 @@ sup,sub{font-size:.72em}
 </div>
 
 <div id="modalWrap"><div id="modal"></div></div>
+<div id="qdlgWrap" onclick="if(event.target===this) closeQDialog()"><div id="qdlg"></div></div>
 <div id="printRoot"></div>
 
 <script src="assets/bank-a.js"></script>
@@ -446,7 +776,7 @@ var store = { userQ: [], hidden: [], papers: [], settings: { academy:'The Rose A
 try { var raw = localStorage.getItem(LS_KEY); if (raw) { var p = JSON.parse(raw); if (p && typeof p === 'object') store = Object.assign(store, p); } } catch(e){}
 
 /* paper look settings — MS Word style: font, size, spacing, margins (saved with the other settings) */
-function defaultPS(){ return { font:"Georgia, 'Times New Roman', serif", fontSize:14.5, lineHeight:1.5, margin:14, qGap:11, headSize:27, secColor:'#12264f', chapHead:true, watermark:true, frame:true }; }
+function defaultPS(){ return { font:"'Times New Roman', Times, serif", fontSize:14.5, lineHeight:1.5, margin:14, qGap:11, headSize:27, secColor:'#12264f', chapHead:true, watermark:true, frame:true, tagColor:'#000000', tagSize:12.5, tagStretch:1, headStretch:1, monoHeight:50, wmStyle:'name', printHeader:true, printDate:true, printStudent:true, printKey:false, urduTop:false, urduFont:"'Noto Nastaliq Urdu', serif", layout:'1' }; }
 if (!store.settings || typeof store.settings !== 'object') store.settings = { academy:'The Rose Academy Of Sciences', tagline:'' };
 store.settings.ps = Object.assign(defaultPS(), store.settings.ps || {});
 function PS(){ return store.settings.ps; }
@@ -582,13 +912,17 @@ function qTextHtml(q, medium){
   return en + ur; /* dual */
 }
 function stripPaperPrefix(s){ return String(s == null ? '' : s).replace(/^Q\d+-[IVXLCDM0-9]+\.\s*/, ''); }
-function paperQTextHtml(q, medium){ return qTextHtml({ e:stripPaperPrefix(q.e), u:stripPaperPrefix(q.u), o:q.o, a:q.a }, medium); }
+function paperQTextHtml(q, medium){
+  var qq = { e:stripPaperPrefix(q.e), u:stripPaperPrefix(q.u), o:q.o, a:q.a };
+  if (medium === 'dual' && PS().urduTop && qq.e && qq.u) return '<div class="ur">'+fmt(qq.u)+'</div><div>'+fmt(qq.e)+'</div>';
+  return qTextHtml(qq, medium);
+}
 function mediumLabel(m){ return m === 'en' ? 'English Medium' : (m === 'ur' ? 'Urdu Medium' : 'Dual Medium'); }
 function paperMedium(paper){ return paper && (paper.medium === 'en' || paper.medium === 'ur') ? paper.medium : 'dual'; }
 function typeLabel(t){ return t==='mcq' ? 'MCQ' : (t==='short' ? 'Short' : 'Long'); }
 
 /* ================= navigation ================= */
-var TITLES = { dashboard:['Dashboard','Overview of your question bank and papers'], generate:['Generate Paper','Make a paper in 5 easy steps'], bank:['Question Bank','Textbook questions + your own questions'], papers:['My Papers','Papers you saved — view, print or delete'], backup:['Backup & Settings','Save your work and set the academy name'] };
+var TITLES = { dashboard:['Dashboard','Overview of your question bank and papers'], generate:['Generate Paper','Make a paper in 5 easy steps'], bank:['Question Bank','Textbook questions + your own questions'], papers:['Saved Papers','Papers you saved — view, print or delete'], backup:['Backup & Settings','Save your work and set the academy name'] };
 function go(view){
   document.querySelectorAll('#nav button').forEach(function(b){ b.classList.toggle('active', b.dataset.view === view); });
   document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('on'); });
@@ -603,8 +937,57 @@ function go(view){
   if (view === 'backup'){ document.getElementById('setAcademy').value = store.settings.academy; document.getElementById('setTagline').value = store.settings.tagline; fillPaperSettings(); }
   window.scrollTo(0,0);
 }
-document.querySelectorAll('#nav button').forEach(function(b){ b.addEventListener('click', function(){ go(b.dataset.view); }); });
-document.getElementById('menuBtn').addEventListener('click', function(){ document.getElementById('sidebar').classList.toggle('open'); });
+document.querySelectorAll('#nav button').forEach(function(b){ if (!b.dataset.view) return; b.addEventListener('click', function(){ go(b.dataset.view); }); });
+document.getElementById('burgerBtn').addEventListener('click', function(){
+  if (window.innerWidth <= 860){ document.body.classList.remove('side-off'); document.getElementById('sidebar').classList.toggle('open'); }
+  else document.body.classList.toggle('side-off');
+});
+document.getElementById('navPass').addEventListener('click', openChangePassword);
+document.getElementById('sideKey').addEventListener('click', openChangePassword);
+document.getElementById('sideLogout').addEventListener('click', openLogout);
+document.getElementById('sideFull').addEventListener('click', toggleFullscreen);
+
+/* ================= chrome dialogs (PTS-style) ================= */
+function openChangePassword(){
+  openModal('<div class="cpw-head"><h3>Change Password</h3><button class="cpw-x" onclick="closeModal()" aria-label="Close">×</button></div>'+
+  '<div class="fld"><label>Current Password *</label><input id="cpwCur" type="password" autocomplete="current-password"></div>'+
+  '<div class="fld" style="margin-top:11px"><label>New Password *</label><input id="cpwNew" type="password" autocomplete="new-password"></div>'+
+  '<div class="msg" id="cpwMsg" style="margin-top:12px"></div>'+
+  '<button class="btn primary" style="width:100%" onclick="submitChangePassword()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15.5" r="4.5"/><path d="M11.3 12.2 20 3.5"/><path d="M15.5 8l3 3"/></svg>CHANGE PASSWORD</button>');
+}
+function submitChangePassword(){
+  var m = document.getElementById('cpwMsg'); if (!m) return;
+  var cur = document.getElementById('cpwCur').value, nw = document.getElementById('cpwNew').value;
+  if (!cur || !nw){ m.className = 'msg err'; m.textContent = 'Fill both password fields first.'; return; }
+  m.className = 'msg err'; m.textContent = 'No account password is set for this app — it opens directly in your browser, so there is no password to change.';
+}
+function openLogout(){
+  openModal('<h3>Logout</h3><p style="margin-bottom:14px">You are using the <b>Administrator</b> account (Hafiz Muhammad Rashid). Your saved papers and your own questions stay saved in this browser.</p><div class="toolbar"><button class="btn primary" onclick="closeModal(); go(\'dashboard\')">Back to Dashboard</button><button class="btn" onclick="closeModal()">Cancel</button></div>');
+}
+function toggleFullscreen(){
+  try {
+    if (document.fullscreenElement){ document.exitFullscreen(); }
+    else { var p = document.documentElement.requestFullscreen(); if (p && p.catch) p.catch(function(){}); }
+  } catch(e){}
+}
+function openMethod2(){
+  openModal('<h3>Generate Paper — Method 2</h3><p style="margin-bottom:14px">Method 2 is coming soon. Please use <b>Method 1</b> to make your paper — pick a class, subject and chapters, choose the counts, and print.</p><div class="toolbar"><button class="btn primary" onclick="closeModal(); go(\'generate\')">Open Method 1</button><button class="btn" onclick="closeModal()">Close</button></div>');
+}
+function openSubUsers(){
+  openModal('<h3>Sub Users</h3><p style="margin-bottom:14px">This app runs with a single <b>Administrator</b> account (Hafiz Muhammad Rashid), so there are no sub user accounts to create.</p><div class="toolbar"><button class="btn primary" onclick="closeModal()">OK</button></div>');
+}
+function openActivities(){
+  var h = '<h3>Account Activities</h3>';
+  h += '<div class="act-row"><span>Saved papers</span><span style="flex:1"></span><b>'+store.papers.length+'</b></div>';
+  h += '<div class="act-row"><span>My own questions added</span><span style="flex:1"></span><b>'+store.userQ.length+'</b></div>';
+  h += '<div class="act-row"><span>Bank questions hidden</span><span style="flex:1"></span><b>'+store.hidden.length+'</b></div>';
+  h += '<div class="act-row"><span>Questions in the bank</span><span style="flex:1"></span><b>'+allQuestions().length.toLocaleString('en-US')+'</b></div>';
+  if (store.papers.length){
+    h += '<p style="font-weight:700; margin:13px 0 2px">Latest saved papers</p>' + store.papers.slice(0,5).map(function(pp){ return '<div class="act-row"><span>'+esc(pp.name)+'</span><span style="flex:1"></span><span class="chip gray">'+esc(pp.date)+'</span></div>'; }).join('');
+  }
+  h += '<div class="toolbar" style="margin-top:14px"><button class="btn primary" onclick="closeModal()">Close</button></div>';
+  openModal(h);
+}
 
 /* ================= dashboard ================= */
 function renderDashboard(){
@@ -625,6 +1008,40 @@ function renderDashboard(){
     stat(qs.length,'Total Questions',100,ICO.total,'var(--blue)') + stat(c.mcq,'MCQs', Math.round(c.mcq/qs.length*100),ICO.mcq,'#0ea5e9') +
     stat(c.short,'Short Questions', Math.round(c.short/qs.length*100),ICO.short,'#f59e0b') + stat(c.long,'Long Questions', Math.round(c.long/qs.length*100),ICO.long,'#10b981') +
     stat(store.papers.length,'Saved Papers', Math.min(100, store.papers.length*10),ICO.saved,'#db2777') + stat(store.userQ.length,'My Own Questions', Math.min(100, store.userQ.length*5),ICO.own,'#14b8a6');
+  /* PTS-style dashboard tiles */
+  var TICO = {
+    doc:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>',
+    layers:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg>',
+    saved:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>',
+    users:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.2 3.4-5 6.5-5s5.7 1.8 6.5 5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M17.6 15.3c2 .6 3.4 2.2 3.9 4.7"/></svg>',
+    act:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5V3h6v1.5"/><path d="m9 13.5 2 2 4-4.5"/></svg>',
+    gear:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg>'
+  };
+  function tile(cls, icon, title, sub, onclick, big){
+    return '<button type="button" class="tile '+cls+'" onclick="'+onclick+'"><span class="tico">'+icon+'</span><span class="tt">'+title+'</span><span class="ts">'+sub+'</span>'+(big !== null && big !== undefined ? '<span class="big">'+big+'</span>' : '')+'</button>';
+  }
+  document.getElementById('dashTiles').innerHTML =
+    tile('blue', TICO.doc, 'Generate Paper', 'Method 1', "go('generate')") +
+    tile('green', TICO.layers, 'Generate Paper', 'Method 2 — Coming Soon', 'openMethod2()') +
+    tile('orange', TICO.saved, 'Saved Papers', 'Download / Print Papers', "go('papers')", store.papers.length) +
+    tile('purple', TICO.users, 'Sub Users', 'Create Subusers Accounts', 'openSubUsers()', 0) +
+    tile('teal', TICO.act, 'Account Activities', 'View Logs', 'openActivities()') +
+    tile('red', TICO.gear, 'Account Settings', 'Theme, backup &amp; paper settings', "go('backup')");
+  /* New Alerts — Urdu rows built from the real bank / saved-paper counts */
+  var CHK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/></svg>';
+  var WRN = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 2.8 20h18.4L12 3.5Z"/><path d="M12 10v4"/><path d="M12 17.4h.01"/></svg>';
+  var ARR = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></svg>';
+  function arow(kind, icon, txt){
+    return '<div class="arow '+kind+'"><span class="aic">'+icon+'</span><span class="ur">'+txt+'</span></div>';
+  }
+  var alertsHtml = '<div class="ahead"><span class="bico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9a6 6 0 1 0-12 0c0 6-2.5 7-2.5 7h17S18 15 18 9"/><path d="M10 20a2.2 2.2 0 0 0 4 0"/></svg></span><b>New Alerts</b><span class="inf"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-5"/><path d="M12 8h.01"/></svg></span></div><div class="abody">';
+  alertsHtml += arow('', CHK, 'سوالیہ بینک میں اس وقت <b>'+qs.length.toLocaleString('en-US')+'</b> سوالات موجود ہیں — تمام سوالات ماضی کے پرچوں سے لیے گئے ہیں۔');
+  alertsHtml += arow('', CHK, store.papers.length ? 'آپ کے <b>'+store.papers.length+'</b> پرچے محفوظ ہیں — Saved Papers سے کسی بھی وقت دوبارہ پرنٹ کریں۔' : 'ابھی کوئی پرچہ محفوظ نہیں — پہلا پرچہ بنا کر محفوظ کریں۔');
+  alertsHtml += arow('', CHK, 'کلاس 10 کے نئے مضامین — حیاتیات، کمپیوٹر سائنس، کیمسٹری اور فزکس — سوالیہ بینک میں شامل کر دیے گئے ہیں۔');
+  alertsHtml += '<button type="button" class="arow link" onclick="go(\'generate\')"><span class="aic">'+ARR+'</span><span class="ur">نیا پرچہ بنانا شروع کریں</span></button>';
+  alertsHtml += arow('warn', WRN, 'اہم: اپنے پرچوں کا بیک اپ باقاعدگی سے ڈاؤن لوڈ کریں — ڈیٹا صرف اسی براؤزر میں محفوظ ہوتا ہے۔');
+  alertsHtml += '</div>';
+  document.getElementById('dashAlerts').innerHTML = alertsHtml;
   /* class-wise totals — class taken from the subject name, e.g. "Urdu (Class 1)"; Class 9 subjects carry no suffix */
   var clsAgg = {};
   Object.keys(SUBJECTS).forEach(function(sid){
@@ -761,9 +1178,11 @@ function alert2(msg){ openModal('<h3>Note</h3><p style="margin-bottom:14px">'+es
 <script>
 /* ================= generate-paper wizard ================= */
 var todayStr = new Date().toISOString().slice(0,10);
-var W = { step:1, cls:'9th', subject:5, syllabus:'smart', chapters:[], medium:'dual',
+var W = { step:1, dd:'syllabus', cls:'9th', subject:5, syllabus:'smart', chapters:[], medium:'dual',
   counts:{mcq:10, short:8, long:2}, marks:{mcq:1, short:2, long:5}, attempt:{short:'', long:''},
-  sel:{mcq:[], short:[], long:[]}, name:'', category:'Class Test', date:todayStr, time:'1 Hour', bubble:true };
+  sel:{mcq:[], short:[], long:[]}, name:'', category:'Class Test', date:todayStr, time:'1 Hour', bubble:true,
+  pickTab:'mcq', ignore:{mcq:0, short:0, long:0}, blankLines:0, blankType:'1 LINE', twoPerLine:true, longParts:false,
+  examSyllabus:'', srcSel:null, manual:false };
 var STEP_NAMES = ['Class & Chapters','Counts & Marks','Select Questions','Paper Details','Preview & Print'];
 function wizPool(type){
   return allQuestions().filter(function(q){
@@ -776,13 +1195,16 @@ function wizPool(type){
 }
 function renderWizard(){
   var bar = document.getElementById('wizSteps');
-  bar.innerHTML = STEP_NAMES.map(function(n,i){ return '<div class="st'+(W.step===i+1?' on':W.step>i+1?' done':'')+'"><b>'+(i+1)+'</b>'+n+'</div>'; }).join('');
   var body = document.getElementById('wizBody');
-  if (W.step === 1) body.innerHTML = wizStep1();
-  if (W.step === 2) body.innerHTML = wizStep2();
-  if (W.step === 3) body.innerHTML = wizStep3();
-  if (W.step === 4) body.innerHTML = wizStep4();
-  if (W.step === 5) body.innerHTML = wizStep5();
+  if (W.step === 1){
+    bar.style.display = '';
+    bar.innerHTML = STEP_NAMES.map(function(n,i){ return '<div class="st'+(W.step===i+1?' on':W.step>i+1?' done':'')+'"><b>'+(i+1)+'</b>'+n+'</div>'; }).join('');
+    body.innerHTML = wizStep1();
+  } else {
+    /* builder screen: the PTS paper menu replaces the step navigation */
+    bar.style.display = 'none'; bar.innerHTML = '';
+    body.innerHTML = wizBuilder();
+  }
   window.scrollTo(0,0);
 }
 function wizNav(back, next, nextLabel){
@@ -793,147 +1215,288 @@ function wizGo(step){
   W.step = step;
   renderWizard();
 }
-/* ---- step 1 ---- */
-function wizStep1(){
-  var classOpts = CLASSES.map(function(c){ return '<option'+(W.cls===c?' selected':'')+'>'+c+'</option>'; }).join('');
-  var allowedSubj = W.cls==='9th' ? [1,2,3,4,5,6,7,25,26] : (W.cls==='1st' ? [8,9,10,11,12] : (W.cls==='2nd' ? [13,14,15,16,17] : (W.cls==='5th' ? [21,22,23,24] : (W.cls==='10th' ? [18,27,28,29,30] : (W.cls==='Inter-I' ? [19] : (W.cls==='Inter-II' ? [20] : []))))));
-  if (allowedSubj.length && allowedSubj.indexOf(W.subject)===-1) W.subject = allowedSubj[0];
-  var h = '<div class="card"><h3>Step 1 — Select Class, Subject & Chapters</h3>'+
-    '<div class="frow"><div class="fld"><label>Class</label><select id="wClass" onchange="W.cls=this.value; if(this.value===\'1st\') W.subject=8; else if(this.value===\'2nd\') W.subject=13; else if(this.value===\'9th\' && W.subject>7 && W.subject!==25 && W.subject!==26 && W.subject!==27 && W.subject!==28 && W.subject!==29 && W.subject!==30) W.subject=5; W.chapters=[]; W.sel={mcq:[],short:[],long:[]}; renderWizard()">'+classOpts+'</select></div>'+
-    '<div class="fld"><label>Syllabus</label><div class="seg"><button class="'+(W.syllabus==='smart'?'on':'')+'" onclick="W.syllabus=\'smart\'; renderWizard()">Smart Syllabus</button><button class="'+(W.syllabus==='full'?'on':'')+'" onclick="W.syllabus=\'full\'; renderWizard()">Full Syllabus</button></div></div></div>';
-  if (allowedSubj.length){
-    h += '<div class="fld" style="margin-bottom:13px"><label>Subject — tap a book to select it</label><div class="subjgrid">' + allowedSubj.map(function(sid){
-      var nm = SUBJECTS[sid].replace(/ \(Class \d+\)$/,'');
-      var n = allQuestions().filter(function(q){ return q.s === sid; }).length;
-      var inner = COVERS[sid] ? '<img src="'+COVERS[sid]+'" alt="'+esc(nm)+' textbook cover" loading="lazy">' : '<span class="ph">'+esc(nm.charAt(0))+'</span>';
-      return '<button type="button" class="subjtile'+(W.subject===sid?' on':'')+'" onclick="wizSubject('+sid+')">'+inner+'<span class="t">'+esc(nm)+'</span><span class="c">'+n+' questions</span></button>';
-    }).join('') + '</div></div>';
-  }
-  if (!allowedSubj.length){
-    h += '<p style="color:var(--muted)">The question bank in this version covers <b style="color:var(--ink)">Class 9</b> (Mathematics &amp; Biology only) and <b style="color:var(--ink)">Class 10</b> (Mathematics), plus <b style="color:var(--ink)">Class 1</b> and <b style="color:var(--ink)">Class 2</b> (English, General Knowledge, Mathematics, Islamiat &amp; Urdu) and <b style="color:var(--ink)">Class 5</b> (English, General Science, Mathematics &amp; Urdu) — all from past papers. More classes will be added when their papers are ready. Please select Class 1st, Class 2nd, Class 5th, Class 9th or Class 10th to continue.</p></div>';
-    return h;
-  }
-  if (W.subject === 5 && W.syllabus === 'smart') h += '<p style="color:var(--muted); font-size:12.5px; margin-bottom:11px">Smart Syllabus: deleted exercises of Mathematics (Ex 1.3, 2.4, 3.3, 4.4, 5.2, 6.6, 7.3, 11.2) are hidden.</p>';
-  var chs = chaptersOf(W.subject);
-  h += '<div class="toolbar"><button class="btn sm" onclick="wizAllChapters(true)">Select All Chapters</button><button class="btn sm" onclick="wizAllChapters(false)">Clear</button><span class="chip">'+W.chapters.length+' chapter(s) selected</span></div><div class="chkgrid">';
-  chs.forEach(function(c){
-    var pool = allQuestions().filter(function(q){ return q.s===W.subject && q.c===c && !(W.syllabus==='smart' && isSmartExcluded(q)); });
-    var m = pool.filter(function(q){return q.t==='mcq';}).length, s2 = pool.filter(function(q){return q.t==='short';}).length, l = pool.filter(function(q){return q.t==='long';}).length;
-    var sel = W.chapters.indexOf(c) !== -1;
-    h += '<label class="chk'+(sel?' sel':'')+'"><input type="checkbox" '+(sel?'checked':'')+' onchange="wizToggleChapter(this,\''+esc(c).replace(/'/g,"\\'")+'\')"><span><span class="t">'+esc(c)+'</span><br><span class="c">'+pool.length+' questions · MCQ '+m+' · Short '+s2+' · Long '+l+'</span></span></label>';
-  });
-  h += '</div></div>' + wizNav(false, 'wizFromStep1()', 'Next: Counts & Marks →');
-  return h;
+/* ---- step 1: Select Syllabus drill-down (PTS style: syllabus → class → subject → chapters) ---- */
+var DD = { chapters:[], groups:[] };
+var DD_CLASS_LABEL = {'1st':'ONE','2nd':'TWO','3rd':'THREE','4th':'FOUR'};
+var DD_CLASS_GRAD = ['linear-gradient(120deg,#8fbdf3,#d2e7fd)','linear-gradient(120deg,#93d3ab,#d9f4e1)','linear-gradient(120deg,#f6c177,#fdeabd)','linear-gradient(120deg,#f2a48d,#fbdccb)','linear-gradient(120deg,#8fd0dc,#d2f1f5)','linear-gradient(120deg,#c3aef0,#e9e0fc)','linear-gradient(120deg,#8fd6c9,#d2f4ed)','linear-gradient(120deg,#f0a8c0,#fbe0ea)','linear-gradient(120deg,#a5b8f0,#e0e8fc)','linear-gradient(120deg,#b5d99a,#e9f5da)','linear-gradient(120deg,#f2cd8f,#fcefd6)','linear-gradient(120deg,#a8c8f5,#e0edfd)'];
+var DD_ARROW = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var DD_BOOK = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+function wizAllowedSubj(cls){
+  return cls==='9th' ? [1,2,3,4,5,6,7,25,26] : (cls==='1st' ? [8,9,10,11,12] : (cls==='2nd' ? [13,14,15,16,17] : (cls==='5th' ? [21,22,23,24] : (cls==='10th' ? [18,27,28,29,30] : (cls==='Inter-I' ? [19] : (cls==='Inter-II' ? [20] : []))))));
 }
-function wizSubject(sid){ W.subject = sid; W.chapters = []; W.sel = {mcq:[],short:[],long:[]}; renderWizard(); }
+function ddClassLabel(cls){ return DD_CLASS_LABEL[cls] || cls.toUpperCase(); }
+function wizDD(stage){ W.dd = stage; renderWizard(); }
+function wizSyllabus(mode){ W.syllabus = mode; W.dd = 'class'; renderWizard(); }
+function wizClass(cls){
+  W.cls = cls;
+  if (cls === '1st') W.subject = 8;
+  else if (cls === '2nd') W.subject = 13;
+  else if (cls === '9th' && W.subject > 7 && [25,26,27,28,29,30].indexOf(W.subject) === -1) W.subject = 5;
+  W.chapters = []; W.sel = {mcq:[],short:[],long:[]};
+  W.dd = 'subject'; renderWizard();
+}
+function ddCrumb(){
+  var items = [{ label:'PTB', stage:'syllabus' }];
+  if (W.dd === 'class') items.push({ label:'Select Class', stage:null });
+  if (W.dd === 'subject' || W.dd === 'chapters') items.push({ label:ddClassLabel(W.cls), stage:'class' });
+  if (W.dd === 'subject') items.push({ label:'Select Subject', stage:null });
+  if (W.dd === 'chapters') items.push({ label:SUBJECTS[W.subject].replace(/ \(Class \d+\)$/,''), stage:null });
+  return '<div class="dd-crumbbar">' + items.map(function(it, i){
+    return (i === items.length-1 || !it.stage) ? '<span class="cur">'+esc(it.label)+'</span>' : '<button type="button" onclick="wizDD(\''+it.stage+'\')">'+esc(it.label)+'</button>';
+  }).join('<span class="dd-sep">›</span>') + '</div>';
+}
+function wizStep1(){
+  var head = '<div class="dd-head"><h2>Select Syllabus</h2>' + ddCrumb() + '</div>';
+  if (W.dd === 'syllabus') return head + ddStageSyllabus();
+  if (W.dd === 'class') return head + ddStageClass();
+  if (W.dd === 'subject') return head + ddStageSubject();
+  return head + ddStageChapters();
+}
+function ddStageSyllabus(){
+  function card(mode, name, sub, grad){
+    return '<button type="button" class="dd-syllcard" style="background:'+grad+'" onclick="wizSyllabus(\''+mode+'\')">'+
+      '<span class="dd-logo">'+DD_BOOK+'</span>'+
+      '<span class="dd-syll-t">'+name+'</span>'+
+      '<span class="dd-syll-s">'+sub+'</span>'+
+      (W.syllabus===mode ? '<span class="dd-pick">✓ Selected</span>' : '')+
+      '<span class="dd-card-arrow">'+DD_ARROW+'</span></button>';
+  }
+  return '<div class="dd-grid dd-syll">'+
+    card('smart','Smart Syllabus','Syllabus · deleted topics hidden','linear-gradient(120deg,#a9dcbc,#dcf5e4)')+
+    card('full','Full Syllabus','Syllabus · complete book','linear-gradient(120deg,#a8c8f5,#dcebfd)')+
+    '</div><p class="dd-note">Tap a syllabus to continue to the classes. Smart Syllabus hides the topics deleted in the smart syllabus; Full Syllabus covers the complete book.</p>';
+}
+function ddStageClass(){
+  var h = '<div class="toolbar"><button class="btn sm" onclick="wizDD(\'syllabus\')">← Change Syllabus ('+(W.syllabus==='smart'?'Smart':'Full')+')</button></div><div class="dd-grid dd-classes">';
+  CLASSES.forEach(function(c, i){
+    var n = wizAllowedSubj(c).length;
+    h += '<button type="button" class="dd-classcard" style="background:'+DD_CLASS_GRAD[i % DD_CLASS_GRAD.length]+'" onclick="wizClass(\''+c+'\')">'+
+      '<span class="dd-class-main"><span class="dd-class-t">'+esc(ddClassLabel(c))+'</span><span class="dd-class-s">PTB'+(n ? ' · '+n+' subject'+(n>1?'s':'') : '')+'</span></span>'+
+      '<span class="dd-card-arrow">'+DD_ARROW+'</span></button>';
+  });
+  return h + '</div>';
+}
+function ddStageSubject(){
+  var allowedSubj = wizAllowedSubj(W.cls);
+  if (allowedSubj.length && allowedSubj.indexOf(W.subject)===-1) W.subject = allowedSubj[0];
+  var back = '<div class="toolbar"><button class="btn sm" onclick="wizDD(\'class\')">← Change Class</button></div>';
+  if (!allowedSubj.length){
+    return back + '<div class="card"><p style="color:var(--muted)">The question bank in this version covers <b style="color:var(--ink)">Class 9</b> (Mathematics &amp; Biology only) and <b style="color:var(--ink)">Class 10</b> (Mathematics), plus <b style="color:var(--ink)">Class 1</b> and <b style="color:var(--ink)">Class 2</b> (English, General Knowledge, Mathematics, Islamiat &amp; Urdu) and <b style="color:var(--ink)">Class 5</b> (English, General Science, Mathematics &amp; Urdu) — all from past papers. More classes will be added when their papers are ready. Please select Class 1st, Class 2nd, Class 5th, Class 9th or Class 10th to continue.</p></div>';
+  }
+  var AQ = allQuestions();
+  return back + '<div class="dd-grid dd-subjects">' + allowedSubj.map(function(sid){
+    var nm = SUBJECTS[sid].replace(/ \(Class \d+\)$/,'');
+    var n = AQ.filter(function(q){ return q.s === sid; }).length;
+    var inner = COVERS[sid] ? '<img src="'+COVERS[sid]+'" alt="'+esc(nm)+' textbook cover" loading="lazy">' : '<span class="dd-ph">'+esc(nm.charAt(0))+'</span>';
+    return '<button type="button" class="dd-subjcard" onclick="wizSubject('+sid+')">'+inner+'<span class="dd-subj-row"><span class="dd-subj-t" dir="auto">'+esc(nm)+'</span><span class="dd-card-arrow">'+DD_ARROW+'</span></span><span class="dd-subj-s">PTB · '+n+' questions</span></button>';
+  }).join('') + '</div>';
+}
+/* group a subject's chapter names into PTS-style cards: "Unit n / Ch n / Chapter n" header + topic sub-items */
+function ddGroupChapters(chs){
+  var groups = [], byKey = {};
+  chs.forEach(function(c){
+    var m = /^(Unit|Ch|Chapter)\s+(\d+)\s*[—:\-]\s*(.+)$/.exec(c);
+    if (m){
+      var key = m[1].toUpperCase() + ' ' + m[2];
+      if (!byKey[key]){ byKey[key] = { key:key, items:[] }; groups.push(byKey[key]); }
+      byKey[key].items.push({ name:c, sub:m[3] });
+    } else {
+      groups.push({ key:null, items:[{ name:c, sub:null }] });
+    }
+  });
+  return groups;
+}
+function ddStageChapters(){
+  var AQ = allQuestions();
+  var chs = chaptersOf(W.subject);
+  DD.chapters = chs;
+  DD.groups = ddGroupChapters(chs);
+  var cmap = {};
+  chs.forEach(function(c){
+    var pool = AQ.filter(function(q){ return q.s===W.subject && q.c===c && !(W.syllabus==='smart' && isSmartExcluded(q)); });
+    cmap[c] = { n:pool.length,
+      m:pool.filter(function(q){return q.t==='mcq';}).length,
+      s:pool.filter(function(q){return q.t==='short';}).length,
+      l:pool.filter(function(q){return q.t==='long';}).length,
+      full:(W.syllabus==='smart' ? AQ.filter(function(q){ return q.s===W.subject && q.c===c; }).length : pool.length) };
+  });
+  function smartTag(ct){
+    if (W.syllabus !== 'smart') return '';
+    return ct.n ? ' <span class="dd-smart">(SMART)</span>' : (ct.full ? ' <span class="dd-nosmart">(Not in Smart Syllabus)</span>' : '');
+  }
+  var h = '';
+  if (W.subject === 5 && W.syllabus === 'smart') h += '<p style="color:var(--muted); font-size:12.5px; margin-bottom:11px">Smart Syllabus: deleted exercises of Mathematics (Ex 1.3, 2.4, 3.3, 4.4, 5.2, 6.6, 7.3, 11.2) are hidden.</p>';
+  h += '<div class="dd-allrow"><label class="dd-all"><input type="checkbox" id="ddAll" onchange="wizAllChapters(this.checked)"><span>SELECT ALL CHAPTERS</span></label><span class="chip">'+W.chapters.length+' chapter(s) selected</span><span class="dd-sp"></span><button class="btn sm" onclick="wizDD(\'subject\')">← Change Subject</button><button class="btn sm" onclick="wizAllChapters(false)">Clear</button></div>';
+  h += '<div class="dd-grid dd-chaps">';
+  DD.groups.forEach(function(g, gi){
+    var multi = g.items.length > 1;
+    var tot = 0; g.items.forEach(function(it){ tot += cmap[it.name].n; });
+    var allSel = g.items.every(function(it){ return W.chapters.indexOf(it.name) !== -1; });
+    var title = multi ? g.key : (g.key ? g.key + ': ' + g.items[0].sub : g.items[0].name);
+    h += '<div class="dd-chap"><div class="dd-chap-head"><input type="checkbox" data-ddgroup="'+gi+'" '+(allSel?'checked':'')+' onchange="wizToggleGroup(this,'+gi+')"><span class="dd-chap-title" dir="auto">'+esc(title)+'</span><span class="dd-chap-count">'+tot+' questions</span></div>';
+    if (multi){
+      h += '<div class="dd-subs">';
+      g.items.forEach(function(it){
+        var ct = cmap[it.name]; var idx = chs.indexOf(it.name); var sel = W.chapters.indexOf(it.name) !== -1;
+        h += '<label class="dd-sub'+(sel?' sel':'')+'"><input type="checkbox" '+(sel?'checked':'')+' onchange="wizToggleChapterIdx(this,'+idx+')"><span class="dd-dot">.</span><span class="dd-sub-main"><span class="dd-sub-t" dir="auto">'+esc(it.sub)+'</span>'+smartTag(ct)+'<br><span class="dd-sub-c">'+ct.n+' questions · MCQ '+ct.m+' · Short '+ct.s+' · Long '+ct.l+'</span></span></label>';
+      });
+      h += '</div>';
+    } else {
+      var ct0 = cmap[g.items[0].name];
+      h += '<div class="dd-chap-c">'+ct0.n+' questions · MCQ '+ct0.m+' · Short '+ct0.s+' · Long '+ct0.l+smartTag(ct0)+'</div>';
+    }
+    h += '</div>';
+  });
+  h += '</div>';
+  h += '<button type="button" class="dd-next" onclick="wizFromStep1()" title="Next: Counts &amp; Marks" aria-label="Next: Counts and Marks">'+DD_ARROW+'</button>';
+  setTimeout(ddFixChecks, 0);
+  return '<div class="dd-chapwrap">'+h+'</div>';
+}
+function wizToggleGroup(cb, gi){
+  var names = DD.groups[gi].items.map(function(it){ return it.name; });
+  if (cb.checked){ names.forEach(function(n){ if (W.chapters.indexOf(n)===-1) W.chapters.push(n); }); }
+  else { W.chapters = W.chapters.filter(function(c){ return names.indexOf(c)===-1; }); }
+  W.sel = {mcq:[],short:[],long:[]}; renderWizard();
+}
+function wizToggleChapterIdx(cb, i){ wizToggleChapter(cb, DD.chapters[i]); }
+function ddFixChecks(){
+  var all = document.getElementById('ddAll');
+  if (all){ var total = DD.chapters.length, sel = W.chapters.length; all.checked = total > 0 && sel === total; all.indeterminate = sel > 0 && sel < total; }
+  DD.groups.forEach(function(g, gi){
+    var el = document.querySelector('[data-ddgroup="'+gi+'"]');
+    if (!el) return;
+    var n = g.items.filter(function(it){ return W.chapters.indexOf(it.name) !== -1; }).length;
+    el.checked = n > 0 && n === g.items.length;
+    el.indeterminate = n > 0 && n < g.items.length;
+  });
+}
+function wizSubject(sid){ W.subject = sid; W.chapters = []; W.sel = {mcq:[],short:[],long:[]}; W.dd = 'chapters'; renderWizard(); }
 function wizAllChapters(all){ W.chapters = all ? chaptersOf(W.subject) : []; W.sel = {mcq:[],short:[],long:[]}; renderWizard(); }
 function wizToggleChapter(cb, name){
   if (cb.checked){ if (W.chapters.indexOf(name)===-1) W.chapters.push(name); } else { W.chapters = W.chapters.filter(function(c){ return c !== name; }); }
   W.sel = {mcq:[],short:[],long:[]}; renderWizard();
 }
-function wizFromStep1(){ if (!W.chapters.length){ alert2('Select at least one chapter first.'); return; } W.step = 2; renderWizard(); }
-/* ---- step 2 ---- */
-function wizStep2(){
-  function row(t, label){
-    return '<div class="frow"><div class="fld"><label>'+label+' — how many?</label><input type="number" min="0" max="100" value="'+W.counts[t]+'" oninput="W.counts.'+t+'=+this.value||0; wizTotal()"></div>'+
-    '<div class="fld"><label>Marks for each</label><input type="number" min="0" max="50" value="'+W.marks[t]+'" oninput="W.marks.'+t+'=+this.value||0; wizTotal()"></div>'+
-    (t!=='mcq' ? '<div class="fld"><label>Attempt how many? (blank = all)</label><input type="number" min="0" max="100" value="'+W.attempt[t]+'" oninput="W.attempt.'+t+'=this.value"></div>' : '<div class="fld"><label>Available in selected chapters</label><input disabled value="'+wizPool(t).length+' questions"></div>')+'</div>';
-  }
-  var h = '<div class="card"><h3>Step 2 — Medium, Counts & Marks</h3>'+
-    '<div class="fld" style="margin-bottom:14px"><label>Paper Medium</label><div class="seg">'+
-    [['en','English Medium'],['ur','Urdu Medium'],['dual','Dual Medium']].map(function(m){ return '<button class="'+(W.medium===m[0]?'on':'')+'" onclick="W.medium=\''+m[0]+'\'; renderWizard()">'+m[1]+'</button>'; }).join('')+'</div>'+
-    '<p style="color:var(--muted); font-size:12px; margin-top:6px">English Medium prints the English text only, Urdu Medium prints the Urdu text only (right-to-left), Dual Medium prints both together. If a question has no text in the chosen medium, the text it does have is printed instead — nothing is translated.</p></div>'+
-    row('mcq','MCQs') + row('short','Short Questions') + row('long','Long Questions')+
-    '<p style="font-size:15px">Total Marks: <b id="wizTotalMarks">'+wizTotalMarksCalc()+'</b></p></div>' + wizNav(true, 'wizFromStep2()', 'Next: Select Questions →');
-  return h;
+function wizFromStep1(){
+  if (!W.chapters.length){ alert2('Select at least one chapter first.'); return; }
+  ['mcq','short','long'].forEach(function(t){ W.sel[t] = W.sel[t].filter(function(id){ return wizPool(t).some(function(q){ return q.id === id; }); }); });
+  W.step = 2; renderWizard(); openQDialog();
 }
+/* ---- counts, marks & totals (shared by the builder and the question dialog) ---- */
 function wizTotalMarksCalc(){
   var tot = 0;
   ['mcq','short','long'].forEach(function(t){ var n = W.attempt[t] ? Math.min(+W.attempt[t], W.counts[t]) : W.counts[t]; tot += n * W.marks[t]; });
   return tot;
 }
 function wizTotal(){ var el = document.getElementById('wizTotalMarks'); if (el) el.textContent = wizTotalMarksCalc(); }
-function wizFromStep2(){
-  if (!W.counts.mcq && !W.counts.short && !W.counts.long){ alert2('Choose at least one question — set a count above zero.'); return; }
-  ['mcq','short','long'].forEach(function(t){ W.sel[t] = W.sel[t].filter(function(id){ return wizPool(t).some(function(q){ return q.id === id; }); }); });
-  W.step = 3; renderWizard();
-}
-/* ---- step 3 ---- */
-function wizStep3(){
-  if (!W.pickTab || !W.counts[W.pickTab]) W.pickTab = ['mcq','short','long'].filter(function(t){ return W.counts[t]; })[0];
-  var tabs = ['mcq','short','long'].filter(function(t){ return W.counts[t]; }).map(function(t){
-    return '<button class="'+(W.pickTab===t?'on':'')+'" onclick="W.pickTab=\''+t+'\'; renderWizard()">'+typeLabel(t)+' ('+W.sel[t].length+'/'+W.counts[t]+')</button>';
-  }).join('');
-  var h = '<div class="card"><h3>Step 3 — Select Questions <span class="hint">tick questions yourself, or press Random Select</span></h3>'+
-    '<div class="toolbar"><button class="btn sm" onclick="W.step=2; renderWizard()">← Back</button><span class="sp"></span><button class="btn sm primary" onclick="wizFromStep3()">Next: Paper Details →</button></div>'+
-    '<div class="seg" style="margin-bottom:6px">'+tabs+'</div>';
-  ['mcq','short','long'].forEach(function(t){
-    if (!W.counts[t] || W.pickTab !== t) return;
-    var pool = wizPool(t);
-    h += '<div style="border-top:1px solid var(--line); padding-top:13px; margin-top:13px"><div class="toolbar"><b style="font-size:14.5px">'+typeLabel(t)+' Questions</b>'+
-      '<span class="chip" id="selCount-'+t+'"></span><span class="sp"></span>'+
-      '<button class="btn gold sm" onclick="wizRandom(\''+t+'\')">🎲 Random Select '+typeLabel(t)+'</button>'+
-      '<button class="btn sm" onclick="W.sel.'+t+'=[]; renderWizard()">Clear</button></div><div id="pick-'+t+'">';
-    pool.slice(0,150).forEach(function(q){
-      var sel = W.sel[t].indexOf(q.id) !== -1;
-      var opts = q.t==='mcq' && q.o.length ? '<div class="opts">'+q.o.map(function(o,i){ return '<b>'+'ABCD'[i]+')</b> '+fmt(o); }).join(' &nbsp;·&nbsp; ')+'</div>' : '';
-      h += '<label class="qpick'+(sel?' sel':'')+'"><input type="checkbox" '+(sel?'checked':'')+' onchange="wizToggleQ(\''+t+'\',\''+q.id+'\',this.checked)"><span><span class="qt">'+qTextHtml(q, W.medium)+'</span>'+opts+'<div style="margin-top:3px"><span class="chip gray">'+esc(q.c)+'</span> '+(q.g?'<span class="chip gray">'+esc(q.g)+'</span>':'')+'</div></span></label>';
-    });
-    if (pool.length > 150) h += '<p style="color:var(--muted); font-size:12.5px">Showing first 150 of '+pool.length+' — Random Select picks from all of them.</p>';
-    if (!pool.length) h += '<p style="color:var(--muted)">No '+typeLabel(t)+' questions in the selected chapters.</p>';
-    h += '</div></div>';
-  });
-  h += '</div>' + wizNav(true, 'wizFromStep3()', 'Next: Paper Details →');
-  setTimeout(wizSelCounts, 0);
-  return h;
-}
-function wizSelCounts(){ ['mcq','short','long'].forEach(function(t){ var el = document.getElementById('selCount-'+t); if (el) el.textContent = 'Selected '+W.sel[t].length+' / '+W.counts[t]+' needed'; }); }
-function wizToggleQ(t, id, on){
-  if (on){ if (W.sel[t].indexOf(id)===-1) W.sel[t].push(id); } else { W.sel[t] = W.sel[t].filter(function(x){ return x !== id; }); }
-  wizSelCounts();
-}
-function wizRandom(t){
-  var pool = wizPool(t).slice();
-  for (var i = pool.length-1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp; }
-  W.sel[t] = pool.slice(0, W.counts[t]).map(function(q){ return q.id; });
-  renderWizard();
-}
-function wizFromStep3(){
+function wizSelectedMarks(){ var tot = 0; ['mcq','short','long'].forEach(function(t){ var n = W.sel[t].length; var a = W.attempt[t] ? Math.min(+W.attempt[t], n) : n; tot += a * W.marks[t]; }); return tot; }
+function wizCheckSelections(){
   var missing = [];
   ['mcq','short','long'].forEach(function(t){ if (W.counts[t] && W.sel[t].length < W.counts[t]) missing.push(typeLabel(t)+': '+W.sel[t].length+'/'+W.counts[t]); });
-  if (missing.length){ alert2('Some questions are still missing — '+missing.join(', ')+'. Tick more questions or press Random Select.'); return; }
-  if (!W.name) W.name = SUBJECTS[W.subject]+' — '+W.category;
-  W.step = 4; renderWizard();
+  return missing;
 }
-/* ---- step 4 ---- */
-function wizStep4(){
-  var cats = ['Class Test','Monthly Test','Weekly Test','Term Exam','Pre-Board','Board Model Paper','Homework Test'];
-  var h = '<div class="card"><h3>Step 4 — Paper Details <span class="hint">(this is the Save Paper form — name, category, time, date, marks)</span></h3>'+
-  '<div class="frow"><div class="fld"><label>Paper Name</label><input id="wName" type="text" value="'+esc(W.name)+'" oninput="W.name=this.value"></div>'+
-  '<div class="fld"><label>Category</label><select id="wCat" onchange="W.category=this.value">'+cats.map(function(c){ return '<option'+(W.category===c?' selected':'')+'>'+c+'</option>'; }).join('')+'</select></div></div>'+
-  '<div class="frow"><div class="fld"><label>Date</label><input id="wDate" type="date" value="'+W.date+'" onchange="W.date=this.value"></div>'+
-  '<div class="fld"><label>Time Allowed</label><input id="wTime" type="text" value="'+esc(W.time)+'" oninput="W.time=this.value"></div>'+
-  '<div class="fld"><label>Total Marks</label><input disabled value="'+wizSelectedMarks()+'"></div></div>'+
-  '<label class="chk'+(W.bubble?' sel':'')+'" style="max-width:420px"><input type="checkbox" '+(W.bubble?'checked':'')+' onchange="W.bubble=this.checked; renderWizard()"><span><span class="t">Bubble Sheet (OMR)</span><br><span class="c">Print the MCQ bubble answer sheet with the paper</span></span></label>'+
-  '</div>' + wizNav(true, 'wizFromStep4()', 'Next: Preview & Print →');
-  return h;
-}
-function wizSelectedMarks(){ var tot = 0; ['mcq','short','long'].forEach(function(t){ var n = W.sel[t].length; var a = W.attempt[t] ? Math.min(+W.attempt[t], n) : n; tot += a * W.marks[t]; }); return tot; }
-function wizFromStep4(){ if (!W.name.trim()){ alert2('Write a paper name first.'); return; } W.step = 5; renderWizard(); }
-/* ---- step 5 ---- */
+function wizAutoName(){ if (!W.name) W.name = SUBJECTS[W.subject]+' — '+W.category; }
 function buildPaperFromWizard(){
   var qs = allQuestions(); var map = {}; qs.forEach(function(q){ map[q.id] = q; });
-  function snap(ids){ return ids.map(function(id){ return JSON.parse(JSON.stringify(map[id])); }).filter(Boolean); }
+  function snap(ids){ return ids.map(function(id){ var src = map[id]; if (!src) return null; var q = JSON.parse(JSON.stringify(src)); if (q.t === 'mcq' && W.optShuffle && W.optShuffle[q.id]){ var perm = W.optShuffle[q.id]; var oldO = q.o.slice(); q.o = perm.map(function(pi){ return oldO[pi]; }); if (q.a != null) q.a = perm.indexOf(q.a); } return q; }).filter(Boolean); }
   return { id:'p'+Date.now(), name:W.name, category:W.category, cls:W.cls, subjectId:W.subject, subjectName:SUBJECTS[W.subject],
     medium:W.medium, date:W.date, time:W.time, bubble:W.bubble, totalMarks:wizSelectedMarks(),
+    examSyllabus:W.examSyllabus, blankLines:W.blankLines, blankType:W.blankType, twoPerLine:W.twoPerLine, longParts:W.longParts,
     marks:{mcq:W.marks.mcq, short:W.marks.short, long:W.marks.long}, attempt:{short:W.attempt.short, long:W.attempt.long},
     questions:{ mcq:snap(W.sel.mcq), short:snap(W.sel.short), long:snap(W.sel.long) } };
 }
-function wizStep5(){
-  var paper = buildPaperFromWizard(); var ps = PS();
+
+/* ================= paper builder (PTS style): sidebar paper menu + canvas ================= */
+var BLD_ICO = {
+  menu:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.5" cy="18" r="1.1" fill="currentColor" stroke="none"/></svg>',
+  edit:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+  save:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>',
+  print:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></svg>',
+  cancel:'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M9 9l6 6M15 9l-6 6"/></svg>'
+};
+function wizBuilder(){
+  var rail = '<aside class="bld-menu">'+
+    '<button onclick="openQDialog()"><span class="bic">'+BLD_ICO.menu+'</span>Question\'s Menu</button>'+
+    '<button class="'+(W.manual?'on':'')+'" onclick="bldManual()"><span class="bic">'+BLD_ICO.edit+'</span>Manual Editing</button>'+
+    '<button onclick="bldSave()"><span class="bic bic-save">'+BLD_ICO.save+'</span>Save Paper</button>'+
+    '<button onclick="bldPrint(\'single\')"><span class="bic">'+BLD_ICO.print+'</span>Print Paper Single</button>'+
+    '<button onclick="bldPrint(\'v\')"><span class="bic">'+BLD_ICO.print+'</span>Print Paper Double (Vertical)</button>'+
+    '<button onclick="bldPrint(\'h\')"><span class="bic">'+BLD_ICO.print+'</span>Print Paper Double (Horizontal)</button>'+
+    '<button onclick="bldCancel()"><span class="bic bic-cancel">'+BLD_ICO.cancel+'</span>Cancel Paper</button>'+
+  '</aside>';
+  var status = '<div class="bld-status"><b>'+esc(ddClassLabel(W.cls))+' — <span dir="auto">'+esc(SUBJECTS[W.subject].replace(/ \(Class \d+\)$/,''))+'</span></b>'+
+    '<span class="chip">'+W.chapters.length+' chapter(s)</span>'+
+    '<span class="chip gray">MCQ '+W.sel.mcq.length+'/'+W.counts.mcq+'</span>'+
+    '<span class="chip gray">Short '+W.sel.short.length+'/'+W.counts.short+'</span>'+
+    '<span class="chip gray">Long '+W.sel.long.length+'/'+W.counts.long+'</span>'+
+    '<span class="chip gold">Total Marks: '+wizSelectedMarks()+'</span><span class="sp"></span>'+
+    '<button class="btn sm primary" onclick="openQDialog()">Select Questions</button></div>';
+  var canvas = '<div class="bld-canvas">'+status+printToolbarHTML()+(W.manual ? paperSettingsCardHTML() : '')+
+    '<div class="paperwrap" id="wizPreview">'+paperHTML(buildPaperFromWizard(), PS().printKey)+'</div></div>';
+  return '<div class="bld">'+rail+canvas+'</div>';
+}
+/* ================= print / preview toolbar (PTS style) ================= */
+function printToolbarHTML(){
+  var ps = PS();
+  var lhOpts = [['1.15','1.15'],['1.3','1.3'],['1.5','1.5'],['1.75','1.75'],['2','2.0']].map(function(o){ return '<option value="'+o[0]+'"'+(String(ps.lineHeight)===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join('');
+  var urduOpts = [["'Noto Nastaliq Urdu', serif",'Noto Nastaliq Urdu'],["'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif",'Jameel Noori Nastaleeq']].map(function(f){ return '<option value="'+f[0]+'"'+(ps.urduFont===f[0]?' selected':'')+'>'+f[1]+'</option>'; }).join('');
+  var enOpts = [["'Times New Roman', Times, serif",'Times New Roman'],["Georgia, 'Times New Roman', serif",'Georgia'],['Arial, Helvetica, sans-serif','Arial'],['Verdana, Geneva, sans-serif','Verdana'],['Tahoma, Geneva, sans-serif','Tahoma'],["'Poppins', sans-serif",'Poppins'],["'Noto Nastaliq Urdu', serif",'Urdu Nastaliq']].map(function(f){ return '<option value="'+f[0]+'"'+(ps.font===f[0]?' selected':'')+'>'+f[1]+'</option>'; }).join('');
+  var layOpts = [['1','Layout 1'],['2','Layout 2'],['3','Layout 3']].map(function(o){ return '<option value="'+o[0]+'"'+(String(ps.layout || '1')===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join('');
+  var wmVal = ps.watermark ? (ps.wmStyle || 'name') : 'none';
+  var wmOpts = [['monogram','Monogram Watermark'],['name','School Name Watermark'],['none','No Watermark']].map(function(o){ return '<option value="'+o[0]+'"'+(wmVal===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join('');
+  function chk(key, label, on){ return '<label class="ptchk"><input type="checkbox" '+(on?'checked':'')+' onchange="ptSet(\''+key+'\', this.checked)"> '+label+'</label>'; }
+  return '<div class="ptool">'+
+    '<button type="button" class="ptback" onclick="ptBack()" title="Back to Chapters" aria-label="Back to Chapters"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>'+
+    '<div class="ptfld"><label>Line Height</label><select onchange="psSetLive(\'lineHeight\', this.value)">'+lhOpts+'</select></div>'+
+    '<div class="ptfld"><label>Urdu Font</label><select onchange="psSetLive(\'urduFont\', this.value)">'+urduOpts+'</select></div>'+
+    '<div class="ptfld"><label>English Font</label><select onchange="psSetLive(\'font\', this.value)">'+enOpts+'</select></div>'+
+    '<div class="ptchecks">'+
+      chk('printHeader','Print Header', ps.printHeader)+
+      chk('printDate','Print Date/Time', ps.printDate)+
+      chk('printStudent','Print Student Info', ps.printStudent)+
+      chk('printKey','Print Answer Keys', ps.printKey)+
+      '<label class="ptchk"><input type="checkbox" '+(W.bubble?'checked':'')+' onchange="ptBubble(this.checked)"> Print Bubbles</label>'+
+      chk('urduTop','Print Urdu On Top', ps.urduTop)+
+    '</div>'+
+    '<div class="ptfld"><label>Layout</label><select onchange="psSetLive(\'layout\', this.value)">'+layOpts+'</select></div>'+
+    '<div class="ptfld"><label>Watermark</label><select onchange="ptWatermark(this.value)">'+wmOpts+'</select></div>'+
+    '<div class="ptbtns">'+
+      '<button type="button" class="btn primary" onclick="ptShuffle()">SHUFFLE MCQS</button>'+
+      '<button type="button" class="btn primary" onclick="bldManual()">MANUAL EDITING</button>'+
+      '<button type="button" class="btn primary" onclick="ptPrint(false)">PRINT PAPER</button>'+
+      '<button type="button" class="btn primary" onclick="ptPrint(true)">DOWNLOAD PDF</button>'+
+    '</div></div>';
+}
+function ptRefresh(){ var pv = document.getElementById('wizPreview'); if (pv) pv.innerHTML = paperHTML(buildPaperFromWizard(), PS().printKey); }
+function ptSet(key, on){ PS()[key] = !!on; saveStore(); ptRefresh(); }
+function ptBubble(on){ W.bubble = !!on; ptRefresh(); }
+function ptWatermark(v){ var ps = PS(); ps.wmStyle = v; ps.watermark = v !== 'none'; saveStore(); ptRefresh(); }
+function ptBack(){ closeQDialog(); W.step = 1; W.dd = 'chapters'; renderWizard(); }
+function ptShuffle(){
+  if (!W.sel.mcq.length){ alert2('This paper has no MCQs to shuffle — select some MCQs first.'); return; }
+  var map = {}; allQuestions().forEach(function(q){ map[q.id] = q; });
+  W.optShuffle = {};
+  W.sel.mcq.forEach(function(id){
+    var q = map[id]; if (!q || !q.o || q.o.length < 2) return;
+    var idx = q.o.map(function(_, i){ return i; });
+    for (var i = idx.length-1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var t = idx[i]; idx[i] = idx[j]; idx[j] = t; }
+    W.optShuffle[id] = idx;
+  });
+  ptRefresh();
+}
+function ptPrint(download){
+  var paper = buildPaperFromWizard();
+  var n = paper.questions.mcq.length + paper.questions.short.length + paper.questions.long.length;
+  if (!n){ alert2('Select some questions first — open Question\'s Menu and pick questions for this paper.'); return; }
+  var layout = String(PS().layout || '1');
+  if (layout === '2') return printPaperDouble(paper, 'v', download);
+  if (layout === '3') return printPaperDouble(paper, 'h', download);
+  printPaper(paper, PS().printKey, download);
+}
+function paperSettingsCardHTML(){
+  var ps = PS();
   var fontOpts = [["Georgia, 'Times New Roman', serif",'Georgia (classic)'],["'Times New Roman', Times, serif",'Times New Roman'],['Arial, Helvetica, sans-serif','Arial'],['Verdana, Geneva, sans-serif','Verdana'],['Tahoma, Geneva, sans-serif','Tahoma'],["'Poppins', sans-serif",'Poppins (modern)'],["'Noto Nastaliq Urdu', serif",'Urdu Nastaliq']].map(function(f){ return '<option value="'+f[0]+'"'+(ps.font===f[0]?' selected':'')+'>'+f[1]+'</option>'; }).join('');
   var lhOpts = [['1.15','1.15 — tight'],['1.3','1.3'],['1.5','1.5 — normal'],['1.75','1.75'],['2','2.0 — double']].map(function(o){ return '<option value="'+o[0]+'"'+(String(ps.lineHeight)===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join('');
-  var set = '<div class="card"><h3>Paper Settings <span class="hint">— MS Word style: change anything and the preview below updates at once; questions print under a separate heading for every chapter</span></h3>'+
+  return '<div class="card" id="bldSettings"><h3>Manual Editing — Paper Settings <span class="hint">— MS Word style: change anything and the preview below updates at once; questions print under a separate heading for every chapter</span></h3>'+
   '<div class="frow"><div class="fld"><label>Paper font</label><select onchange="psSetLive(\'font\', this.value)">'+fontOpts+'</select></div>'+
   '<div class="fld"><label>Font size (11–20)</label><input type="number" min="11" max="20" step="0.5" value="'+ps.fontSize+'" onchange="psSetLive(\'fontSize\', this.value)"></div>'+
   '<div class="fld"><label>Line spacing</label><select onchange="psSetLive(\'lineHeight\', this.value)">'+lhOpts+'</select></div>'+
@@ -944,12 +1507,209 @@ function wizStep5(){
   '<div class="chkgrid"><label class="chk'+(ps.chapHead?' sel':'')+'"><input type="checkbox" '+(ps.chapHead?'checked':'')+' onchange="psSetLive(\'chapHead\', this.checked)"><span><span class="t">Chapter headings</span><br><span class="c">Separate heading for every chapter</span></span></label>'+
   '<label class="chk'+(ps.frame?' sel':'')+'"><input type="checkbox" '+(ps.frame?'checked':'')+' onchange="psSetLive(\'frame\', this.checked)"><span><span class="t">Paper border (frame)</span><br><span class="c">Neat double frame around the paper</span></span></label>'+
   '<label class="chk'+(ps.watermark?' sel':'')+'"><input type="checkbox" '+(ps.watermark?'checked':'')+' onchange="psSetLive(\'watermark\', this.checked)"><span><span class="t">Watermark</span><br><span class="c">Academy name lightly behind questions</span></span></label></div></div>';
-  return set + '<div class="toolbar"><button class="btn" onclick="W.step=4; renderWizard()">← Back</button><span class="seg" style="margin-left:4px">'+[['en','English Medium'],['ur','Urdu Medium'],['dual','Dual Medium']].map(function(m){ return '<button class="'+(W.medium===m[0]?'on':'')+'" onclick="W.medium=\''+m[0]+'\'; renderWizard()">'+m[1]+'</button>'; }).join('')+'</span><span class="sp"></span>'+
-  '<button class="btn gold" onclick="saveWizardPaper()">💾 Save Paper</button>'+
-  '<button class="btn primary" onclick="printPaper(buildPaperFromWizard(), false)">🖨 Print Paper</button>'+
-  '<button class="btn" onclick="printPaper(buildPaperFromWizard(), true)">Print with Answer Key</button></div>'+
-  '<div class="paperwrap" id="wizPreview">'+paperHTML(paper, false)+'</div>';
 }
+function bldManual(){ W.manual = true; renderWizard(); var el = document.getElementById('bldSettings'); if (el) el.scrollIntoView({ block:'start' }); }
+function bldSave(){
+  var missing = wizCheckSelections();
+  if (missing.length){ alert2('Some questions are still missing — '+missing.join(', ')+'. Open Question\'s Menu, tick more questions or press Random Select.'); return; }
+  wizAutoName(); saveWizardPaper(); renderWizard();
+}
+function bldPrint(layout){
+  var paper = buildPaperFromWizard();
+  var n = paper.questions.mcq.length + paper.questions.short.length + paper.questions.long.length;
+  if (!n){ alert2('Select some questions first — open Question\'s Menu and pick questions for this paper.'); return; }
+  if (layout === 'single') printPaper(paper, false); else printPaperDouble(paper, layout);
+}
+function bldCancel(){
+  openModal('<h3>Cancel this paper?</h3><p style="margin-bottom:14px">The chapters and questions you picked for this paper will be cleared. Papers already saved in My Papers are not touched.</p><div class="toolbar"><button class="btn danger" onclick="wizCancelConfirm()">Yes, Cancel Paper</button><button class="btn" onclick="closeModal()">Keep Building</button></div>');
+}
+function wizCancelConfirm(){
+  closeModal(); closeQDialog();
+  W.step = 1; W.dd = 'syllabus'; W.chapters = []; W.sel = {mcq:[],short:[],long:[]};
+  W.name = ''; W.examSyllabus = ''; W.srcSel = null; W.manual = false; W.optShuffle = {};
+  renderWizard();
+}
+/* Print Paper Double: the same paper twice on the PDF — copies stacked (Vertical)
+   or side by side (Horizontal). Uses the same PDF builder and the same
+   open-in-a-new-tab / download-fallback flow as Print Paper Single. */
+function printPaperDouble(paper, dir, forceSave){
+  if (!window.html2canvas || !(window.jspdf && window.jspdf.jsPDF)){
+    openModal('<h3>PDF maker could not load</h3><p style="margin-bottom:14px">The print tool loads from the internet the first time it is used. Connect to the internet, reopen this page and press Print again.</p><div class="toolbar"><button class="btn primary" onclick="closeModal()">OK</button></div>');
+    return;
+  }
+  openModal('<h3>Preparing your PDF…</h3><p>Building the paper with two copies — it will open in a new tab, ready to print from the PDF viewer. If the new tab is blocked, the PDF file will download instead.</p>');
+  var one = paperHTML(paper, false);
+  var cap = document.createElement('div');
+  if (dir === 'h'){
+    cap.style.cssText = 'position:absolute; left:-10000px; top:0; width:1612px; background:#fff;';
+    cap.innerHTML = '<div style="width:1612px; overflow:hidden"><div style="float:left; width:794px">'+one+'</div><div style="float:right; width:794px">'+one+'</div><div style="clear:both"></div></div>';
+  } else {
+    cap.style.cssText = 'position:absolute; left:-10000px; top:0; width:794px; background:#fff;';
+    cap.innerHTML = one + '<div style="height:22px"></div>' + one;
+  }
+  document.body.appendChild(cap);
+  buildPaperPdf(cap).then(function(pdf){
+    if (cap.parentNode) document.body.removeChild(cap);
+    if (forceSave){ pdf.save(safePdfName(paper.name)+'-double.pdf'); closeModal(); return; }
+    var url = URL.createObjectURL(pdf.output('blob'));
+    var win = window.open(url, '_blank');
+    if (!win){ pdf.save(safePdfName(paper.name)+'-double.pdf'); URL.revokeObjectURL(url); }
+    else { setTimeout(function(){ URL.revokeObjectURL(url); }, 60000); }
+    closeModal();
+  }).catch(function(){
+    if (cap.parentNode) document.body.removeChild(cap);
+    openModal('<h3>Something went wrong</h3><p style="margin-bottom:14px">The PDF could not be made. Please try again.</p><div class="toolbar"><button class="btn primary" onclick="closeModal()">OK</button></div>');
+  });
+}
+
+/* ================= question-selection dialog (PTS style) ================= */
+/* the dialog's pool: the wizard pool for the type, minus ignored questions and source filter */
+function dlgPool(t){
+  var pool = wizPool(t);
+  if (W.ignore[t] > 0) pool = pool.slice(W.ignore[t]);
+  if (W.srcSel && W.srcSel.length) pool = pool.filter(function(q){ return W.srcSel.indexOf(q.g) !== -1; });
+  return pool;
+}
+function dlgSources(t){
+  var seen = [], map = {};
+  wizPool(t).forEach(function(q){ if (q.g && !map[q.g]){ map[q.g] = 1; seen.push(q.g); } });
+  return seen;
+}
+function openQDialog(){
+  if (!W.pickTab) W.pickTab = 'mcq';
+  renderQDialog();
+  document.getElementById('qdlgWrap').classList.add('on');
+}
+function closeQDialog(){ var w = document.getElementById('qdlgWrap'); if (w) w.classList.remove('on'); if (W.step !== 1 && document.getElementById('wizPreview')) renderWizard(); }
+function renderQDialog(){
+  var t = W.pickTab;
+  var subjName = SUBJECTS[W.subject].replace(/ \(Class \d+\)$/,'');
+  var cover = COVERS[W.subject] ? '<img class="qdlg-cover" src="'+COVERS[W.subject]+'" alt="'+esc(subjName)+' textbook cover">' : '<span class="qdlg-cover qdlg-ph">'+esc(subjName.charAt(0))+'</span>';
+  var chips = W.chapters.length ? W.chapters.map(function(c){ return '<span class="qchip" title="'+esc(c)+'">'+esc(c)+'</span>'; }).join('') : '<span style="color:var(--muted); font-size:12.5px">No chapters selected</span>';
+  var srcs = dlgSources(t);
+  var srcOpts = srcs.map(function(s){ var on = !W.srcSel || W.srcSel.indexOf(s) !== -1; return '<option value="'+esc(s)+'"'+(on?' selected':'')+'>'+esc(s)+'</option>'; }).join('');
+  var srcNote = !W.srcSel ? 'All selected ('+srcs.length+')' : (W.srcSel.length+' of '+srcs.length+' selected');
+  var cats = ['Class Test','Monthly Test','Weekly Test','Term Exam','Pre-Board','Board Model Paper','Homework Test'];
+  var h = '<div class="qdlg-head"><b>Select Your Questions Here.... '+esc(ddClassLabel(W.cls))+' - <span dir="auto">'+esc(subjName)+'</span></b><button class="qdlg-x" onclick="closeQDialog()" aria-label="Close">×</button></div>'+
+  '<div class="qdlg-body">'+
+    '<div class="qdlg-top">'+cover+'<div class="qdlg-chips">'+chips+'</div></div>'+
+    '<div class="frow" style="margin-top:13px">'+
+      '<div class="fld"><label>SELECT QUESTION TYPE</label><select id="dqType" onchange="dlgSetType(this.value)">'+[['mcq','MCQ (Objective)'],['short','Short Questions'],['long','Long Questions']].map(function(o){ return '<option value="'+o[0]+'"'+(t===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join('')+'</select></div>'+
+      '<div class="fld"><label>Source</label><select id="dqSrc" multiple size="3" onchange="dlgSrcChange(this)">'+srcOpts+'</select><div class="qdlg-srcnote" id="dqSrcNote">'+srcNote+'</div></div>'+
+      '<div class="fld"><label>Medium</label><select id="dqMedium" onchange="dlgSetMedium(this.value)">'+[['en','ENGLISH MEDIUM'],['ur','URDU MEDIUM'],['dual','DUAL MEDIUM']].map(function(o){ return '<option value="'+o[0]+'"'+(W.medium===o[0]?' selected':'')+'>'+o[1]+'</option>'; }).join('')+'</select></div>'+
+      '<div class="fld"><label>&nbsp;</label><button class="btn qbtn-green" style="width:100%" onclick="dlgSearch()">SEARCH</button></div>'+
+    '</div>'+
+    '<div class="frow">'+
+      '<div class="fld"><label>Required Questions *</label><input type="number" min="0" max="100" value="'+W.counts[t]+'" oninput="W.counts.'+t+'=+this.value||0; dlgRefreshSel()"></div>'+
+      '<div class="fld"><label>Each Q Marks *</label><input type="number" min="0" max="50" value="'+W.marks[t]+'" oninput="W.marks.'+t+'=+this.value||0; dlgRefreshSel()"></div>'+
+      (t !== 'mcq' ? '<div class="fld"><label>Attempt (blank = all)</label><input type="number" min="0" max="100" value="'+W.attempt[t]+'" oninput="W.attempt.'+t+'=this.value; dlgRefreshSel()"></div>' : '<div class="fld"><label>Available in Chapters</label><input disabled value="'+wizPool(t).length+' questions"></div>')+
+      '<div class="fld"><label>Ignore Questions</label><input type="number" min="0" max="500" value="'+W.ignore[t]+'" onchange="W.ignore.'+t+'=+this.value||0; dlgRefresh()"></div>'+
+      '<div class="fld"><label>Blank Lines</label><input type="number" min="0" max="10" value="'+W.blankLines+'" oninput="W.blankLines=+this.value||0"></div>'+
+      '<div class="fld"><label>Blank Line Type</label><select onchange="W.blankType=this.value">'+['1 LINE','2 LINES','3 LINES'].map(function(o){ return '<option'+(W.blankType===o?' selected':'')+'>'+o+'</option>'; }).join('')+'</select></div>'+
+    '</div>'+
+    '<div class="qdlg-selrow">'+
+      '<label class="qchk"><input type="checkbox" '+(W.twoPerLine?'checked':'')+' onchange="W.twoPerLine=this.checked"> 2 Questions Per Line</label>'+
+      '<label class="qchk"><input type="checkbox" '+(W.longParts?'checked':'')+' onchange="W.longParts=this.checked"> Long Questions Parts</label>'+
+      '<span class="qdlg-sp"></span>'+
+      '<span class="qdlg-selcount">Selected Questions <b id="dqSelN">0</b> / <span id="dqSelNeed">0</span></span>'+
+      '<span class="qdlg-syll"><label><input type="radio" name="dqSyll" value="smart" '+(W.syllabus==='smart'?'checked':'')+' onchange="dlgSetSyllabus(\'smart\')"> Smart Syllabus</label><label><input type="radio" name="dqSyll" value="full" '+(W.syllabus==='full'?'checked':'')+' onchange="dlgSetSyllabus(\'full\')"> Full Syllabus</label></span>'+
+    '</div>'+
+    '<div class="qdlg-actions"><button class="btn qbtn-green" onclick="dlgRandom()">RANDOM SELECT ›</button><button class="btn qbtn-blue" onclick="dlgAdd()">ADD QUESTION\'S ›</button></div>'+
+    '<div class="qdlg-results"><div class="qdlg-reshead" id="dqResHead"></div><div id="dqResults"></div></div>'+
+    '<h4 class="qdlg-sec">Selected Questions</h4><div id="dqSelTable"></div>'+
+    '<h4 class="qdlg-sec">Paper Details</h4>'+
+    '<div class="frow">'+
+      '<div class="fld"><label>Paper Name</label><input type="text" value="'+esc(W.name)+'" oninput="W.name=this.value" placeholder="e.g. '+esc(subjName)+' — Class Test"></div>'+
+      '<div class="fld"><label>Exam</label><select onchange="W.category=this.value">'+cats.map(function(c){ return '<option'+(W.category===c?' selected':'')+'>'+c+'</option>'; }).join('')+'</select></div>'+
+      '<div class="fld"><label>Exam Date</label><input type="date" value="'+W.date+'" onchange="W.date=this.value"></div>'+
+    '</div>'+
+    '<div class="frow">'+
+      '<div class="fld"><label>Time Allowed</label><input type="text" value="'+esc(W.time)+'" oninput="W.time=this.value"></div>'+
+      '<div class="fld"><label>Total Marks</label><input id="dqTotMarks" disabled value="0"></div>'+
+      '<div class="fld"><label>Exam Syllabus</label><input type="text" value="'+esc(W.examSyllabus)+'" oninput="W.examSyllabus=this.value" placeholder="e.g. Unit 1–3"></div>'+
+    '</div>'+
+    '<label class="chk'+(W.bubble?' sel':'')+'" style="max-width:420px"><input type="checkbox" '+(W.bubble?'checked':'')+' onchange="W.bubble=this.checked; this.closest(\'.chk\').classList.toggle(\'sel\', this.checked)"><span><span class="t">Bubble Sheet (OMR)</span><br><span class="c">Print the MCQ bubble answer sheet with the paper</span></span></label>'+
+    '<div class="qdlg-foot"><button class="btn qbtn-blue" onclick="dlgSave()">SAVE PAPER</button><button class="btn" onclick="dlgBackChapters()">BACK TO CHAPTERS</button></div>'+
+  '</div>';
+  document.getElementById('qdlg').innerHTML = h;
+  dlgRefresh();
+}
+function dlgRefresh(){
+  var t = W.pickTab; if (!t) return;
+  var pool = dlgPool(t);
+  var head = document.getElementById('dqResHead');
+  if (head) head.innerHTML = '<b>'+typeLabel(t)+' Questions</b> — '+pool.length+' found in the selected chapters'+(W.srcSel ? ' · source filter on' : '')+(W.ignore[t] ? ' · first '+W.ignore[t]+' ignored' : '');
+  var box = document.getElementById('dqResults');
+  if (box){
+    var h = '';
+    pool.slice(0,150).forEach(function(q){
+      var sel = W.sel[t].indexOf(q.id) !== -1;
+      var opts = q.t==='mcq' && q.o.length ? '<div class="opts">'+q.o.map(function(o,i){ return '<b>'+'ABCD'[i]+')</b> '+fmt(o); }).join(' &nbsp;·&nbsp; ')+'</div>' : '';
+      h += '<label class="qpick'+(sel?' sel':'')+'"><input type="checkbox" '+(sel?'checked':'')+' onchange="dlgToggleQ(\''+t+'\',\''+q.id+'\',this.checked,this)"><span><span class="qt">'+qTextHtml(q, W.medium)+'</span>'+opts+'<div style="margin-top:3px"><span class="chip gray">'+esc(q.c)+'</span> '+(q.g?'<span class="chip gray">'+esc(q.g)+'</span>':'')+'</div></span></label>';
+    });
+    if (pool.length > 150) h += '<p class="qdlg-note">Showing first 150 of '+pool.length+' — Random Select picks from all of them.</p>';
+    if (!pool.length) h += '<p class="qdlg-note">No '+typeLabel(t)+' questions found — change the source or ignore count, then press SEARCH.</p>';
+    box.innerHTML = h;
+  }
+  dlgRefreshSel();
+}
+function dlgRefreshSel(){
+  var t = W.pickTab; if (!t) return;
+  var nEl = document.getElementById('dqSelN'); if (nEl) nEl.textContent = W.sel[t].length;
+  var needEl = document.getElementById('dqSelNeed'); if (needEl) needEl.textContent = W.counts[t];
+  var tm = document.getElementById('dqTotMarks'); if (tm) tm.value = wizSelectedMarks();
+  var wrap = document.getElementById('dqSelTable'); if (!wrap) return;
+  var map = {}; wizPool(t).forEach(function(q){ map[q.id] = q; });
+  var rows = W.sel[t].map(function(id){ return map[id]; }).filter(Boolean).map(function(q){
+    return '<tr><td class="qq">'+qTextHtml(q, W.medium)+'</td><td>'+typeLabel(q.t)+'</td><td>'+esc(q.c)+'</td><td>'+W.marks[t]+'</td><td><button class="qdel" title="Remove this question" onclick="dlgRemoveQ(\''+t+'\',\''+q.id+'\')">×</button></td></tr>';
+  }).join('');
+  wrap.innerHTML = '<table class="qdlg-table"><thead><tr><th>QUESTIONS</th><th>TYPE</th><th>QUESTIONS TYPE</th><th>MARKS</th><th>Delete</th></tr></thead><tbody>'+
+    (rows || '<tr><td colspan="5" style="color:var(--muted)">No questions selected yet — tick questions above, or press RANDOM SELECT / ADD QUESTION\'S.</td></tr>')+
+    '</tbody><tfoot><tr><td colspan="3" style="text-align:right; font-weight:700">Total Marks</td><td colspan="2" style="font-weight:700">'+wizSelectedMarks()+'</td></tr></tfoot></table>';
+}
+function dlgSetType(t){ W.pickTab = t; W.srcSel = null; renderQDialog(); }
+function dlgSetMedium(m){ W.medium = m; dlgRefresh(); }
+function dlgSetSyllabus(mode){
+  W.syllabus = mode;
+  ['mcq','short','long'].forEach(function(x){ W.sel[x] = W.sel[x].filter(function(id){ return wizPool(x).some(function(q){ return q.id === id; }); }); });
+  W.srcSel = null; renderQDialog();
+}
+function dlgSrcChange(sel){
+  var total = sel.options.length; var picked = [];
+  for (var i=0;i<sel.options.length;i++){ if (sel.options[i].selected) picked.push(sel.options[i].value); }
+  W.srcSel = (picked.length === total) ? null : picked;
+  var note = document.getElementById('dqSrcNote'); if (note) note.textContent = !W.srcSel ? 'All selected ('+total+')' : (picked.length+' of '+total+' selected');
+  dlgRefresh();
+}
+function dlgSearch(){ dlgRefresh(); }
+function dlgToggleQ(t, id, on, cb){
+  if (on){ if (W.sel[t].indexOf(id)===-1) W.sel[t].push(id); } else { W.sel[t] = W.sel[t].filter(function(x){ return x !== id; }); }
+  if (cb) cb.closest('.qpick').classList.toggle('sel', on);
+  dlgRefreshSel();
+}
+function dlgRandom(){
+  var t = W.pickTab;
+  if (!W.counts[t]){ alert2('Set Required Questions above zero first.'); return; }
+  var pool = dlgPool(t).slice();
+  for (var i = pool.length-1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp; }
+  W.sel[t] = pool.slice(0, W.counts[t]).map(function(q){ return q.id; });
+  dlgRefresh();
+}
+function dlgAdd(){
+  var t = W.pickTab;
+  if (!W.counts[t]){ alert2('Set Required Questions above zero first.'); return; }
+  var added = 0;
+  dlgPool(t).forEach(function(q){ if (W.sel[t].length < W.counts[t] && W.sel[t].indexOf(q.id) === -1){ W.sel[t].push(q.id); added++; } });
+  if (!added) alert2(W.sel[t].length >= W.counts[t] ? 'Required '+typeLabel(t)+' questions are already selected.' : 'No more questions to add from this search.');
+  dlgRefresh();
+}
+function dlgRemoveQ(t, id){ W.sel[t] = W.sel[t].filter(function(x){ return x !== id; }); dlgRefresh(); }
+function dlgSave(){
+  var missing = wizCheckSelections();
+  if (missing.length){ alert2('Some questions are still missing — '+missing.join(', ')+'. Tick more questions or press Random Select.'); return; }
+  wizAutoName(); closeQDialog(); saveWizardPaper(); renderWizard();
+}
+function dlgBackChapters(){ closeQDialog(); W.step = 1; W.dd = 'chapters'; renderWizard(); }
 function psSetLive(key, val){
   var ps = PS();
   if (key === 'fontSize') ps.fontSize = Math.min(20, Math.max(11, parseFloat(val) || 14.5));
@@ -957,17 +1717,17 @@ function psSetLive(key, val){
   else if (key === 'qGap') ps.qGap = Math.min(24, Math.max(4, parseFloat(val) || 11));
   else if (key === 'headSize') ps.headSize = Math.min(36, Math.max(18, parseFloat(val) || 27));
   else if (key === 'lineHeight') ps.lineHeight = parseFloat(val) || 1.5;
-  else if (key === 'chapHead' || key === 'frame' || key === 'watermark') ps[key] = !!val;
+  else if (key === 'chapHead' || key === 'frame' || key === 'watermark' || key === 'printHeader' || key === 'printDate' || key === 'printStudent' || key === 'printKey' || key === 'urduTop') ps[key] = !!val;
   else ps[key] = val;
   saveStore();
   var pv = document.getElementById('wizPreview');
-  if (pv) pv.innerHTML = paperHTML(buildPaperFromWizard(), false);
+  if (pv) pv.innerHTML = paperHTML(buildPaperFromWizard(), PS().printKey);
   document.querySelectorAll('#wizBody .chk input[type=checkbox]').forEach(function(cb){ cb.closest('.chk').classList.toggle('sel', cb.checked); });
 }
 function saveWizardPaper(){
   var paper = buildPaperFromWizard();
   store.papers.unshift(paper); saveStore();
-  openModal('<h3>Paper Saved ✓</h3><p style="margin-bottom:14px">“'+esc(paper.name)+'” is saved in <b>My Papers</b>. You can print it again any time from there.</p><div class="toolbar"><button class="btn primary" onclick="closeModal(); go(\'papers\')">Open My Papers</button><button class="btn" onclick="closeModal()">Stay Here</button></div>');
+  openModal('<h3>Paper Saved ✓</h3><p style="margin-bottom:14px">“'+esc(paper.name)+'” is saved in <b>Saved Papers</b>. You can print it again any time from there.</p><div class="toolbar"><button class="btn primary" onclick="closeModal(); go(\'papers\')">Open Saved Papers</button><button class="btn" onclick="closeModal()">Stay Here</button></div>');
 }
 
 /* ================= paper rendering ================= */
@@ -976,7 +1736,7 @@ function paperStyleAttr(extra){
   var ps = PS();
   var pad = 'padding:'+Math.round(ps.margin*1.15)+'mm '+ps.margin+'mm '+Math.round(ps.margin*1.3)+'mm;';
   var frame = ps.frame ? 'border:2.2px solid '+ps.secColor+'; outline:1px solid '+ps.secColor+'; outline-offset:-7px;' : 'border:1px solid #bbb;';
-  return ' style="font-family:'+ps.font+'; font-size:'+ps.fontSize+'px; line-height:'+ps.lineHeight+'; --qgap:'+ps.qGap+'px; '+pad+frame+(extra||'')+'"';
+  return ' style="font-family:'+ps.font+'; font-size:'+ps.fontSize+'px; line-height:'+ps.lineHeight+'; --qgap:'+ps.qGap+'px; --urfont:'+(ps.urduFont || "'Noto Nastaliq Urdu', serif")+'; '+pad+frame+(extra||'')+'"';
 }
 /* split a question list into chapter groups, keeping the order the chapters first appear */
 function chapGroups(list){
@@ -984,57 +1744,94 @@ function chapGroups(list){
   list.forEach(function(q){ var c = q.c || 'General'; if (!map[c]){ map[c] = { c:c, items:[] }; groups.push(map[c]); } map[c].items.push(q); });
   return groups;
 }
-function chapHeadHTML(name){
+function chapHeadHTML(name, note){
   var ps = PS();
   if (!ps.chapHead) return '';
   var urdu = /[\u0600-\u06FF]/.test(name);
   var isQ = /^Q\s*\d/.test(name);
   var label = isQ ? '' : '<span style="font-family:\'Poppins\',sans-serif; font-size:.7em; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; background:#fff; color:'+ps.secColor+'; padding:2px 8px; border-radius:3px; -webkit-print-color-adjust:exact; print-color-adjust:exact">Chapter</span>';
-  return '<div class="chaphead" style="background:'+ps.secColor+'; color:#fff'+(urdu ? '; direction:rtl; text-align:right; font-family:\'Noto Nastaliq Urdu\',serif; line-height:2' : '')+'">'+label+'<span>'+esc(name)+'</span></div>';
+  return '<div class="chaphead" style="background:'+ps.secColor+'; color:#fff'+(urdu ? '; direction:rtl; text-align:right; font-family:'+(ps.urduFont || "'Noto Nastaliq Urdu', serif")+'; line-height:2' : '')+'">'+label+'<span>'+esc(name)+'</span>'+(note ? '<span class="chnote">'+esc(note)+'</span>' : '')+'</div>';
+}
+/* the academy monogram (same mark as the Settings preview), at any size */
+function monoSVG(size){
+  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 76 76" role="img" aria-label="Rose Academy monogram"><circle cx="38" cy="38" r="36" fill="#12264f"/><circle cx="38" cy="38" r="31" fill="none" stroke="#e8a91c" stroke-width="1.6"/><text x="38" y="46" text-anchor="middle" font-family="Georgia, \'Times New Roman\', serif" font-size="21" font-weight="700" fill="#ffffff">RA</text></svg>';
+}
+/* PTS-style sheet header: monogram at the left, academy name centred in serif, address beneath */
+function paperHeadHTML(title){
+  var s = store.settings; var ps = PS();
+  if (!ps.printHeader) return title ? '<div class="phead" style="border-bottom-color:'+ps.secColor+'"><div class="ph-center"><div class="pname">'+esc(title)+'</div></div></div>' : '';
+  var mh = Math.min(120, Math.max(24, ps.monoHeight || 50));
+  return '<div class="phead" style="border-bottom-color:'+ps.secColor+'"><div class="mono" style="width:'+mh+'px; height:'+mh+'px">'+monoSVG(mh)+'</div>'+
+  '<div class="ph-center"><div class="an" style="color:'+ps.secColor+'; font-size:'+ps.headSize+'px; font-family:'+ps.font+'; transform:scaleX('+(ps.headStretch || 1)+')">'+esc(s.academy)+'</div>'+
+  '<div class="tag" style="font-size:'+(ps.tagSize || 12.5)+'px; color:'+(ps.tagColor || '#000000')+'; transform:scaleX('+(ps.tagStretch || 1)+')">'+esc(s.tagline)+'</div>'+
+  (title ? '<div class="pname">'+esc(title)+'</div>' : '')+'</div><div class="mono-sp" style="width:'+mh+'px"></div></div>';
+}
+/* ruled blank writing lines after a subjective question: Blank Lines × the Blank Line Type count */
+function blankLinesHTML(paper){
+  var n = paper.blankLines || 0; if (!n) return '';
+  var per = parseInt(paper.blankType, 10) || 1;
+  var spans = '';
+  for (var i = 0; i < n * per; i++) spans += '<span></span>';
+  return '<div class="blanks">'+spans+'</div>';
 }
 function paperHTML(paper, withKey){
   var s = store.settings; var ps = PS(); var med = paperMedium(paper);
-  var wm = ps.watermark ? '<div class="wm"><span>'+esc(s.academy)+'<br>'+esc(s.academy)+'</span></div>' : '';
-  var h = '<div class="paper"'+paperStyleAttr()+'>'+wm+
-  '<div class="phead" style="border-bottom-color:'+ps.secColor+'"><div class="an" style="color:'+ps.secColor+'; font-size:'+ps.headSize+'px">'+esc(s.academy)+'</div><div class="tag">'+esc(s.tagline)+'</div><div class="pname">'+esc(paper.name)+'</div></div>'+
-  '<table class="info"><tr><td class="k">Class</td><td>'+esc(paper.cls)+'</td><td class="k">Subject</td><td>'+esc(paper.subjectName)+'</td><td class="k">Date</td><td>'+esc(paper.date)+'</td></tr>'+
-  '<tr><td class="k">Time Allowed</td><td>'+esc(paper.time)+'</td><td class="k">Category</td><td>'+esc(paper.category)+'</td><td class="k">Total Marks</td><td><b>'+paper.totalMarks+'</b></td></tr></table>'+
-  '<div class="stu"><div>Student Name: <span></span></div><div>Roll No: <span style="min-width:90px"></span></div><div>Section: <span style="min-width:90px"></span></div></div>';
+  var wm = '';
+  if (ps.watermark) wm = ps.wmStyle === 'monogram' ? '<div class="wm"><span class="wmmono">'+monoSVG(430)+'</span></div>' : '<div class="wm"><span>'+esc(s.academy)+'<br>'+esc(s.academy)+'</span></div>';
+  var h = '<div class="paper"'+paperStyleAttr()+'>'+wm+paperHeadHTML(paper.name)+
+  '<table class="info"><tr><td class="k">Paper Code</td><td><span class="codeblank">&nbsp;</span></td><td class="k">Total Marks</td><td><b>'+paper.totalMarks+'</b></td>'+
+  (ps.printDate ? '<td class="k">Time</td><td>'+esc(paper.time)+'</td><td class="k">Date</td><td>'+esc(paper.date)+'</td>' : '')+'</tr></table>'+
+  '<div class="examline"><span>Exam: '+esc(paper.category)+'</span><span>Class: '+esc(paper.cls)+'</span><span>Subject: '+esc(paper.subjectName)+'</span><span>'+mediumLabel(med)+'</span>'+(paper.examSyllabus ? '<span>Syllabus: '+esc(paper.examSyllabus)+'</span>' : '')+'</div>';
+  if (ps.printStudent) h += '<div class="stu"><div>Student Name: <span></span></div><div>Roll No: <span style="min-width:90px"></span></div><div>Section: <span style="min-width:90px"></span></div></div>';
   var Q = paper.questions;
   if (Q.mcq.length){
-    h += '<div class="secbar" style="background:'+ps.secColor+'"><span>Objective Part</span><span>'+paper.marks.mcq+' × '+Q.mcq.length+' = '+(paper.marks.mcq*Q.mcq.length)+'</span></div>'+
+    h += '<div class="secbar" style="background:'+ps.secColor+'"><span>OBJECTIVE PART</span><span>('+paper.marks.mcq+' x '+Q.mcq.length+' = '+(paper.marks.mcq*Q.mcq.length)+')</span></div>'+
     '<div class="note">Note: Each question has four options A, B, C and D. Choose the correct one. Cutting or over-writing is not allowed.</div>';
     var mn = 0;
     chapGroups(Q.mcq).forEach(function(g){
-      h += chapHeadHTML(g.c);
+      h += chapHeadHTML(g.c, '('+paper.marks.mcq+' x '+g.items.length+' = '+(paper.marks.mcq*g.items.length)+')');
+      var items = '';
       g.items.forEach(function(q){
         mn++;
-        var four = q.o.every(function(o){ return o.length <= 14; });
-        h += '<div class="q"><span class="qn">'+mn+'.</span> '+paperQTextHtml(q, med)+
+        var four = !paper.twoPerLine && q.o.every(function(o){ return o.length <= 14; });
+        items += '<div class="q"><span class="qn">'+mn+'.</span> '+paperQTextHtml(q, med)+
           '<div class="qopts" style="'+(four?'grid-template-columns:repeat(4,1fr)':'')+'">'+q.o.map(function(o,j){ return '<div><b>('+ 'ABCD'[j] +')</b> '+fmt(o)+'</div>'; }).join('')+'</div></div>';
       });
+      h += paper.twoPerLine ? '<div class="qgrid">'+items+'</div>' : items;
     });
   }
   if (Q.short.length || Q.long.length){
     var subTot = 0; ['short','long'].forEach(function(t){ var n = Q[t].length; var a = paper.attempt[t] ? Math.min(+paper.attempt[t], n) : n; subTot += a * paper.marks[t]; });
-    h += '<div class="secbar" style="background:'+ps.secColor+'"><span>Subjective Part</span><span>'+subTot+'</span></div>';
+    h += '<div class="secbar" style="background:'+ps.secColor+'"><span>SUBJECTIVE PART</span><span>'+subTot+'</span></div>';
     if (Q.short.length){
       var att = paper.attempt.short ? Math.min(+paper.attempt.short, Q.short.length) : Q.short.length;
-      h += '<div class="subhead">Q.2&nbsp; Write short answers to '+(paper.attempt.short ? 'any '+att+' ' : 'all ')+'of the following questions. <span class="marks">('+att+' × '+paper.marks.short+' = '+(att*paper.marks.short)+')</span></div>';
+      h += '<div class="subhead">Q.2&nbsp; Write short answers to '+(paper.attempt.short ? 'any '+att+' ' : 'all ')+'of the following questions. <span class="marks">('+paper.marks.short+' x '+att+' = '+(att*paper.marks.short)+')</span></div>';
       var sn = 0;
       chapGroups(Q.short).forEach(function(g){
         h += chapHeadHTML(g.c);
-        g.items.forEach(function(q){ h += '<div class="q" style="margin-left:22px"><span class="qn">'+(sn+1)+'.</span> '+paperQTextHtml(q, med)+'</div>'; sn++; });
+        var items = '';
+        g.items.forEach(function(q){ items += '<div class="q" style="margin-left:22px"><span class="qn">'+(sn+1)+'.</span> '+paperQTextHtml(q, med)+blankLinesHTML(paper)+'</div>'; sn++; });
+        h += paper.twoPerLine ? '<div class="qgrid">'+items+'</div>' : items;
       });
     }
-    var ln = 0;
-    chapGroups(Q.long).forEach(function(g){
-      h += chapHeadHTML(g.c);
-      g.items.forEach(function(q){
-        ln++;
-        h += '<div class="subhead">Q.'+(2+ln)+' <span class="marks">('+paper.marks.long+')</span></div><div class="q" style="margin-left:22px">'+paperQTextHtml(q, med)+'</div>';
+    if (Q.long.length && paper.longParts){
+      var latt = paper.attempt.long ? Math.min(+paper.attempt.long, Q.long.length) : Q.long.length;
+      h += '<div class="subhead">Q.3&nbsp; Answer the following questions in detail. <span class="marks">('+paper.marks.long+' x '+latt+' = '+(latt*paper.marks.long)+')</span></div>';
+      var li = 0;
+      chapGroups(Q.long).forEach(function(g){
+        h += chapHeadHTML(g.c);
+        g.items.forEach(function(q){ h += '<div class="q" style="margin-left:22px"><span class="qn">('+'abcdefghijklmnopqrstuvwxyz'[li % 26]+')</span> '+paperQTextHtml(q, med)+blankLinesHTML(paper)+'</div>'; li++; });
       });
-    });
+    } else if (Q.long.length){
+      var ln = 0;
+      chapGroups(Q.long).forEach(function(g){
+        h += chapHeadHTML(g.c);
+        g.items.forEach(function(q){
+          ln++;
+          h += '<div class="subhead">Q.'+(2+ln)+' <span class="marks">('+paper.marks.long+')</span></div><div class="q" style="margin-left:22px">'+paperQTextHtml(q, med)+blankLinesHTML(paper)+'</div>';
+        });
+      });
+    }
   }
   h += '<div class="pend">— End of the Paper —</div></div>'; /* paper */
   if (paper.bubble && Q.mcq.length) h += bubbleHTML(paper);
@@ -1051,14 +1848,15 @@ function bubbleHTML(paper){
     }
     if (rows) tables += '<table><tr><th>Q.</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>'+rows+'</table>';
   }
-  return '<div class="paper"'+paperStyleAttr('margin-top:26px;')+'><div class="phead" style="border-bottom-color:'+PS().secColor+'"><div class="an" style="font-size:'+Math.max(16, PS().headSize-6)+'px; color:'+PS().secColor+'">'+esc(store.settings.academy)+'</div><div class="pname">Bubble Sheet — Objective Answers</div></div>'+
+  return '<div class="paper"'+paperStyleAttr('margin-top:26px;')+'>'+paperHeadHTML('Bubble Sheet — Objective Answers')+
   '<div class="stu"><div>Name: <span></span></div><div>Roll No: <span style="min-width:90px"></span></div><div>Class: <span style="min-width:80px">'+esc(paper.cls)+'</span></div><div>Subject: <span style="min-width:110px">'+esc(paper.subjectName)+'</span></div></div>'+
   '<div class="note">Fill the circle of the correct option completely with a blue or black pen.</div>'+
+  '<div class="secbar" style="background:'+PS().secColor+'"><span>BUBBLE SHEET</span><span>'+n+' Questions</span></div>'+
   '<div class="bubble" style="display:flex; gap:16px; flex-wrap:wrap">'+tables+'</div></div>';
 }
 function keyHTML(paper){
   var rows = paper.questions.mcq.map(function(q, i){ return '<div class="keyq"><b>'+(i+1)+'.</b> Correct option: <b>'+(q.a != null ? 'ABCD'[q.a] : '—')+'</b>'+(q.a != null && q.o[q.a] ? ' — '+fmt(q.o[q.a]) : '')+'</div>'; }).join('');
-  return '<div class="paper"'+paperStyleAttr('margin-top:26px;')+'><div class="phead" style="border-bottom-color:'+PS().secColor+'"><div class="an" style="font-size:'+Math.max(16, PS().headSize-6)+'px; color:'+PS().secColor+'">'+esc(store.settings.academy)+'</div><div class="pname">Answer Key — '+esc(paper.name)+'</div></div>'+rows+
+  return '<div class="paper"'+paperStyleAttr('margin-top:26px;')+'>'+paperHeadHTML('Answer Key — '+paper.name)+rows+
   '<p style="font-size:12.5px; color:#000; font-weight:600; margin-top:12px">Objective (MCQ) key only — short and long questions are checked from the textbook.</p></div>';
 }
 /* ================= print: build the paper PDF, open it in a new tab ================= */
@@ -1099,7 +1897,7 @@ function buildPaperPdf(el){
 /* Print = build the same A4 PDF and open it in a new tab, where it is printed
    from the PDF viewer's own print button; if the new tab is blocked, the PDF
    file downloads instead. */
-function printPaper(paper, withKey){
+function printPaper(paper, withKey, forceSave){
   if (!window.html2canvas || !(window.jspdf && window.jspdf.jsPDF)){
     openModal('<h3>PDF maker could not load</h3><p style="margin-bottom:14px">The print tool loads from the internet the first time it is used. Connect to the internet, reopen this page and press Print again.</p><div class="toolbar"><button class="btn primary" onclick="closeModal()">OK</button></div>');
     return;
@@ -1111,6 +1909,7 @@ function printPaper(paper, withKey){
   document.body.appendChild(cap);
   buildPaperPdf(cap).then(function(pdf){
     if (cap.parentNode) document.body.removeChild(cap);
+    if (forceSave){ pdf.save(safePdfName(paper.name)+'.pdf'); closeModal(); return; }
     var url = URL.createObjectURL(pdf.output('blob'));
     var win = window.open(url, '_blank');
     if (!win){ pdf.save(safePdfName(paper.name)+'.pdf'); URL.revokeObjectURL(url); }
@@ -1122,20 +1921,106 @@ function printPaper(paper, withKey){
   });
 }
 
-/* ================= my papers ================= */
+/* ================= saved papers (PTS style) ================= */
+var papersQuery = '';
+var SP_ICO = {
+  dots:'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="12" cy="19" r="1.9"/></svg>',
+  edit:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+  print:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></svg>',
+  trash:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>'
+};
+var SP_MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+/* the paper id is 'p' + the save timestamp, so the Created DateTime is the paper's own */
+function spCreated(pp){
+  var m = /^p(\d{10,})$/.exec(pp.id || '');
+  if (!m) return '—';
+  var d = new Date(+m[1]); if (isNaN(d.getTime())) return '—';
+  var hh = d.getHours(), ap = hh >= 12 ? 'PM' : 'AM'; hh = hh % 12; if (!hh) hh = 12;
+  return d.getDate()+'-'+SP_MON[d.getMonth()]+'-'+d.getFullYear()+' '+hh+':'+('0'+d.getMinutes()).slice(-2)+' '+ap;
+}
+function spPaperDate(pp){
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(pp.date || '');
+  if (!m) return esc(pp.date || '—');
+  return (+m[3])+'-'+SP_MON[+m[2]-1]+'-'+m[1];
+}
 function renderPapers(){
   var el = document.getElementById('papersList');
+  var cnt = document.getElementById('spCount');
+  var q = papersQuery.trim().toLowerCase();
+  var list = store.papers.filter(function(pp){
+    if (!q) return true;
+    return (pp.name+' '+pp.category+' '+pp.cls+' '+pp.subjectName+' '+pp.date).toLowerCase().indexOf(q) !== -1;
+  });
+  list = list.slice().sort(function(a, b){
+    if (String(a.date || '') !== String(b.date || '')) return String(b.date || '').localeCompare(String(a.date || ''));
+    return String(b.id).localeCompare(String(a.id));
+  });
+  if (cnt) cnt.textContent = list.length + " Record's Found";
   if (!store.papers.length){
-    el.innerHTML = '<div class="card"><h3>No saved papers yet</h3><p style="color:var(--muted)">Go to <b style="color:var(--ink)">Generate Paper</b>, make a paper and press <b style="color:var(--ink)">Save Paper</b> — it will appear here.</p></div>';
+    el.innerHTML = '<div class="sp-empty">No saved papers yet. Go to <b>Generate Paper</b>, make a paper and press <b>Save Paper</b> — it will appear here.</div>';
     return;
   }
-  el.innerHTML = store.papers.map(function(pp){
-    var nq = pp.questions.mcq.length + pp.questions.short.length + pp.questions.long.length;
-    return '<div class="card"><div class="toolbar" style="margin:0"><div><b style="font-size:15px">'+esc(pp.name)+'</b><div style="margin-top:5px; display:flex; gap:6px; flex-wrap:wrap"><span class="chip">'+esc(pp.cls)+'</span><span class="chip gray">'+esc(pp.subjectName)+'</span><span class="chip gray">'+esc(pp.category)+'</span><span class="chip gray">'+mediumLabel(pp.medium)+'</span><span class="chip gray">'+esc(pp.date)+'</span><span class="chip gray">'+nq+' questions</span><span class="chip gold">Total Marks: '+pp.totalMarks+'</span></div></div><span class="sp"></span>'+
-    '<button class="btn sm primary" onclick="viewPaper(\''+pp.id+'\')">View / Print</button>'+
-    '<button class="btn sm" onclick="printSaved(\''+pp.id+'\', true)">Print with Key</button>'+
-    '<button class="btn sm danger" onclick="deletePaper(\''+pp.id+'\')">Delete</button></div></div>';
+  if (!list.length){
+    el.innerHTML = '<div class="sp-empty">No paper matches “'+esc(papersQuery.trim())+'”. Clear the search to see all '+store.papers.length+' saved papers.</div>';
+    return;
+  }
+  var rows = list.map(function(pp, i){
+    var menu = '<div class="sp-menu" id="spMenu-'+pp.id+'">'+
+      '<button onclick="spUpdate(\''+pp.id+'\')"><span class="sp-mi" style="color:#1d9d61">'+SP_ICO.edit+'</span>Update</button>'+
+      '<button onclick="printSaved(\''+pp.id+'\', false)"><span class="sp-mi" style="color:#2563eb">'+SP_ICO.print+'</span>Print Single Copy</button>'+
+      '<button onclick="spPrintTwo(\''+pp.id+'\')"><span class="sp-mi" style="color:#2563eb">'+SP_ICO.print+'</span>Print Two Copies</button>'+
+      '<button class="sp-del" onclick="spDeleteAsk(\''+pp.id+'\')"><span class="sp-mi" style="color:#d33a2c">'+SP_ICO.trash+'</span>Delete</button></div>';
+    return '<tr>'+
+      '<td data-label="Sr">'+(i+1)+'</td>'+
+      '<td data-label="Paper Name"><b>'+esc(pp.name)+'</b></td>'+
+      '<td data-label="Exam Name">'+esc(pp.category || '—')+'</td>'+
+      '<td data-label="Class">'+esc(pp.cls)+'</td>'+
+      '<td data-label="Subject"><span dir="auto">'+esc(pp.subjectName)+'</span></td>'+
+      '<td data-label="Paper Date">'+spPaperDate(pp)+'</td>'+
+      '<td data-label="Created DateTime">'+spCreated(pp)+'</td>'+
+      '<td data-label="User">Administrator</td>'+
+      '<td class="sp-act"><button class="sp-dots" aria-label="Actions for '+esc(pp.name)+'" onclick="spMenuToggle(event, \''+pp.id+'\')">'+SP_ICO.dots+'</button>'+menu+'</td></tr>';
   }).join('');
+  el.innerHTML = '<div class="sp-tablewrap"><table class="sp-table"><thead><tr><th>Sr</th><th>Paper Name</th><th>Exam Name</th><th>Class</th><th>Subject</th><th>Paper Date</th><th>Created DateTime</th><th>User</th><th>Actions</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function spMenuToggle(ev, id){
+  ev.stopPropagation();
+  var m = document.getElementById('spMenu-'+id); if (!m) return;
+  var was = m.classList.contains('on');
+  spMenusClose();
+  if (!was) m.classList.add('on');
+}
+function spMenusClose(){ document.querySelectorAll('.sp-menu.on').forEach(function(m){ m.classList.remove('on'); }); }
+document.addEventListener('click', function(){ spMenusClose(); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') spMenusClose(); });
+function spSearchInput(v){ papersQuery = v; renderPapers(); }
+function spPrintTwo(id){ var pp = findPaper(id); if (pp) printPaperDouble(pp, 'v'); }
+function spDeleteAsk(id){
+  var pp = findPaper(id); if (!pp) return;
+  openModal('<h3>Delete this paper?</h3><p style="margin-bottom:14px">“'+esc(pp.name)+'” will be removed from Saved Papers. This cannot be undone.</p><div class="toolbar"><button class="btn danger" onclick="closeModal(); deletePaper(\''+id+'\')">Yes, Delete</button><button class="btn" onclick="closeModal()">Keep Paper</button></div>');
+}
+var EXAM_CATS = ['Class Test','Monthly Test','Weekly Test','Term Exam','Pre-Board','Board Model Paper','Homework Test'];
+function spUpdate(id){
+  var pp = findPaper(id); if (!pp) return;
+  var cats = EXAM_CATS.slice(); if (pp.category && cats.indexOf(pp.category) === -1) cats.unshift(pp.category);
+  openModal('<h3>Update Paper</h3>'+
+  '<div class="fld"><label>Paper Name</label><input id="upName" type="text" value="'+esc(pp.name)+'"></div>'+
+  '<div class="frow" style="margin-top:11px; margin-bottom:11px"><div class="fld"><label>Exam Name</label><select id="upExam">'+cats.map(function(c){ return '<option'+(pp.category===c?' selected':'')+'>'+esc(c)+'</option>'; }).join('')+'</select></div>'+
+  '<div class="fld"><label>Paper Date</label><input id="upDate" type="date" value="'+esc(pp.date || '')+'"></div></div>'+
+  '<div class="frow"><div class="fld"><label>Time Allowed</label><input id="upTime" type="text" value="'+esc(pp.time || '')+'"></div>'+
+  '<div class="fld"><label>Class — Subject</label><input type="text" disabled value="'+esc(pp.cls)+' — '+esc(pp.subjectName)+'"></div></div>'+
+  '<div class="msg" id="upMsg"></div>'+
+  '<div class="toolbar" style="margin:0"><button class="btn primary" onclick="spUpdateSave(\''+id+'\')">Update Paper</button><button class="btn" onclick="closeModal()">Cancel</button></div>');
+}
+function spUpdateSave(id){
+  var pp = findPaper(id); if (!pp) return;
+  var name = document.getElementById('upName').value.trim();
+  if (!name){ var m = document.getElementById('upMsg'); m.className = 'msg err'; m.textContent = 'Write a paper name first.'; return; }
+  pp.name = name;
+  pp.category = document.getElementById('upExam').value;
+  pp.date = document.getElementById('upDate').value || pp.date;
+  pp.time = document.getElementById('upTime').value.trim() || pp.time;
+  saveStore(); closeModal(); renderPapers(); renderDashboard();
 }
 function findPaper(id){ return store.papers.filter(function(p){ return p.id === id; })[0]; }
 function viewPaper(id){
@@ -1171,10 +2056,15 @@ document.getElementById('restoreFile').addEventListener('change', function(){
   };
   rd.readAsText(f); this.value = '';
 });
+function syncTopSchool(){
+  var s1 = document.getElementById('topSchool'), s2 = document.getElementById('topTag');
+  if (s1) s1.textContent = store.settings.academy;
+  if (s2) s2.textContent = store.settings.tagline;
+}
 function saveSettings(){
   store.settings.academy = document.getElementById('setAcademy').value.trim() || 'The Rose Academy Of Sciences';
   store.settings.tagline = document.getElementById('setTagline').value.trim();
-  saveStore();
+  saveStore(); syncTopSchool();
   var m = document.getElementById('setMsg'); m.className = 'msg ok'; m.textContent = 'Settings saved ✓ — the new name will print on your papers.';
 }
 
@@ -1182,26 +2072,73 @@ function saveSettings(){
 function fillPaperSettings(){
   var ps = PS(); if (!ps) return;
   var set = function(id, v){ var el = document.getElementById(id); if (el) el.value = v; };
-  set('psFont', ps.font); set('psSize', ps.fontSize); set('psLH', String(ps.lineHeight));
-  set('psMargin', ps.margin); set('psGap', ps.qGap); set('psHead', ps.headSize); set('psColor', ps.secColor);
+  set('psSize', ps.fontSize); set('psLH', String(ps.lineHeight));
+  set('psMargin', ps.margin); set('psGap', ps.qGap);
+  set('asNameColor', ps.secColor); set('asTagColor', ps.tagColor || '#000000');
+  set('asNameSize', ps.headSize); set('asNameStretch', ps.headStretch == null ? 1 : ps.headStretch);
+  set('asTagSize', ps.tagSize == null ? 12.5 : ps.tagSize); set('asTagStretch', ps.tagStretch == null ? 1 : ps.tagStretch);
+  set('asMonoHeight', ps.monoHeight == null ? 50 : ps.monoHeight);
+  set('asWatermark', ps.watermark ? (ps.wmStyle || 'name') : 'none');
+  set('asFontStyle', ps.font);
   var chk = function(id, wrap, v){ var el = document.getElementById(id); if (el){ el.checked = !!v; var w = document.getElementById(wrap); if (w) w.classList.toggle('sel', !!v); } };
   chk('psChap', 'psChapWrap', ps.chapHead); chk('psFrame', 'psFrameWrap', ps.frame); chk('psWm', 'psWmWrap', ps.watermark);
+  acctPreview();
 }
 function savePaperSettings(){
   var ps = PS();
-  var num = function(id, lo, hi, dflt){ var v = parseFloat(document.getElementById(id).value); if (isNaN(v)) v = dflt; return Math.min(hi, Math.max(lo, v)); };
-  ps.font = document.getElementById('psFont').value;
+  var num = function(id, lo, hi, dflt){ var el = document.getElementById(id); if (!el) return dflt; var v = parseFloat(el.value); if (isNaN(v)) v = dflt; return Math.min(hi, Math.max(lo, v)); };
   ps.fontSize = num('psSize', 11, 20, 14.5);
-  ps.lineHeight = parseFloat(document.getElementById('psLH').value) || 1.5;
+  var lh = document.getElementById('psLH'); if (lh) ps.lineHeight = parseFloat(lh.value) || 1.5;
   ps.margin = num('psMargin', 8, 25, 14);
   ps.qGap = num('psGap', 4, 24, 11);
-  ps.headSize = num('psHead', 18, 36, 27);
-  ps.secColor = document.getElementById('psColor').value || '#12264f';
   ps.chapHead = document.getElementById('psChap').checked;
   ps.frame = document.getElementById('psFrame').checked;
   ps.watermark = document.getElementById('psWm').checked;
+  ps.wmStyle = ps.watermark ? ((ps.wmStyle && ps.wmStyle !== 'none') ? ps.wmStyle : 'name') : 'none';
   saveStore(); fillPaperSettings();
-  var m = document.getElementById('psMsg'); m.className = 'msg ok'; m.textContent = 'Paper settings saved ✓ — open Generate Paper or My Papers and the paper will use them.';
+  var m = document.getElementById('psMsg'); m.className = 'msg ok'; m.textContent = 'Paper settings saved ✓ — open Generate Paper or Saved Papers and the paper will use them.';
+}
+
+/* ================= account settings (PTS style): paper-header form + live preview ================= */
+function acctPreview(){
+  var nameEl = document.getElementById('apName'); if (!nameEl) return;
+  var g = function(id){ var el = document.getElementById(id); return el ? el.value : ''; };
+  var academy = (document.getElementById('setAcademy').value || '').trim() || 'The Rose Academy Of Sciences';
+  nameEl.textContent = academy;
+  nameEl.style.color = g('asNameColor') || '#12264f';
+  nameEl.style.fontSize = (parseFloat(g('asNameSize')) || 27) + 'px';
+  nameEl.style.fontFamily = g('asFontStyle') || "Georgia, 'Times New Roman', serif";
+  nameEl.style.transform = 'scaleX(' + (parseFloat(g('asNameStretch')) || 1) + ')';
+  var tagEl = document.getElementById('apTag');
+  tagEl.textContent = (document.getElementById('setTagline').value || '').trim();
+  tagEl.style.color = g('asTagColor') || '#000000';
+  tagEl.style.fontSize = (parseFloat(g('asTagSize')) || 12.5) + 'px';
+  tagEl.style.fontFamily = g('asFontStyle') || "Georgia, 'Times New Roman', serif";
+  tagEl.style.transform = 'scaleX(' + (parseFloat(g('asTagStretch')) || 1) + ')';
+  var mh = Math.min(120, Math.max(24, parseFloat(g('asMonoHeight')) || 50));
+  var mono = document.getElementById('apMono');
+  mono.style.width = mh + 'px'; mono.style.height = mh + 'px'; mono.style.flexBasis = mh + 'px';
+  var svg = mono.querySelector('svg'); if (svg){ svg.setAttribute('width', mh); svg.setAttribute('height', mh); }
+}
+function saveAccountSettings(){
+  var ps = PS();
+  store.settings.academy = document.getElementById('setAcademy').value.trim() || 'The Rose Academy Of Sciences';
+  store.settings.tagline = document.getElementById('setTagline').value.trim();
+  var num = function(id, lo, hi, dflt){ var el = document.getElementById(id); if (!el) return dflt; var v = parseFloat(el.value); if (isNaN(v)) v = dflt; return Math.min(hi, Math.max(lo, v)); };
+  var col = function(id, dflt){ var el = document.getElementById(id); return (el && el.value) || dflt; };
+  ps.secColor = col('asNameColor', '#12264f');
+  ps.tagColor = col('asTagColor', '#000000');
+  ps.headSize = num('asNameSize', 18, 36, 27);
+  ps.headStretch = num('asNameStretch', 0.5, 2, 1);
+  ps.tagSize = num('asTagSize', 9, 20, 12.5);
+  ps.tagStretch = num('asTagStretch', 0.5, 2, 1);
+  ps.monoHeight = num('asMonoHeight', 24, 120, 50);
+  var wm = document.getElementById('asWatermark').value;
+  ps.wmStyle = (wm === 'monogram' || wm === 'name') ? wm : 'none';
+  ps.watermark = ps.wmStyle !== 'none';
+  ps.font = document.getElementById('asFontStyle').value;
+  saveStore(); syncTopSchool(); fillPaperSettings();
+  var m = document.getElementById('setMsg'); m.className = 'msg ok'; m.textContent = 'Settings updated ✓ — the paper header on your papers will use them.';
 }
 function resetPaperSettings(){
   store.settings.ps = defaultPS(); saveStore(); fillPaperSettings();
@@ -1210,6 +2147,7 @@ function resetPaperSettings(){
 
 /* ================= init ================= */
 fillThemeSwitchers();
+syncTopSchool();
 fillSubjectSelect(document.getElementById('bfSubject'), true);
 document.getElementById('bfSubject').value = '5';
 fillChapterSelect(document.getElementById('bfChapter'), 5, true);
