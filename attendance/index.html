@@ -345,8 +345,65 @@
         [73, 'Abdul Manan'], [80, 'Abdullah Iqbal'], [83, 'M. Hazeeb']
       ];
 
+      // 2nd Year seed: [live-app student id, Sr, name] in printed register order,
+      // and November 2026 marks keyed by that same live-app id (mapped onto the
+      // page's generated ids in seedRegister2). Blanks stay blank: M. Zohaib on
+      // 4 Nov, Abdul Nafay on 21 Nov, and only 9 marks on 29 Nov.
+      var SEED2_STUDENTS = [
+        [34, 3, 'Ali Hamza'], [37, 8, 'Ali Hassan'], [32, 13, 'Abu Baker'], [35, 22, 'M. Kamran'],
+        [33, 34, 'Ali Rizwan'], [38, 54, 'M. Hammad'], [36, 62, 'Talha Saim'], [41, 66, 'M. Irfan'],
+        [39, 69, 'M. Tayyab'], [40, 74, 'M. Awais'], [43, 75, 'M. Zohaib'], [44, 83, 'Umair Mustafa'],
+        [45, 84, 'Abdul Nafay'], [42, 63, 'Daniyal Ali']
+      ];
+      var SEED2_MARKS = {
+        '2026-11-02': { '32': 'A', '33': 'A', '34': 'A', '35': 'P', '36': 'P', '37': 'P', '38': 'P', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'P', '44': 'P', '45': 'P' },
+        '2026-11-03': { '32': 'A', '33': 'A', '34': 'P', '35': 'A', '36': 'P', '37': 'P', '38': 'A', '39': 'P', '40': 'A', '41': 'P', '42': 'A', '43': 'A', '44': 'A', '45': 'P' },
+        '2026-11-04': { '32': 'A', '33': 'A', '34': 'P', '35': 'P', '36': 'P', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '44': 'P', '45': 'P' },
+        '2026-11-05': { '32': 'A', '33': 'A', '34': 'P', '35': 'P', '36': 'P', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-06': { '32': 'A', '33': 'A', '34': 'P', '35': 'P', '36': 'P', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-07': { '34': 'A' },
+        '2026-11-10': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'P', '37': 'P', '38': 'A', '39': 'A', '40': 'P', '41': 'A', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-11': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'A', '37': 'P', '38': 'A', '39': 'A', '40': 'P', '41': 'A', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-12': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'P', '37': 'P', '38': 'A', '39': 'A', '40': 'P', '41': 'A', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-14': { '32': 'P', '33': 'P', '34': 'A', '35': 'A', '36': 'P', '37': 'A', '38': 'A', '39': 'A', '40': 'P', '41': 'A', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-18': { '32': 'P', '33': 'P', '34': 'A', '35': 'A', '36': 'P', '37': 'A', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-19': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'P', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'A', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-20': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'A', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-21': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'A', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'P', '44': 'P' },
+        '2026-11-23': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'A', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'A', '44': 'P', '45': 'P' },
+        '2026-11-24': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'P', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'P', '44': 'P', '45': 'P' },
+        '2026-11-25': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'P', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'P', '44': 'P', '45': 'P' },
+        '2026-11-26': { '32': 'P', '33': 'P', '34': 'A', '35': 'A', '36': 'P', '37': 'A', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'P', '44': 'P', '45': 'P' },
+        '2026-11-27': { '32': 'P', '33': 'P', '34': 'A', '35': 'A', '36': 'P', '37': 'A', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'P', '44': 'P', '45': 'P' },
+        '2026-11-28': { '32': 'P', '33': 'P', '34': 'P', '35': 'A', '36': 'P', '37': 'P', '38': 'A', '39': 'P', '40': 'P', '41': 'P', '42': 'A', '43': 'P', '44': 'P', '45': 'P' },
+        '2026-11-29': { '32': 'P', '33': 'P', '39': 'P', '40': 'P', '41': 'A', '42': 'A', '43': 'A', '44': 'A', '45': 'P' }
+      };
+
       var seq = 1;
       function nid() { return 'x' + Date.now().toString(36) + (seq++); }
+
+      function seedRegister2() {
+        var idMap = {};   // live-app numeric student id -> generated id
+        var students = SEED2_STUDENTS.map(function (s) {
+          var id = nid();
+          idMap[s[0]] = id;
+          return { id: id, sr: s[1], name: s[2] };
+        });
+        var marks = {};
+        Object.keys(SEED2_MARKS).forEach(function (ds) {
+          var day = {};
+          Object.keys(SEED2_MARKS[ds]).forEach(function (sid) { day[idMap[sid]] = SEED2_MARKS[ds][sid]; });
+          marks[ds] = day;
+        });
+        return {
+          id: nid(),
+          institution: 'Govt. Associate College Tibba Sultan Pur, Tehsil Mailsi',
+          className: '2nd Year', session: 'ICS', subject: 'Maths', teacher: 'Aamir Khan',
+          students: students,
+          marks: marks,
+          lectures: {}
+        };
+      }
 
       function seedState() {
         var reg = {
@@ -357,7 +414,7 @@
           marks: {},        // { 'YYYY-MM-DD': { studentId: 'P'|'A'|'L' } }
           lectures: {}      // { 'YYYY-MM': number }
         };
-        return { activeId: reg.id, registers: [reg] };
+        return { activeId: reg.id, registers: [reg, seedRegister2()] };
       }
 
       var state;
@@ -366,6 +423,13 @@
         state = raw ? JSON.parse(raw) : seedState();
         if (!state || !state.registers || !state.registers.length) state = seedState();
       } catch (e) { state = seedState(); }
+
+      // Migration: a browser that saved data before the 2nd Year register
+      // existed gets it appended — stored registers and marks are never
+      // reset, replaced or reordered, and register 2 is never duplicated.
+      var hasSecond = false;
+      state.registers.forEach(function (r) { if (r.className === '2nd Year') hasSecond = true; });
+      if (!hasSecond) state.registers.push(seedRegister2());
 
       function save() {
         try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { /* storage full/blocked: keep working in memory */ }
