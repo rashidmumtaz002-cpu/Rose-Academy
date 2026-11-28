@@ -334,16 +334,50 @@
       'use strict';
       var LS_KEY = 'attendance-register-v1';
 
-      var SEED_STUDENTS = [
-        [6, 'Abdul Rehman'], [7, 'M. Rizwan'], [8, 'Shah Zaib'], [9, 'Aurangzaib'],
-        [10, 'Ashir Salman'], [11, 'M. Awais'], [12, 'Wasif Khan'], [13, 'M. Aftab Chishti'],
-        [14, 'Ahmad Bilal'], [15, 'M. Zubair Akhlaq'], [16, 'Umer Iqbal'], [17, 'M. Azhar'],
-        [18, 'M. Fahad'], [19, 'Ahmad Ateeq'], [22, 'M. Taha'], [23, 'M. Hamza'],
-        [25, 'Paris'], [26, 'Abdul Rehman'], [27, 'M. Hashim Khalil'], [31, 'M. Ahtisham Ajmal'],
-        [33, 'Tausif-ur-Rehman'], [58, 'Hamza Zahid'], [59, 'M. Wasif'], [60, 'M. Usman'],
-        [63, 'Hamza Ijaz'], [66, 'M. Shahid'], [69, 'M. Nadeem'], [72, 'Zain Ismail'],
-        [73, 'Abdul Manan'], [80, 'Abdullah Iqbal'], [83, 'M. Hazeeb']
+      // 1st Year seed: [live-app student id, Sr, name] in printed register order,
+      // and November 2026 marks keyed by that same live-app id (mapped onto the
+      // page's generated ids in seedRegister1 / backfillNov2026). 581 marks:
+      // 487 P, 94 A over 26 lecture days. Blanks stay blank — the 4 unreadable
+      // cells from the register photos: Ahmad Bilal (id 9) on 12 Nov,
+      // M. Wasif (id 23) on 14 Nov, M. Azhar (id 12) and M. Hamza (id 16) on 22 Nov.
+      var SEED1_STUDENTS = [
+        [1, 6, 'Abdul Rehman'], [2, 7, 'M. Rizwan'], [3, 8, 'Shah Zaib'], [4, 9, 'Aurangzaib'],
+        [5, 10, 'Ashir Salman'], [6, 11, 'M. Awais'], [7, 12, 'Wasif Khan'], [8, 13, 'M. Aftab Chishti'],
+        [9, 14, 'Ahmad Bilal'], [10, 15, 'M. Zubair Akhlaq'], [11, 16, 'Umer Iqbal'], [12, 17, 'M. Azhar'],
+        [13, 18, 'M. Fahad'], [14, 19, 'Ahmad Ateeq'], [15, 22, 'M. Taha'], [16, 23, 'M. Hamza'],
+        [17, 25, 'Paris'], [18, 26, 'Abdul Rehman'], [19, 27, 'M. Hashim Khalil'], [20, 31, 'M. Ahtisham Ajmal'],
+        [21, 33, 'Tausif-ur-Rehman'], [22, 58, 'Hamza Zahid'], [23, 59, 'M. Wasif'], [24, 60, 'M. Usman'],
+        [25, 63, 'Hamza Ijaz'], [26, 66, 'M. Shahid'], [27, 69, 'M. Nadeem'], [28, 72, 'Zain Ismail'],
+        [29, 73, 'Abdul Manan'], [30, 80, 'Abdullah Iqbal'], [31, 83, 'M. Hazeeb']
       ];
+      var SEED1_MARKS = {
+        '2026-11-01': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '12': 'P', '13': 'A', '14': 'P', '15': 'P', '16': 'P', '17': 'P', '18': 'P', '19': 'P', '20': 'P' },
+        '2026-11-02': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '16': 'P', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'P', '23': 'P', '24': 'A', '25': 'A', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P', '31': 'P' },
+        '2026-11-03': { '21': 'P', '22': 'P', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'A', '28': 'P', '29': 'A', '30': 'P', '31': 'P' },
+        '2026-11-05': { '1': 'A', '2': 'P', '3': 'P', '4': 'P', '5': 'A', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'A', '11': 'A', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '16': 'P', '17': 'P', '18': 'P', '19': 'A', '20': 'A', '21': 'P', '22': 'A', '23': 'A', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'A', '30': 'P', '31': 'A' },
+        '2026-11-06': { '21': 'P', '22': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-07': { '21': 'P', '22': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-08': { '21': 'P', '22': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-09': { '21': 'P', '22': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-10': { '21': 'P', '22': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-11': { '21': 'P', '22': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-12': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'A', '16': 'P', '18': 'P', '19': 'P', '20': 'A', '21': 'P', '22': 'A', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'A', '29': 'P', '30': 'P' },
+        '2026-11-13': { '2': 'A', '19': 'A', '24': 'A', '30': 'A' },
+        '2026-11-14': { '1': 'P', '2': 'A', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'A', '9': 'P', '10': 'P', '11': 'A', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '16': 'P', '17': 'A', '18': 'P', '19': 'P', '20': 'P', '21': 'A', '22': 'P', '24': 'A', '25': 'P', '28': 'A', '31': 'A' },
+        '2026-11-15': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '16': 'A', '17': 'P', '18': 'P', '19': 'P', '20': 'P' },
+        '2026-11-17': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '16': 'A', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'P', '23': 'P', '24': 'A', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P', '31': 'A' },
+        '2026-11-18': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'A', '9': 'P', '10': 'P', '11': 'P', '13': 'P', '14': 'A', '15': 'P', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'P', '23': 'A', '24': 'P', '25': 'A', '26': 'P', '27': 'P', '28': 'A', '29': 'P', '30': 'P', '31': 'A' },
+        '2026-11-19': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '16': 'A', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'A', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'A', '31': 'A' },
+        '2026-11-20': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '13': 'P', '14': 'P', '15': 'P', '16': 'A', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'P', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P', '31': 'A' },
+        '2026-11-21': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'P', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P', '31': 'A' },
+        '2026-11-22': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '13': 'P', '14': 'P', '15': 'P', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'A', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-24': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'A', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '16': 'A', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'A', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P', '31': 'A' },
+        '2026-11-25': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'A', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-26': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'P', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '17': 'P', '18': 'P', '19': 'P', '20': 'P', '21': 'P', '22': 'A', '23': 'P', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P' },
+        '2026-11-27': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'A', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '17': 'P', '18': 'A', '19': 'A', '20': 'P', '21': 'P', '22': 'A', '23': 'A', '24': 'P', '25': 'P', '26': 'P', '27': 'P', '28': 'P', '29': 'P', '30': 'P', '31': 'A' },
+        '2026-11-28': { '1': 'P', '2': 'P', '3': 'P', '4': 'P', '5': 'P', '6': 'P', '7': 'P', '8': 'P', '9': 'A', '10': 'P', '11': 'P', '12': 'A', '13': 'P', '14': 'P', '15': 'P', '16': 'P', '17': 'P', '18': 'A', '19': 'A', '20': 'P', '21': 'P', '22': 'A', '23': 'P', '24': 'P', '25': 'P', '26': 'A', '27': 'A' },
+        '2026-11-29': { '1': 'A', '2': 'P', '3': 'P', '4': 'P', '5': 'A', '6': 'P', '7': 'P', '8': 'A', '9': 'A', '10': 'P', '11': 'P', '12': 'A', '13': 'A', '14': 'P', '15': 'P', '16': 'A', '17': 'P', '18': 'A', '19': 'A', '20': 'A', '21': 'P', '22': 'P', '23': 'P', '24': 'A', '25': 'P', '26': 'P', '27': 'A', '28': 'A', '29': 'P', '30': 'P', '31': 'A' }
+      };
 
       // 2nd Year seed: [live-app student id, Sr, name] in printed register order,
       // and November 2026 marks keyed by that same live-app id (mapped onto the
@@ -382,6 +416,29 @@
       var seq = 1;
       function nid() { return 'x' + Date.now().toString(36) + (seq++); }
 
+      function seedRegister1() {
+        var idMap = {};   // live-app numeric student id -> generated id
+        var students = SEED1_STUDENTS.map(function (s) {
+          var id = nid();
+          idMap[s[0]] = id;
+          return { id: id, sr: s[1], name: s[2] };
+        });
+        var marks = {};
+        Object.keys(SEED1_MARKS).forEach(function (ds) {
+          var day = {};
+          Object.keys(SEED1_MARKS[ds]).forEach(function (sid) { day[idMap[sid]] = SEED1_MARKS[ds][sid]; });
+          marks[ds] = day;
+        });
+        return {
+          id: nid(),
+          institution: 'Govt. Associate College Tibba Sultan Pur, Tehsil Mailsi',
+          className: '1st Year', session: 'ICS', subject: 'Maths', teacher: 'Aamir Khan',
+          students: students,
+          marks: marks,
+          lectures: {}
+        };
+      }
+
       function seedRegister2() {
         var idMap = {};   // live-app numeric student id -> generated id
         var students = SEED2_STUDENTS.map(function (s) {
@@ -406,14 +463,7 @@
       }
 
       function seedState() {
-        var reg = {
-          id: nid(),
-          institution: 'Govt. Associate College Tibba Sultan Pur, Tehsil Mailsi',
-          className: '1st Year', session: 'ICS', subject: 'Maths', teacher: 'Aamir Khan',
-          students: SEED_STUDENTS.map(function (s) { return { id: nid(), sr: s[0], name: s[1] }; }),
-          marks: {},        // { 'YYYY-MM-DD': { studentId: 'P'|'A'|'L' } }
-          lectures: {}      // { 'YYYY-MM': number }
-        };
+        var reg = seedRegister1();
         return { activeId: reg.id, registers: [reg, seedRegister2()] };
       }
 
@@ -430,6 +480,39 @@
       var hasSecond = false;
       state.registers.forEach(function (r) { if (r.className === '2nd Year') hasSecond = true; });
       if (!hasSecond) state.registers.push(seedRegister2());
+
+      // November 2026 backfill: a stored register that has NO marks at all
+      // for November 2026 gets that month filled from its seed. A register
+      // with ANY November marks keeps its stored marks untouched — marks a
+      // device already saved are never overwritten. Seed students are matched
+      // to the stored register's students by Sr number.
+      function nov2026MarkCount(r) {
+        var n = 0;
+        Object.keys(r.marks || {}).forEach(function (ds) {
+          if (ds.slice(0, 7) === '2026-11') n += Object.keys(r.marks[ds]).length;
+        });
+        return n;
+      }
+      function backfillNov2026(r, seedStudents, seedMarks) {
+        if (!r.marks) r.marks = {};
+        if (nov2026MarkCount(r) > 0) return;
+        var bySr = {};
+        r.students.forEach(function (s) { bySr[s.sr] = s.id; });
+        var idMap = {};
+        seedStudents.forEach(function (s) { if (bySr[s[1]]) idMap[s[0]] = bySr[s[1]]; });
+        Object.keys(seedMarks).forEach(function (ds) {
+          var day = {};
+          Object.keys(seedMarks[ds]).forEach(function (sid) { if (idMap[sid]) day[idMap[sid]] = seedMarks[ds][sid]; });
+          if (Object.keys(day).length) r.marks[ds] = day;
+        });
+      }
+      state.registers.forEach(function (r) {
+        if (r.className === '1st Year' && r.session === 'ICS' && r.subject === 'Maths') {
+          backfillNov2026(r, SEED1_STUDENTS, SEED1_MARKS);
+        } else if (r.className === '2nd Year' && r.session === 'ICS' && r.subject === 'Maths') {
+          backfillNov2026(r, SEED2_STUDENTS, SEED2_MARKS);
+        }
+      });
 
       function save() {
         try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch (e) { /* storage full/blocked: keep working in memory */ }
